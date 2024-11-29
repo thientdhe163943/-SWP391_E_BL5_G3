@@ -28,6 +28,16 @@ public class UserDAO {
                 if (user == null) {
                     user = new User();
                 }
+                user.setUserId(id);
+                user.setAccountId(rs.getInt("account_id"));
+                user.setAddress(rs.getString("address"));
+                user.setName(rs.getString("name"));
+                user.setGender(rs.getBoolean("gender"));
+                user.setDOB(rs.getDate("DOB"));
+                user.setPhone(rs.getString("phone"));
+                user.setGmail(rs.getString("gmail"));
+                user.setAvatar(rs.getString("avatar"));
+                user.setStatus(rs.getBoolean("status"));
             }
         } catch (Exception e) {
             e.printStackTrace();
