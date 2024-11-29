@@ -12,7 +12,7 @@ import java.sql.Date;
  * @author Hayashi
  */
 public class User {
-    private int user_id;
+    private int userId;
     private String name;
     private Boolean gender;
     private Date DOB;
@@ -20,7 +20,7 @@ public class User {
     private String address;
     private String gmail;
     private String avatar;
-    private Integer account_id;
+    private Integer accountId;
     private Boolean status;
     
     private ArrayList<Request> requestList;
@@ -30,7 +30,7 @@ public class User {
     public User() {
     }
 
-    public User(String name, Boolean gender, Date DOB, String phone, String address, String gmail, String avatar, Integer account_id, Boolean status, ArrayList<Request> requestList, ArrayList<FreeTime> timeList, ArrayList<CommentBlog> commentList) {
+    public User(String name, Boolean gender, Date DOB, String phone, String address, String gmail, String avatar, Integer accountId, Boolean status, ArrayList<Request> requestList, ArrayList<FreeTime> timeList, ArrayList<CommentBlog> commentList) {
         this.name = name;
         this.gender = gender;
         this.DOB = DOB;
@@ -38,7 +38,7 @@ public class User {
         this.address = address;
         this.gmail = gmail;
         this.avatar = avatar;
-        this.account_id = account_id;
+        this.accountId = accountId;
         this.status = status;
         this.requestList = requestList;
         this.timeList = timeList;
@@ -69,8 +69,8 @@ public class User {
         this.timeList = timeList;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public int getUserId() {
+        return userId;
     }
 
     public String getName() {
@@ -129,12 +129,12 @@ public class User {
         this.avatar = avatar;
     }
 
-    public Integer getAccount_id() {
-        return account_id;
+    public Integer getAccountId() {
+        return accountId;
     }
 
-    public void setAccount_id(Integer account_id) {
-        this.account_id = account_id;
+    public void setAccountId(Integer accountId) {
+        this.accountId = accountId;
     }
 
     public Boolean getStatus() {
