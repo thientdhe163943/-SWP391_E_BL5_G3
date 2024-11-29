@@ -24,6 +24,10 @@ public class Skill {
         this.cvSkillList = cvSkillList;
     }
 
+    public void setSkillId(int skillId) {
+        this.skillId = skillId;
+    }
+
     public int getSkillId() {
         return skillId;
     }

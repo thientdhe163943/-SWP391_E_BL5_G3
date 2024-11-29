@@ -21,6 +21,10 @@ public class Account {
         this.password = password;
     }
 
+    public void setAccountId(int accountId) {
+        this.accountId = accountId;
+    }
+
     public int getAccountId() {
         return accountId;
     }

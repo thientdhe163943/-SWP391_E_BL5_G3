@@ -31,6 +31,10 @@ public class Blog {
         this.commentList = commentList;
     }
 
+    public void setBlogId(int blogId) {
+        this.blogId = blogId;
+    }
+
     public int getBlogId() {
         return blogId;
     }

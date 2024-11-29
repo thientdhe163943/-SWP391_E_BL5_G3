@@ -21,6 +21,10 @@ public class CV {
     public CV() {
     }
 
+    public void setCvId(int cvId) {
+        this.cvId = cvId;
+    }
+
     public CV(int userId, String introduction, Integer experience, ArrayList<Skill> cvSkillList) {
         this.userId = userId;
         this.introduction = introduction;

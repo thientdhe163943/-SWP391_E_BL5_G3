@@ -23,6 +23,10 @@ public class CommentBlog {
         this.userId = userId;
     }
 
+    public void setCmId(int cmId) {
+        this.cmId = cmId;
+    }
+
     public int getCmId() {
         return cmId;
     }

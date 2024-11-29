@@ -45,6 +45,10 @@ public class User {
         this.commentList = commentList;
     }
 
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
     public ArrayList<CommentBlog> getCommentList() {
         return commentList;
     }

@@ -23,6 +23,10 @@ public class CvDetail {
         this.rating = rating;
     }
 
+    public void setCvDetailId(int cvDetailId) {
+        this.cvDetailId = cvDetailId;
+    }
+
     public int getCvDetailId() {
         return cvDetailId;
     }

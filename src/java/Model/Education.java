@@ -21,6 +21,10 @@ public class Education {
         this.university = university;
     }
 
+    public void setEduId(int eduId) {
+        this.eduId = eduId;
+    }
+
     public int getEduId() {
         return eduId;
     }

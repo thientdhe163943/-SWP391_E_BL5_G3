@@ -31,6 +31,10 @@ public class Request {
         this.status = status;
     }
 
+    public void setRequestId(int requestId) {
+        this.requestId = requestId;
+    }
+
     public int getRequestId() {
         return requestId;
     }

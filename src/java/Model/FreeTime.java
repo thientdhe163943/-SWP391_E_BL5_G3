@@ -30,6 +30,10 @@ public class FreeTime {
         this.status = status;
     }
 
+    public void setTimeId(int timeId) {
+        this.timeId = timeId;
+    }
+
     public int getTimeId() {
         return timeId;
     }
