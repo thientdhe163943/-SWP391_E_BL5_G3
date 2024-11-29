@@ -8,27 +8,31 @@ package Model;
  *
  * @author Hayashi
  */
-public class CV_Detail {
-    private int cv_detail_id;
-    private int cv_id;
+public class CvDetail {
+    private int cvDetailId;
+    private int cvId;
     private String comment;
     private Float rating;
 
-    public CV_Detail(int cv_id, String comment, Float rating) {
-        this.cv_id = cv_id;
+    public CvDetail() {
+    }
+
+    public CvDetail(int cvId, String comment, Float rating) {
+        this.cvId = cvId;
         this.comment = comment;
         this.rating = rating;
     }
 
-    public CV_Detail() {
+    public int getCvDetailId() {
+        return cvDetailId;
     }
 
-    public int getCv_id() {
-        return cv_id;
+    public int getCvId() {
+        return cvId;
     }
 
-    public void setCv_id(int cv_id) {
-        this.cv_id = cv_id;
+    public void setCvId(int cvId) {
+        this.cvId = cvId;
     }
 
     public String getComment() {
@@ -46,9 +50,4 @@ public class CV_Detail {
     public void setRating(Float rating) {
         this.rating = rating;
     }
-
-    public int getCv_detail_id() {
-        return cv_detail_id;
-    }
-    
 }

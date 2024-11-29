@@ -11,24 +11,28 @@ import java.util.Date;
  * @author Hayashi
  */
 public class Request {
-    private int request_id;
+    private int requestId;
     private String title;
     private Date deadline;
     private String content;
-    private int mentor_id;
-    private int mentee_id;
+    private int mentorId;
+    private int menteeId;
     private boolean status;
 
     public Request() {
     }
 
-    public Request(String title, Date deadline, String content, int mentor_id, int mentee_id, boolean status) {
+    public Request(String title, Date deadline, String content, int mentorId, int menteeId, boolean status) {
         this.title = title;
         this.deadline = deadline;
         this.content = content;
-        this.mentor_id = mentor_id;
-        this.mentee_id = mentee_id;
+        this.mentorId = mentorId;
+        this.menteeId = menteeId;
         this.status = status;
+    }
+
+    public int getRequestId() {
+        return requestId;
     }
 
     public String getTitle() {
@@ -55,20 +59,20 @@ public class Request {
         this.content = content;
     }
 
-    public int getMentor_id() {
-        return mentor_id;
+    public int getMentorId() {
+        return mentorId;
     }
 
-    public void setMentor_id(int mentor_id) {
-        this.mentor_id = mentor_id;
+    public void setMentorId(int mentorId) {
+        this.mentorId = mentorId;
     }
 
-    public int getMentee_id() {
-        return mentee_id;
+    public int getMenteeId() {
+        return menteeId;
     }
 
-    public void setMentee_id(int mentee_id) {
-        this.mentee_id = mentee_id;
+    public void setMenteeId(int menteeId) {
+        this.menteeId = menteeId;
     }
 
     public boolean isStatus() {
@@ -78,9 +82,4 @@ public class Request {
     public void setStatus(boolean status) {
         this.status = status;
     }
-
-    public int getRequest_id() {
-        return request_id;
-    }
-    
 }

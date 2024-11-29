@@ -11,37 +11,36 @@ import java.util.ArrayList;
  * @author Hayashi
  */
 public class Skill {
-    private int skill_id;
-    private String skill_name;
+    private int skillId;
+    private String skillName;
     
-    private ArrayList<CV> cv_skill;
+    private ArrayList<CV> cvSkillList;
 
     public Skill() {
     }
 
-    public Skill(String skill_name, ArrayList<CV> cv_skill) {
-        this.skill_name = skill_name;
-        this.cv_skill = cv_skill;
+    public Skill(String skillName, ArrayList<CV> cvSkillList) {
+        this.skillName = skillName;
+        this.cvSkillList = cvSkillList;
     }
 
-    public String getSkill_name() {
-        return skill_name;
+    public int getSkillId() {
+        return skillId;
     }
 
-    public void setSkill_name(String skill_name) {
-        this.skill_name = skill_name;
+    public String getSkillName() {
+        return skillName;
     }
 
-    public ArrayList<CV> getCv_skill() {
-        return cv_skill;
+    public void setSkillName(String skillName) {
+        this.skillName = skillName;
     }
 
-    public void setCv_skill(ArrayList<CV> cv_skill) {
-        this.cv_skill = cv_skill;
+    public ArrayList<CV> getCvSkillList() {
+        return cvSkillList;
     }
 
-    public int getSkill_id() {
-        return skill_id;
+    public void setCvSkillList(ArrayList<CV> cvSkillList) {
+        this.cvSkillList = cvSkillList;
     }
-    
 }

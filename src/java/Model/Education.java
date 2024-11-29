@@ -9,19 +9,28 @@ package Model;
  * @author Hayashi
  */
 public class Education {
-    private int edu_id;
-    private int cv_id;
+    private int eduId;
+    private int cvId;
     private String university;
 
     public Education() {
     }
 
-    public int getCv_id() {
-        return cv_id;
+    public Education(int cvId, String university) {
+        this.cvId = cvId;
+        this.university = university;
     }
 
-    public void setCv_id(int cv_id) {
-        this.cv_id = cv_id;
+    public int getEduId() {
+        return eduId;
+    }
+
+    public int getCvId() {
+        return cvId;
+    }
+
+    public void setCvId(int cvId) {
+        this.cvId = cvId;
     }
 
     public String getUniversity() {
@@ -31,11 +40,4 @@ public class Education {
     public void setUniversity(String university) {
         this.university = university;
     }
-
-    public int getEdu_id() {
-        return edu_id;
-    }
-
-    
-    
 }

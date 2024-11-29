@@ -9,7 +9,7 @@ package Model;
  * @author Hayashi
  */
 public class Account {
-    private int account_id;
+    private int accountId;
     private String username;
     private String password;
 
@@ -21,8 +21,8 @@ public class Account {
         this.password = password;
     }
 
-    public int getAccount_id() {
-        return account_id;
+    public int getAccountId() {
+        return accountId;
     }
 
     public String getUsername() {
@@ -40,6 +40,4 @@ public class Account {
     public void setPassword(String password) {
         this.password = password;
     }
-    
-    
 }

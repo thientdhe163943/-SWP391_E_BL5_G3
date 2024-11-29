@@ -12,46 +12,50 @@ import java.sql.Date;
  * @author Hayashi
  */
 public class FreeTime {
-    private int time_id;
-    private int user_id;
-    private Time start_time;
-    private Time end_time;
+    private int timeId;
+    private int userId;
+    private Time startTime;
+    private Time endtime;
     private Date date;
     private Boolean status;
 
     public FreeTime() {
     }
 
-    public FreeTime(int user_id, Time start_time, Time end_time, Date date, Boolean status) {
-        this.user_id = user_id;
-        this.start_time = start_time;
-        this.end_time = end_time;
+    public FreeTime(int userId, Time startTime, Time endtime, Date date, Boolean status) {
+        this.userId = userId;
+        this.startTime = startTime;
+        this.endtime = endtime;
         this.date = date;
         this.status = status;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public int getTimeId() {
+        return timeId;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public int getUserId() {
+        return userId;
     }
 
-    public Time getStart_time() {
-        return start_time;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public void setStart_time(Time start_time) {
-        this.start_time = start_time;
+    public Time getStartTime() {
+        return startTime;
     }
 
-    public Time getEnd_time() {
-        return end_time;
+    public void setStartTime(Time startTime) {
+        this.startTime = startTime;
     }
 
-    public void setEnd_time(Time end_time) {
-        this.end_time = end_time;
+    public Time getEndtime() {
+        return endtime;
+    }
+
+    public void setEndtime(Time endtime) {
+        this.endtime = endtime;
     }
 
     public Date getDate() {
@@ -69,9 +73,4 @@ public class FreeTime {
     public void setStatus(Boolean status) {
         this.status = status;
     }
-
-    public int getTime_id() {
-        return time_id;
-    }
-    
 }

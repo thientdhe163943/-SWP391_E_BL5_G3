@@ -9,24 +9,28 @@ package Model;
  * @author Hayashi
  */
 public class Role {
-    private int role_id;
-    private int user_id;
+    private int roleId;
+    private int userId;
     private String rolename;
 
     public Role() {
     }
 
-    public Role(int user_id, String rolename) {
-        this.user_id = user_id;
+    public Role(int userId, String rolename) {
+        this.userId = userId;
         this.rolename = rolename;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public int getRoleId() {
+        return roleId;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getRolename() {
@@ -36,9 +40,4 @@ public class Role {
     public void setRolename(String rolename) {
         this.rolename = rolename;
     }
-
-    public int getRole_id() {
-        return role_id;
-    }
-    
 }

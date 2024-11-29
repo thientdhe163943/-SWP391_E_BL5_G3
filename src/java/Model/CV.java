@@ -11,37 +11,33 @@ import java.util.ArrayList;
  * @author Hayashi
  */
 public class CV {
-    private int cv_id;
-    private int user_id;
+    private int cvId;
+    private int userId;
     private String introduction;
     private Integer experience;
     
-    private ArrayList<Skill> cv_skill;
+    private ArrayList<Skill> cvSkillList;
 
     public CV() {
     }
 
-    public CV(int user_id, String introduction, Integer experience, ArrayList<Skill> cv_skill) {
-        this.user_id = user_id;
+    public CV(int userId, String introduction, Integer experience, ArrayList<Skill> cvSkillList) {
+        this.userId = userId;
         this.introduction = introduction;
         this.experience = experience;
-        this.cv_skill = cv_skill;
+        this.cvSkillList = cvSkillList;
     }
 
-    public ArrayList<Skill> getCv_skill() {
-        return cv_skill;
+    public int getCvId() {
+        return cvId;
     }
 
-    public void setCv_skill(ArrayList<Skill> cv_skill) {
-        this.cv_skill = cv_skill;
+    public int getUserId() {
+        return userId;
     }
 
-    public int getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getIntroduction() {
@@ -60,8 +56,11 @@ public class CV {
         this.experience = experience;
     }
 
-    public int getCv_id() {
-        return cv_id;
+    public ArrayList<Skill> getCvSkillList() {
+        return cvSkillList;
     }
-    
+
+    public void setCvSkillList(ArrayList<Skill> cvSkillList) {
+        this.cvSkillList = cvSkillList;
+    }
 }

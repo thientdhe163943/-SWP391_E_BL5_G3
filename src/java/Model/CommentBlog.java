@@ -8,27 +8,31 @@ package Model;
  *
  * @author Hayashi
  */
-public class Comment_Blog {
-    private int cm_id;
-    private int blog_id;
+public class CommentBlog {
+    private int cmId;
+    private int blogId;
     private String comment;
-    private int user_id;
+    private int userId;
 
-    public Comment_Blog() {
+    public CommentBlog() {
     }
 
-    public Comment_Blog(int blog_id, String comment, int user_id) {
-        this.blog_id = blog_id;
+    public CommentBlog(int blogId, String comment, int userId) {
+        this.blogId = blogId;
         this.comment = comment;
-        this.user_id = user_id;
+        this.userId = userId;
     }
 
-    public int getBlog_id() {
-        return blog_id;
+    public int getCmId() {
+        return cmId;
     }
 
-    public void setBlog_id(int blog_id) {
-        this.blog_id = blog_id;
+    public int getBlogId() {
+        return blogId;
+    }
+
+    public void setBlogId(int blogId) {
+        this.blogId = blogId;
     }
 
     public String getComment() {
@@ -39,16 +43,11 @@ public class Comment_Blog {
         this.comment = comment;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
-
-    public int getCm_id() {
-        return cm_id;
-    }
-    
 }

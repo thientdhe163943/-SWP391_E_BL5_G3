@@ -11,19 +11,19 @@ import java.util.ArrayList;
  * @author Hayashi
  */
 public class Blog {
-    private int blog_id;
-    private int user_id;
+    private int blogId;
+    private int userId;
     private String image;
     private String content;
     private Integer view;
     private Boolean status;
-    private ArrayList<Comment_Blog> commentList;
+    private ArrayList<CommentBlog> commentList;
 
     public Blog() {
     }
 
-    public Blog(int user_id, String image, String content, Integer view, Boolean status, ArrayList<Comment_Blog> commentList) {
-        this.user_id = user_id;
+    public Blog(int userId, String image, String content, Integer view, Boolean status, ArrayList<CommentBlog> commentList) {
+        this.userId = userId;
         this.image = image;
         this.content = content;
         this.view = view;
@@ -31,20 +31,16 @@ public class Blog {
         this.commentList = commentList;
     }
 
-    public ArrayList<Comment_Blog> getCommentList() {
-        return commentList;
+    public int getBlogId() {
+        return blogId;
     }
 
-    public void setCommentList(ArrayList<Comment_Blog> commentList) {
-        this.commentList = commentList;
+    public int getUserId() {
+        return userId;
     }
 
-    public int getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getImage() {
@@ -79,8 +75,11 @@ public class Blog {
         this.status = status;
     }
 
-    public int getBlog_id() {
-        return blog_id;
+    public ArrayList<CommentBlog> getCommentList() {
+        return commentList;
     }
-    
+
+    public void setCommentList(ArrayList<CommentBlog> commentList) {
+        this.commentList = commentList;
+    }
 }

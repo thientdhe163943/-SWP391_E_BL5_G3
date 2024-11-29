@@ -25,12 +25,12 @@ public class User {
     
     private ArrayList<Request> requestList;
     private ArrayList<FreeTime> timeList;
-    private ArrayList<Comment_Blog> commentList;
+    private ArrayList<CommentBlog> commentList;
 
     public User() {
     }
 
-    public User(String name, Boolean gender, Date DOB, String phone, String address, String gmail, String avatar, Integer account_id, Boolean status, ArrayList<Request> requestList, ArrayList<FreeTime> timeList, ArrayList<Comment_Blog> commentList) {
+    public User(String name, Boolean gender, Date DOB, String phone, String address, String gmail, String avatar, Integer account_id, Boolean status, ArrayList<Request> requestList, ArrayList<FreeTime> timeList, ArrayList<CommentBlog> commentList) {
         this.name = name;
         this.gender = gender;
         this.DOB = DOB;
@@ -45,11 +45,11 @@ public class User {
         this.commentList = commentList;
     }
 
-    public ArrayList<Comment_Blog> getCommentList() {
+    public ArrayList<CommentBlog> getCommentList() {
         return commentList;
     }
 
-    public void setCommentList(ArrayList<Comment_Blog> commentList) {
+    public void setCommentList(ArrayList<CommentBlog> commentList) {
         this.commentList = commentList;
     }
 
