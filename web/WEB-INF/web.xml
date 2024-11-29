@@ -4,8 +4,16 @@
         <servlet-name>viewCVServlet</servlet-name>
         <servlet-class>controller.ViewCVServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MenteeProfileServlet</servlet-name>
+        <servlet-class>controller.mentee.MenteeProfileServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>viewCVServlet</servlet-name>
         <url-pattern>/viewCV</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MenteeProfileServlet</servlet-name>
+        <url-pattern>/MenteeProfile</url-pattern>
     </servlet-mapping>
 </web-app>
