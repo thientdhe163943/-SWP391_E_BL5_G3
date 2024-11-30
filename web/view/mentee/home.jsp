@@ -159,7 +159,7 @@
                                                     <tr>
                                                         <td>${re.title}</td>
                                                         <td>${re.content}</td>
-                                                        <td>${re.}</td>
+                                                        <td></td>
                                                     </tr>
                                                 </c:forEach>
                                             </tbody>
