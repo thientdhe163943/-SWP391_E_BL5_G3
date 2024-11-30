@@ -45,6 +45,33 @@ public class AccountDAO extends DBConnect {
         }
         return cus;
     }
+        public Account getAccountByEmail(String email) {
+        String sql = "SELECT a.account_id, a.username, a.password, r.role_id \n" +
+    "                 FROM [User] u \n" +
+    "                 JOIN Account a ON u.account_id = a.account_id \n" +
+    "                 JOIN User_Role r ON u.[user_id] = r.[user_id] \n" +
+    "                 WHERE u.email =?";
+        Account account = null;
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setString(1, email);
+            try (ResultSet rs = st.executeQuery()) {
+                if (rs.next()) { // Chỉ lấy một dòng
+                    account = new Account(
+                        rs.getInt("account_id"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                            rs.getInt("role_id")
+                    );
+                    // Gán role_id thông qua setter
+
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Logging lỗi
+        }
+        return account;
+    }
+
     public Account validateCustomer(String username, String password) {
         String sql = "select a.account_id,a.username,a.password,ur.role_id\n"
                 + "from [User] u,Account a,User_Role ur\n"
@@ -73,7 +100,7 @@ public class AccountDAO extends DBConnect {
     public boolean updatePassword(String newPassword, int accountId) {
         String sql = "UPDATE [dbo].[Account]\n"
                 + " SET [password] = ?\n"
-                + " WHERE [account_id] = ?";
+                + " WHERE [account_id] = '?'";
         int n = 0;
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -102,7 +129,7 @@ public class AccountDAO extends DBConnect {
     }
      public static void main(String[] args) throws SQLException {
         AccountDAO dao = new AccountDAO();
-        Account acc = dao.validateCustomer("john_doe","password123");
+        Account acc = dao.getAccountByEmail("thientrieu20002@gmail.com");
 //        dao.changePassword("123123", acc.getAccount_id());
 //        String email = " or ""="";
 //        Account test = dao.validateCustomer("'' or 1 = 1", "'' or 1 = 1");

@@ -18,7 +18,7 @@ public class User {
     private Date DOB;
     private String phone;
     private String address;
-    private String gmail;
+    private String email;
     private String avatar;
     private Integer accountId;
     private Boolean status;
@@ -30,14 +30,14 @@ public class User {
     public User() {
     }
 
-    public User(int userId, String name, Boolean gender, Date DOB, String phone, String address, String gmail, String avatar, Integer accountId, Boolean status) {
+    public User(int userId, String name, Boolean gender, Date DOB, String phone, String address, String email, String avatar, Integer accountId, Boolean status) {
         this.userId = userId;
         this.name = name;
         this.gender = gender;
         this.DOB = DOB;
         this.phone = phone;
         this.address = address;
-        this.gmail = gmail;
+        this.email = email;
         this.avatar = avatar;
         this.accountId = accountId;
         this.status = status;
@@ -118,12 +118,12 @@ public class User {
         this.address = address;
     }
 
-    public String getGmail() {
-        return gmail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setGmail(String gmail) {
-        this.gmail = gmail;
+    public void setEmail(String gmail) {
+        this.email = gmail;
     }
 
     public String getAvatar() {
@@ -148,6 +148,11 @@ public class User {
 
     public void setStatus(Boolean status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" + "userId=" + userId + ", name=" + name + ", gender=" + gender + ", DOB=" + DOB + ", phone=" + phone + ", address=" + address + ", email=" + email + ", avatar=" + avatar + ", accountId=" + accountId + ", status=" + status + '}';
     }
     
     

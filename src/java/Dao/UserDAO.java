@@ -18,7 +18,7 @@ import java.sql.SQLException;
  */
 public class UserDAO {
     public User getUserByEmail(String email) {
-        String sql = "SELECT * FROM [User] WHERE gmail = ?";
+        String sql = "SELECT * FROM [User] WHERE email = ?";
         User user = null;
 
          try {
@@ -36,14 +36,14 @@ public class UserDAO {
                 rs.getDate("DOB"),
                 rs.getString("phone"),
                 rs.getString("address"),
-                rs.getString("gmail"),
+                rs.getString("email"),
                 rs.getString("avatar"),
                 rs.getInt("account_id"),
                 rs.getBoolean("status")
             );
         }
-    } catch (Exception e) {
-        e.printStackTrace();
+    } catch (SQLException e) {
+            System.out.println(e);
     }
         return user;
     }
@@ -69,7 +69,7 @@ public class UserDAO {
                 user.setGender(rs.getBoolean("gender"));
                 user.setDOB(rs.getDate("DOB"));
                 user.setPhone(rs.getString("phone"));
-                user.setGmail(rs.getString("gmail"));
+                user.setEmail(rs.getString("email"));
                 user.setAvatar(rs.getString("avatar"));
                 user.setStatus(rs.getBoolean("status"));
 
@@ -94,7 +94,7 @@ public class UserDAO {
             ps.setDate(3, user.getDOB());
             ps.setString(4, user.getPhone());
             ps.setString(5, user.getAddress());
-            ps.setString(6, user.getGmail());
+            ps.setString(6, user.getEmail());
             ps.setString(7, user.getAvatar());
             ps.setInt(8, user.getAccountId());
             ps.setBoolean(9, user.getStatus());
@@ -147,7 +147,7 @@ public class UserDAO {
             ps.setDate(3, user.getDOB());
             ps.setString(4, user.getPhone());
             ps.setString(5, user.getAddress());
-            ps.setString(6, user.getGmail());
+            ps.setString(6, user.getEmail());
             ps.setString(7, user.getAvatar());
             ps.setBoolean(8, user.getStatus());
             ps.setInt(9, user.getUserId());
