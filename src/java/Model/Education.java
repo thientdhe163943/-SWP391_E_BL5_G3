@@ -10,38 +10,9 @@ package Model;
  */
 public class Education {
     private int eduId;
-    private int cvId;
+    private CV cv;
     private String university;
 
     public Education() {
-    }
-
-    public Education(int cvId, String university) {
-        this.cvId = cvId;
-        this.university = university;
-    }
-
-    public void setEduId(int eduId) {
-        this.eduId = eduId;
-    }
-
-    public int getEduId() {
-        return eduId;
-    }
-
-    public int getCvId() {
-        return cvId;
-    }
-
-    public void setCvId(int cvId) {
-        this.cvId = cvId;
-    }
-
-    public String getUniversity() {
-        return university;
-    }
-
-    public void setUniversity(String university) {
-        this.university = university;
     }
 }

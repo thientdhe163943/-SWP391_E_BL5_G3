@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 public class Blog {
     private int blogId;
-    private int userId;
+    private User author;
     private String image;
     private String content;
     private Integer view;
@@ -22,8 +22,9 @@ public class Blog {
     public Blog() {
     }
 
-    public Blog(int userId, String image, String content, Integer view, Boolean status, ArrayList<CommentBlog> commentList) {
-        this.userId = userId;
+    public Blog(int blogId, User author, String image, String content, Integer view, Boolean status, ArrayList<CommentBlog> commentList) {
+        this.blogId = blogId;
+        this.author = author;
         this.image = image;
         this.content = content;
         this.view = view;
@@ -31,20 +32,20 @@ public class Blog {
         this.commentList = commentList;
     }
 
-    public void setBlogId(int blogId) {
-        this.blogId = blogId;
-    }
-
     public int getBlogId() {
         return blogId;
     }
 
-    public int getUserId() {
-        return userId;
+    public void setBlogId(int blogId) {
+        this.blogId = blogId;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
     }
 
     public String getImage() {

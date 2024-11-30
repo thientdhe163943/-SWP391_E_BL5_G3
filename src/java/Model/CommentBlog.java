@@ -10,33 +10,34 @@ package Model;
  */
 public class CommentBlog {
     private int cmId;
-    private int blogId;
+    private Blog blog;
     private String comment;
-    private int userId;
+    private User commenter;
 
     public CommentBlog() {
     }
 
-    public CommentBlog(int blogId, String comment, int userId) {
-        this.blogId = blogId;
-        this.comment = comment;
-        this.userId = userId;
-    }
-
-    public void setCmId(int cmId) {
+    public CommentBlog(int cmId, Blog blog, String comment, User commenter) {
         this.cmId = cmId;
+        this.blog = blog;
+        this.comment = comment;
+        this.commenter = commenter;
     }
 
     public int getCmId() {
         return cmId;
     }
 
-    public int getBlogId() {
-        return blogId;
+    public void setCmId(int cmId) {
+        this.cmId = cmId;
     }
 
-    public void setBlogId(int blogId) {
-        this.blogId = blogId;
+    public Blog getBlog() {
+        return blog;
+    }
+
+    public void setBlog(Blog blog) {
+        this.blog = blog;
     }
 
     public String getComment() {
@@ -47,11 +48,11 @@ public class CommentBlog {
         this.comment = comment;
     }
 
-    public int getUserId() {
-        return userId;
+    public User getCommenter() {
+        return commenter;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setCommenter(User commenter) {
+        this.commenter = commenter;
     }
 }
