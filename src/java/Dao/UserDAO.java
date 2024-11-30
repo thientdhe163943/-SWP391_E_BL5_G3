@@ -6,15 +6,47 @@ package Dao;
 
 import Model.User;
 import DB.DBConnect;
+import Model.Account;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  *
  * @author Hayashi
  */
 public class UserDAO {
+    public User getUserByEmail(String email) {
+        String sql = "SELECT * FROM [User] WHERE gmail = ?";
+        User user = null;
+
+         try {
+        Connection connection = new DBConnect().getConnection();
+
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ps.setString(1, email); // Email (hoặc username) được truyền vào
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) { // Lấy dữ liệu người dùng từ ResultSet
+            user = new User(
+                rs.getInt("user_id"),
+                rs.getString("name"),
+                rs.getBoolean("gender"),
+                rs.getDate("DOB"),
+                rs.getString("phone"),
+                rs.getString("address"),
+                rs.getString("gmail"),
+                rs.getString("avatar"),
+                rs.getInt("account_id"),
+                rs.getBoolean("status")
+            );
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+        return user;
+    }
 
     public User getUserById(int id) {
         String sql = "select * from [User] where user_id = ?";
@@ -127,5 +159,19 @@ public class UserDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+     public static void main(String[] args) throws SQLException {
+        UserDAO dao = new UserDAO();
+        User acc = dao.getUserByEmail("thientrieu20002@gmail.com");
+//        dao.changePassword("123123", acc.getAccount_id());
+//        String email = " or ""="";
+//        Account test = dao.validateCustomer("'' or 1 = 1", "'' or 1 = 1");
+//        System.out.println(test);
+        if (acc != null) {
+            System.out.println(acc);
+        } else {
+            System.out.println("Customer not found.");
+        }
+
     }
 }

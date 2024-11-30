@@ -30,7 +30,8 @@ public class User {
     public User() {
     }
 
-    public User(String name, Boolean gender, Date DOB, String phone, String address, String gmail, String avatar, Integer accountId, Boolean status, ArrayList<Request> requestList, ArrayList<FreeTime> timeList, ArrayList<CommentBlog> commentList) {
+    public User(int userId, String name, Boolean gender, Date DOB, String phone, String address, String gmail, String avatar, Integer accountId, Boolean status) {
+        this.userId = userId;
         this.name = name;
         this.gender = gender;
         this.DOB = DOB;
@@ -40,10 +41,10 @@ public class User {
         this.avatar = avatar;
         this.accountId = accountId;
         this.status = status;
-        this.requestList = requestList;
-        this.timeList = timeList;
-        this.commentList = commentList;
+        
     }
+
+    
 
     public void setUserId(int userId) {
         this.userId = userId;

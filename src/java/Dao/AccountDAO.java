@@ -9,6 +9,8 @@ import Model.Account;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -67,7 +69,38 @@ public class AccountDAO extends DBConnect {
         }
         return cus;
     }
-    public static void main(String[] args) throws SQLException {
+   
+    public boolean updatePassword(String newPassword, int accountId) {
+        String sql = "UPDATE [dbo].[Account]\n"
+                + " SET [password] = ?\n"
+                + " WHERE [account_id] = ?";
+        int n = 0;
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, newPassword);
+            st.setInt(2, accountId);
+            n = st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return n > 0;
+    }
+    public void changePassword(String password, int id) throws SQLException {
+
+        String sql = "UPDAte Account\n"
+                + "set password=?\n"
+                + "where account_id=?";
+        try {
+            ps = connection.prepareStatement(sql);
+            ps.setString(1, password);
+            ps.setInt(2, id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, e);
+
+        }
+    }
+     public static void main(String[] args) throws SQLException {
         AccountDAO dao = new AccountDAO();
         Account acc = dao.validateCustomer("john_doe","password123");
 //        dao.changePassword("123123", acc.getAccount_id());
