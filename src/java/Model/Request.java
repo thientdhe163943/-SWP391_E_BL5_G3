@@ -4,7 +4,7 @@
  */
 package Model;
 
-import java.util.Date;
+import java.sql.Date;
 
 /**
  *
@@ -17,19 +17,9 @@ public class Request {
     private String content;
     private User mentor;
     private User mentee;
-    private Boolean status;
+    private int status;
 
     public Request() {
-    }
-
-    public Request(int requestId, String title, Date deadline, String content, User mentor, User mentee, Boolean status) {
-        this.requestId = requestId;
-        this.title = title;
-        this.deadline = deadline;
-        this.content = content;
-        this.mentor = mentor;
-        this.mentee = mentee;
-        this.status = status;
     }
 
     public int getRequestId() {
@@ -80,11 +70,13 @@ public class Request {
         this.mentee = mentee;
     }
 
-    public Boolean getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(int status) {
         this.status = status;
     }
+
+    
 }
