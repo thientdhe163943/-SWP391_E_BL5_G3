@@ -5,27 +5,34 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author Hayashi
  */
 public class CV {
+
     private int cvId;
     private int userId;
     private String introduction;
     private Integer experience;
-    
-    private ArrayList<Skill> cvSkillList;
+
+    private List<CvSkill> cvSkillList;
+    private List<Education> eduList;
+    private List<CvDetail> cvDetailList;
 
     public CV() {
     }
 
-    public CV(int userId, String introduction, Integer experience, ArrayList<Skill> cvSkillList) {
+    public CV(int cvId, int userId, String introduction, Integer experience, ArrayList<CvSkill> cvSkillList, List<Education> eduList, List<CvDetail> cvDetailList) {
+        this.cvId = cvId;
         this.userId = userId;
         this.introduction = introduction;
         this.experience = experience;
         this.cvSkillList = cvSkillList;
+        this.eduList = eduList;
+        this.cvDetailList = cvDetailList;
     }
 
     public int getCvId() {
@@ -56,11 +63,28 @@ public class CV {
         this.experience = experience;
     }
 
-    public ArrayList<Skill> getCvSkillList() {
+    public List<CvSkill> getCvSkillList() {
         return cvSkillList;
     }
 
-    public void setCvSkillList(ArrayList<Skill> cvSkillList) {
+    public void setCvSkillList(List<CvSkill> cvSkillList) {
         this.cvSkillList = cvSkillList;
     }
+
+    public List<Education> getEduList() {
+        return eduList;
+    }
+
+    public void setEduList(List<Education> eduList) {
+        this.eduList = eduList;
+    }
+
+    public List<CvDetail> getCvDetailList() {
+        return cvDetailList;
+    }
+
+    public void setCvDetailList(List<CvDetail> cvDetailList) {
+        this.cvDetailList = cvDetailList;
+    }
+
 }

@@ -4,28 +4,28 @@
  */
 package Model;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author Hayashi
  */
 public class Skill {
+
     private int skillId;
     private String skillName;
-    
-    private ArrayList<CV> cvSkillList;
 
     public Skill() {
     }
 
-    public Skill(String skillName, ArrayList<CV> cvSkillList) {
+    public Skill(String skillName) {
         this.skillName = skillName;
-        this.cvSkillList = cvSkillList;
     }
 
     public int getSkillId() {
         return skillId;
+    }
+
+    public void setSkillId(int skillId) {
+        this.skillId = skillId;
     }
 
     public String getSkillName() {
@@ -36,11 +36,4 @@ public class Skill {
         this.skillName = skillName;
     }
 
-    public ArrayList<CV> getCvSkillList() {
-        return cvSkillList;
-    }
-
-    public void setCvSkillList(ArrayList<CV> cvSkillList) {
-        this.cvSkillList = cvSkillList;
-    }
 }
