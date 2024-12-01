@@ -9,6 +9,7 @@ import DB.DBConnect;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 /**
  *
@@ -127,5 +128,43 @@ public class UserDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    
+    public ArrayList<User> getAllUsers() {
+        ArrayList<User> userList = null;
+        String sql = "SELECT * from [User]";
+        
+        try {
+            Connection connection = new DBConnect().getConnection();
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                if (userList == null) userList = new ArrayList<>();
+                
+                User newUser = new User();
+                newUser.setUserId(rs.getInt("user_id"));
+                newUser.setName(rs.getString("name"));
+                newUser.setGender(rs.getBoolean("gender"));
+                newUser.setDOB(rs.getDate("DOB"));
+                newUser.setPhone(rs.getString("phone"));
+                newUser.setAddress(rs.getString("address"));
+                newUser.setGmail(rs.getString("gmail"));
+                newUser.setAvatar(rs.getString("avatar"));
+                newUser.setAccountId(rs.getInt("account_id"));
+                newUser.setStatus(rs.getBoolean("status"));
+                
+                userList.add(newUser);
+                
+                rs.close();
+                ps.close();
+                connection.close();
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return userList;
     }
 }
