@@ -5,9 +5,14 @@
 package controller.mentor;
 
 import Dao.CVDAO;
+import Dao.CvSkillDAO;
 import Dao.EducationDAO;
 import Dao.MentorDAO;
+import Dao.SkillDAO;
 import Model.CV;
+import Model.CvSkill;
+import Model.Education;
+import Model.Skill;
 import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,6 +20,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  *
@@ -25,31 +31,8 @@ public class ViewCVServlet extends HttpServlet {
     private final CVDAO cvdao = new CVDAO();
     private final MentorDAO mentorDAO = new MentorDAO();
     private final EducationDAO educationDAO = new EducationDAO();
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet viewCVServlet</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet viewCVServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
+    private final SkillDAO skillDAO = new SkillDAO();
+    private final CvSkillDAO cvSkillDAO = new CvSkillDAO();
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -64,12 +47,18 @@ public class ViewCVServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String mentorID = request.getParameter("mentor");
-        
+
         CV cv = cvdao.getCvByUserId(Integer.parseInt(mentorID));
+        //Nếu không có sẽ về index
+        if (cv == null) {
+            response.sendRedirect("index_1.html");
+            return;
+        }
+        List<Skill> skills = skillDAO.getNotExistedSkills(cv.getCvId());
         User mentor = mentorDAO.getById(Integer.parseInt(mentorID));
-        
         request.setAttribute("cv", cv);
         request.setAttribute("mentor", mentor);
+        request.setAttribute("skills", skills);
         request.getRequestDispatcher("view/mentor/mentor-cv.jsp").forward(request, response);
     }
 
@@ -84,7 +73,60 @@ public class ViewCVServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String action = request.getParameter("action");
+        String mentorID = request.getParameter("mentorID");
+        switch (action) {
+            case "addEdu":
+                Education education = new Education();
+                CV cv = cvdao.getCvByUserId(Integer.parseInt(mentorID));
+                education.setCvId(cv.getCvId());
+                String schoolName = request.getParameter("schoolName");
+                education.setSchoolName(schoolName);
+                String major = request.getParameter("major");
+                education.setMajor(major);
+                if (educationDAO.addEducation(education)) {
+                    response.sendRedirect("viewCV?mentor=" + mentorID);
+                }
+                break;
+            case "editEdu":
+                String eduID = request.getParameter("eduID");
+                Education eduEdit = new Education();
+                eduEdit.setEduId(Integer.parseInt(eduID));
+                String schoolNameEdit = request.getParameter("schoolName");
+                eduEdit.setSchoolName(schoolNameEdit);
+                String majorEdit = request.getParameter("major");
+                eduEdit.setMajor(majorEdit);
+                if (educationDAO.updateEducation(eduEdit)) {
+                    response.sendRedirect("viewCV?mentor=" + mentorID);
+                }
+                break;
+            case "removeEdu":
+                String eduRemoveID = request.getParameter("eduID");
+                if (educationDAO.deleteEducation(Integer.parseInt(eduRemoveID))) {
+                    response.sendRedirect("viewCV?mentor=" + mentorID);
+                }
+                break;
+            case "addSkill":
+                String skillId = request.getParameter("skillId");
+                String cvId = request.getParameter("cvID");
+                CvSkill cvSkill = new CvSkill();
+                cvSkill.setSkill(new Skill(Integer.parseInt(skillId), skillId));
+                CV cvAddSkill = cvdao.getCvById(Integer.parseInt(cvId));
+                cvSkill.setCv(cvAddSkill);
+                if (cvSkillDAO.addCvSkill(cvSkill)) {
+                    response.sendRedirect("viewCV?mentor=" + mentorID);
+                }
+                break;
+            case "removeSkill":
+                String cvSkillId = request.getParameter("cvSkillId");
+                if (cvSkillDAO.deleteCvSkill(Integer.parseInt(cvSkillId))) {
+                    response.sendRedirect("viewCV?mentor=" + mentorID);
+                }
+                break;
+            default:
+                throw new AssertionError();
+
+        }
     }
 
     /**
