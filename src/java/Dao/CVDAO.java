@@ -148,9 +148,6 @@ public class CVDAO extends DBConnect {
     public static void main(String[] args) {
         CVDAO cvdao = new CVDAO();
         CV cv1 = cvdao.getCvByUserId(1);
-        List<CvSkill> cvSkills = cv1.getCvSkillList();
-        for (CvSkill cvSkill : cvSkills) {
-            System.out.println(cvSkill.getSkill().getSkillName());
-        }
+        System.out.println(cv1.getIntroduction());
     }
 }
