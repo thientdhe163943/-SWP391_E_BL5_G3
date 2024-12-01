@@ -10,16 +10,17 @@ package Model;
  */
 public class CvSkill {
     private int cvSkillId;
-    private int cvId;
-    private int skillId;
+    private Skill skill;
+    private CV cv;
+    
 
     public CvSkill() {
     }
 
-    public CvSkill(int cvSkillId, int cvId, int skillId) {
+    public CvSkill(int cvSkillId, Skill skill, CV cv) {
         this.cvSkillId = cvSkillId;
-        this.cvId = cvId;
-        this.skillId = skillId;
+        this.skill = skill;
+        this.cv = cv;
     }
 
     public int getCvSkillId() {
@@ -30,21 +31,21 @@ public class CvSkill {
         this.cvSkillId = cvSkillId;
     }
 
-    public int getCvId() {
-        return cvId;
+    public Skill getSkill() {
+        return skill;
     }
 
-    public void setCvId(int cvId) {
-        this.cvId = cvId;
+    public void setSkill(Skill skill) {
+        this.skill = skill;
     }
 
-    public int getSkillId() {
-        return skillId;
+    public CV getCv() {
+        return cv;
     }
 
-    public void setSkillId(int skillId) {
-        this.skillId = skillId;
+    public void setCv(CV cv) {
+        this.cv = cv;
     }
-    
+
     
 }
