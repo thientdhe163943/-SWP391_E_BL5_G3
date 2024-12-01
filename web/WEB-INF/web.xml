@@ -22,6 +22,6 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>MenteeRequestListServlet</servlet-name>
-        <url-pattern>/Mentee/Request/List</url-pattern>
+        <url-pattern>/Mentee/Home</url-pattern>
     </servlet-mapping>
 </web-app>
