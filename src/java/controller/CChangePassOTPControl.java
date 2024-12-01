@@ -96,7 +96,7 @@ public class CChangePassOTPControl extends HttpServlet {
             HttpSession mySession = request.getSession();
             AccountDAO ac = new AccountDAO();
             Account userf = ac.getAccountByEmail(email);
-            System.out.println("okokok");
+           
             if (userf != null) {
                 // sending otp
                 Random rand = new Random();
