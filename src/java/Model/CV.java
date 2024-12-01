@@ -35,6 +35,10 @@ public class CV {
         this.cvDetailList = cvDetailList;
     }
 
+    public void setCvId(int cvId) {
+        this.cvId = cvId;
+    }
+
     public int getCvId() {
         return cvId;
     }
