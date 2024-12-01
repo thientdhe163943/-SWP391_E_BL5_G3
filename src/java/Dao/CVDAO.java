@@ -27,6 +27,7 @@ public class CVDAO extends DBConnect {
     private static final Logger logger = Logger.getLogger(CVDAO.class.getName());
     private final CvSkillDAO cvSkillDAO = new CvSkillDAO();
     private final EducationDAO educationDAO = new EducationDAO();
+
     // Lấy tất cả CV
     public List<CV> getAllCVs() {
         List<CV> list = new ArrayList<>();
@@ -66,6 +67,10 @@ public class CVDAO extends DBConnect {
                     cv.setUserId(rs.getInt("user_id"));
                     cv.setIntroduction(rs.getString("introduction"));
                     cv.setExperience(rs.getInt("experience"));
+
+                    // Giả định các phương thức lấy danh sách skills, education, và details sẽ được cài đặt
+                    cv.setCvSkillList(cvSkillDAO.getCvSkillsByCvId(cv.getCvId()));
+                    cv.setEduList(educationDAO.getEducationsByCvId(cv.getCvId()));
                     return cv;
                 }
             }
@@ -74,6 +79,7 @@ public class CVDAO extends DBConnect {
         }
         return null;
     }
+
     public CV getCvByUserId(int userID) {
         String query = """
                        SELECT cv_id, user_id, introduction, experience
@@ -89,6 +95,10 @@ public class CVDAO extends DBConnect {
                     cv.setUserId(rs.getInt("user_id"));
                     cv.setIntroduction(rs.getString("introduction"));
                     cv.setExperience(rs.getInt("experience"));
+
+                    // Giả định các phương thức lấy danh sách skills, education, và details sẽ được cài đặt
+                    cv.setCvSkillList(cvSkillDAO.getCvSkillsByCvId(cv.getCvId()));
+                    cv.setEduList(educationDAO.getEducationsByCvId(cv.getCvId()));
                     return cv;
                 }
             }
@@ -142,6 +152,5 @@ public class CVDAO extends DBConnect {
         for (CvSkill cvSkill : cvSkills) {
             System.out.println(cvSkill.getSkill().getSkillName());
         }
-        
     }
 }
