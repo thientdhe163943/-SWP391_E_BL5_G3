@@ -21,13 +21,13 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&amp;family=Roboto:wght@400;500;700&amp;display=swap">
 
         <!-- Plugins CSS -->
-        <link rel="stylesheet" type="text/css" href="assets/vendor/font-awesome/css/all.min.css">
-        <link rel="stylesheet" type="text/css" href="assets/vendor/bootstrap-icons/bootstrap-icons.css">
-        <link rel="stylesheet" type="text/css" href="assets/vendor/choices/css/choices.min.css">
-        <link rel="stylesheet" type="text/css" href="assets/vendor/aos/aos.css">
+        <link rel="stylesheet" type="text/css" href="../assets/vendor/font-awesome/css/all.min.css">
+        <link rel="stylesheet" type="text/css" href="../assets/vendor/bootstrap-icons/bootstrap-icons.css">
+        <link rel="stylesheet" type="text/css" href="../assets/vendor/choices/css/choices.min.css">
+        <link rel="stylesheet" type="text/css" href="../assets/vendor/aos/aos.css">
 
         <!-- Theme CSS -->
-        <link id="style-switch" rel="stylesheet" type="text/css" href="assets/css/style.css">
+        <link id="style-switch" rel="stylesheet" type="text/css" href="../assets/css/style.css">
     </head>
     <body>
         <jsp:include page="header.jsp" />
@@ -56,7 +56,7 @@
                                     <div class="col d-sm-flex justify-content-between align-items-center">
                                         <div>
                                             <h1 class="my-1 fs-4">Lori Stevens</h1>
-                                            <ul class="list-inline mb-0">
+<!--                                            <ul class="list-inline mb-0">
                                                 <li class="list-inline-item me-3 mb-1 mb-sm-0">
                                                     <span class="h6">255</span>
                                                     <span class="text-body fw-light">points</span>
@@ -69,12 +69,9 @@
                                                     <span class="h6">52</span>
                                                     <span class="text-body fw-light">Completed lessons</span>
                                                 </li>
-                                            </ul>
+                                            </ul>-->
                                         </div>
                                         <!-- Button -->
-                                        <div class="mt-2 mt-sm-0">
-                                            <a href="student-course-list.html" class="btn btn-outline-primary mb-0">View my courses</a>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -109,7 +106,7 @@
                                 <div class="card bg-transparent border rounded-3">
                                     <!-- Card header START -->
                                     <div class="card-header bg-transparent border-bottom">
-                                        <h3 class="mb-0">My Courses List</h3>
+                                        <h3 class="mb-0">My Requests List</h3>
                                     </div>
                                     <!-- Card header END -->
 
@@ -120,7 +117,7 @@
                                         <div class="row g-3 align-items-center justify-content-between mb-4">
                                             <!-- Content -->
                                             <div class="col-md-8">
-                                                <form class="rounded position-relative" action="/Mentee/Request/List" method="GET">
+                                                <form class="rounded position-relative" action="/Mentee/Request/Search" method="GET">
                                                     <input class="form-control pe-5 bg-transparent" id="requestSearch" type="search" placeholder="Search" aria-label="Search">
                                                     <button class="btn bg-transparent px-2 py-0 position-absolute top-50 end-0 translate-middle-y" type="submit"><i class="fas fa-search fs-6 "></i></button>
                                                 </form>
@@ -161,7 +158,7 @@
                                                         <td>${re.content}</td>
                                                         <td>${re.mentor.name}</td>
                                                         <td>${re.deadline}</td>
-                                                        <td>${re.status == true ? processed : processing}</td>
+                                                        <td>${re.status}</td>
                                                         <td>
                                                             <button type="button" class="btn btn-primary">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
@@ -238,14 +235,14 @@
         </script>
 
         <!-- Bootstrap JS -->
-        <script src="assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="../assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
         <!-- Vendors -->
-        <script src="assets/vendor/choices/js/choices.min.js"></script>
-        <script src="assets/vendor/aos/aos.js"></script>
+        <script src="../assets/vendor/choices/js/choices.min.js"></script>
+        <script src="../assets/vendor/aos/aos.js"></script>
 
         <!-- Template Functions -->
-        <script src="assets/js/functions.js"></script>
+        <script src="../assets/js/functions.js"></script>
 
     </body>
 </html>
