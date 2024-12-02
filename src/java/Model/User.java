@@ -30,9 +30,21 @@ public class User {
     public User() {
     }
 
-    public int getUserId() {
-        return userId;
+    public User(int userId, String name, Boolean gender, Date DOB, String phone, String address, String email, String avatar, Integer accountId, Boolean status) {
+        this.userId = userId;
+        this.name = name;
+        this.gender = gender;
+        this.DOB = DOB;
+        this.phone = phone;
+        this.address = address;
+        this.email = email;
+        this.avatar = avatar;
+        this.accountId = accountId;
+        this.status = status;
+        
     }
+
+    
 
     public void setUserId(int userId) {
         this.userId = userId;
