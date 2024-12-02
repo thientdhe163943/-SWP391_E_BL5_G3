@@ -13,7 +13,7 @@
         <title>Home</title>
 
         <!-- Favicon -->
-        <link rel="shortcut icon" href="assets/images/favicon.ico">
+        <link rel="shortcut icon" href="../assets/images/favicon.ico">
 
         <!-- Google Font -->
         <link rel="preconnect" href="https://fonts.googleapis.com/">
@@ -37,7 +37,7 @@
             Page Banner START -->
             <section class="pt-0">
                 <div class="container-fluid px-0">
-                    <div class="card bg-blue h-100px h-md-200px rounded-0" style="background:url(assets/images/pattern/04.png) no-repeat center center; background-size:cover;">
+                    <div class="card bg-blue h-100px h-md-200px rounded-0" style="background:url(../assets/images/pattern/04.png) no-repeat center center; background-size:cover;">
                     </div>
                 </div>
                 <div class="container mt-n4">
@@ -48,7 +48,7 @@
                                     <!-- Avatar -->
                                     <div class="col-auto">
                                         <div class="avatar avatar-xxl position-relative mt-n3">
-                                            <img class="avatar-img rounded-circle border border-white border-3 shadow" src="assets/images/avatar/09.jpg" alt="">
+                                            <img class="avatar-img rounded-circle border border-white border-3 shadow" src="../assets/images/avatar/09.jpg" alt="">
                                             <span class="badge bg-success text-white rounded-pill position-absolute top-50 start-100 translate-middle mt-4 mt-md-5 ms-n3 px-md-3">Pro</span>
                                         </div>
                                     </div>
@@ -56,20 +56,20 @@
                                     <div class="col d-sm-flex justify-content-between align-items-center">
                                         <div>
                                             <h1 class="my-1 fs-4">Lori Stevens</h1>
-<!--                                            <ul class="list-inline mb-0">
-                                                <li class="list-inline-item me-3 mb-1 mb-sm-0">
-                                                    <span class="h6">255</span>
-                                                    <span class="text-body fw-light">points</span>
-                                                </li>
-                                                <li class="list-inline-item me-3 mb-1 mb-sm-0">
-                                                    <span class="h6">7</span>
-                                                    <span class="text-body fw-light">Completed courses</span>
-                                                </li>
-                                                <li class="list-inline-item me-3 mb-1 mb-sm-0">
-                                                    <span class="h6">52</span>
-                                                    <span class="text-body fw-light">Completed lessons</span>
-                                                </li>
-                                            </ul>-->
+                                            <!--                                            <ul class="list-inline mb-0">
+                                                                                            <li class="list-inline-item me-3 mb-1 mb-sm-0">
+                                                                                                <span class="h6">255</span>
+                                                                                                <span class="text-body fw-light">points</span>
+                                                                                            </li>
+                                                                                            <li class="list-inline-item me-3 mb-1 mb-sm-0">
+                                                                                                <span class="h6">7</span>
+                                                                                                <span class="text-body fw-light">Completed courses</span>
+                                                                                            </li>
+                                                                                            <li class="list-inline-item me-3 mb-1 mb-sm-0">
+                                                                                                <span class="h6">52</span>
+                                                                                                <span class="text-body fw-light">Completed lessons</span>
+                                                                                            </li>
+                                                                                        </ul>-->
                                         </div>
                                         <!-- Button -->
                                     </div>
@@ -99,59 +99,93 @@
                 <div class="container">
                     <div class="row">
 
-                        <jsp:include page="sidebar.jsp"></jsp:include>
-
-                            <!-- Main content START -->
-                            <div class="col-xl-9">
-                                <div class="card bg-transparent border rounded-3">
-                                    <!-- Card header START -->
-                                    <div class="card-header bg-transparent border-bottom">
-                                        <h3 class="mb-0">My Requests List</h3>
+                        <!-- Right sidebar START -->
+                        <div class="col-xl-3">
+                            <!-- Responsive offcanvas body START -->
+                            <nav class="navbar navbar-light navbar-expand-xl mx-0">
+                                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                                    <!-- Offcanvas header -->
+                                    <div class="offcanvas-header bg-light">
+                                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">My profile</h5>
+                                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                                     </div>
-                                    <!-- Card header END -->
-
-                                    <!-- Card body START -->
-                                    <div class="card-body">
-
-                                        <!-- Search and select START -->
-                                        <div class="row g-3 align-items-center justify-content-between mb-4">
-                                            <!-- Content -->
-                                            <div class="col-md-8">
-                                                <form class="rounded position-relative" action="/Mentee/Request/Search" method="GET">
-                                                    <input class="form-control pe-5 bg-transparent" id="requestSearch" type="search" placeholder="Search" aria-label="Search">
-                                                    <button class="btn bg-transparent px-2 py-0 position-absolute top-50 end-0 translate-middle-y" type="submit"><i class="fas fa-search fs-6 "></i></button>
-                                                </form>
-                                            </div>
-
-                                            <!-- Select option -->
-                                            <div class="col-md-3">
-                                                <!-- Short by filter -->
-                                                <form>
-                                                    <select class="form-select js-choice border-0 z-index-9 bg-transparent" id="sortOrder" aria-label=".form-select-sm" onchange="showSortedResult()">
-                                                        <option value="">Sort by</option>
-                                                        <option value="name">Name</option>
-                                                        <option value="rating">Rating</option>
-                                                    </select>
-                                                </form>
+                                    <!-- Offcanvas body -->
+                                    <div class="offcanvas-body p-3 p-xl-0">
+                                        <div class="bg-dark border rounded-3 pb-0 p-3 w-100">
+                                            <!-- Dashboard menu -->
+                                            <div class="list-group list-group-dark list-group-borderless">
+                                                <a class="list-group-item active" href="student-course-list.html"><i class="bi bi-basket fa-fw me-2"></i>Dashboard</a>
+                                                <a class="list-group-item" href="student-payment-info.html"><i class="bi bi-credit-card-2-front fa-fw me-2"></i>Payment info</a>
+                                                <a class="list-group-item" href="instructor-edit-profile.html"><i class="bi bi-pencil-square fa-fw me-2"></i>Edit Profile</a>
+                                                <a class="list-group-item" href="instructor-setting.html"><i class="bi bi-gear fa-fw me-2"></i>Settings</a>
+                                                <a class="list-group-item" href="instructor-delete-account.html"><i class="bi bi-trash fa-fw me-2"></i>Delete Profile</a>
+                                                <a class="list-group-item text-danger bg-danger-soft-hover" href="#"><i class="fas fa-sign-out-alt fa-fw me-2"></i>Sign Out</a>
                                             </div>
                                         </div>
-                                        <!-- Search and select END -->
+                                    </div>
+                                </div>
+                            </nav>
+                            <!-- Responsive offcanvas body END -->
+                        </div>
+                        <!-- Right sidebar END -->
 
-                                        <!-- Course list table START -->
-                                        <div class="table-responsive border-0">
-                                            <table class="table table-dark-gray align-middle p-4 mb-0 table-hover">
-                                                <!-- Table head -->
-                                                <thead>
-                                                    <tr>
-                                                        <th scope="col" class="border-0 rounded-start">Request Title</th>
-                                                        <th scope="col" class="border-0">Content</th>
-                                                        <th scope="col" class="border-0">Mentor</th>
-                                                        <th scope="col" class="border-0">Deadline</th>
-                                                        <th scope="col" class="border-0">Status</th>
-                                                        <th scope="col" class="border-0 rounded-end">Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
+
+                        <!-- Main content START -->
+                        <div class="col-xl-9">
+                            <div class="card bg-transparent border rounded-3">
+                                <!-- Card header START -->
+                                <div class="card-header bg-transparent border-bottom">
+                                    <h3 class="mb-0">My Requests List</h3>
+                                    <a href="">
+                                        <button class="btn btn-primary" onclick="">
+                                            <i class="bi bi-plus"></i>
+                                        </button>
+                                    </a>
+                                </div>
+                                <!-- Card header END -->
+
+                                <!-- Card body START -->
+                                <div class="card-body">
+
+                                    <!-- Search and select START -->
+                                    <div class="row g-3 align-items-center justify-content-between mb-4">
+                                        <!-- Content -->
+                                        <div class="col-md-8">
+                                            <form class="rounded position-relative" action="/Mentee/Request/Search" method="GET">
+                                                <input class="form-control pe-5 bg-transparent" id="requestSearch" type="search" placeholder="Search" aria-label="Search">
+                                                <button class="btn bg-transparent px-2 py-0 position-absolute top-50 end-0 translate-middle-y" type="submit"><i class="fas fa-search fs-6 "></i></button>
+                                            </form>
+                                        </div>
+
+                                        <!-- Select option -->
+                                        <div class="col-md-3">
+                                            <!-- Short by filter -->
+                                            <form>
+                                                <select class="form-select js-choice border-0 z-index-9 bg-transparent" id="sortOrder" aria-label=".form-select-sm" onchange="showSortedResult()">
+                                                    <option value="">Sort by</option>
+                                                    <option value="title">Request Title</option>
+                                                    <option value="mentor">Mentor Name</option>
+                                                </select>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <!-- Search and select END -->
+
+                                    <!-- Course list table START -->
+                                    <div class="table-responsive border-0">
+                                        <table class="table table-dark-gray align-middle p-4 mb-0 table-hover">
+                                            <!-- Table head -->
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col" class="border-0 rounded-start">Request Title</th>
+                                                    <th scope="col" class="border-0">Content</th>
+                                                    <th scope="col" class="border-0">Mentor</th>
+                                                    <th scope="col" class="border-0">Deadline</th>
+                                                    <th scope="col" class="border-0">Status</th>
+                                                    <th scope="col" class="border-0 rounded-end">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
                                                 <c:forEach items="${requestList}" var="re">
                                                     <tr>
                                                         <td>${re.title}</td>
@@ -161,20 +195,10 @@
                                                         <td>${re.status}</td>
                                                         <td>
                                                             <button type="button" class="btn btn-primary">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
-                                                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
-                                                                </svg>
-                                                            </button>
-                                                            <button type="button" class="btn btn-secondary">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
-                                                                <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z"/>
-                                                                </svg>
+                                                                <i class="bi bi-pen"></i>
                                                             </button>
                                                             <button type="button" class="btn btn-outline-danger">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                                                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
-                                                                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
-                                                                </svg>
+                                                                <i class="bi bi-trash"></i>
                                                             </button>
                                                         </td>
                                                     </tr>
@@ -187,14 +211,14 @@
                                     <!-- Pagination START -->
                                     <div class="d-sm-flex justify-content-sm-between align-items-sm-center mt-4 mt-sm-3">
                                         <!-- Content -->
-                                        <p class="mb-0 text-center text-sm-start">Showing 1 to 8 of 20 entries</p>
+                                        <p class="mb-0 text-center text-sm-start">Showing 1 to 8 of 0 entries</p>
                                         <!-- Pagination -->
                                         <nav class="d-flex justify-content-center mb-0" aria-label="navigation">
                                             <ul class="pagination pagination-sm pagination-primary-soft mb-0 pb-0">
                                                 <li class="page-item mb-0"><a class="page-link" href="#" tabindex="-1"><i class="fas fa-angle-left"></i></a></li>
                                                 <li class="page-item mb-0 active"><a class="page-link" href="#">1</a></li>
-                                                <li class="page-item mb-0"><a class="page-link" href="#">2</a></li>
-                                                <li class="page-item mb-0"><a class="page-link" href="#">3</a></li>
+                                                <!--                                                <li class="page-item mb-0"><a class="page-link" href="#">2</a></li>
+                                                                                                <li class="page-item mb-0"><a class="page-link" href="#">3</a></li>-->
                                                 <li class="page-item mb-0"><a class="page-link" href="#"><i class="fas fa-angle-right"></i></a></li>
                                             </ul>
                                         </nav>
