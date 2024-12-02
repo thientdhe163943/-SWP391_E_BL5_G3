@@ -38,7 +38,7 @@ public class UserDAO {
                 user.setGender(rs.getBoolean("gender"));
                 user.setDOB(rs.getDate("DOB"));
                 user.setPhone(rs.getString("phone"));
-                user.setGmail(rs.getString("gmail"));
+                user.setEmail(rs.getString("gmail"));
                 user.setAvatar(rs.getString("avatar"));
                 user.setStatus(rs.getBoolean("status"));
 
@@ -63,7 +63,7 @@ public class UserDAO {
             ps.setDate(3, user.getDOB());
             ps.setString(4, user.getPhone());
             ps.setString(5, user.getAddress());
-            ps.setString(6, user.getGmail());
+            ps.setString(6, user.getEmail());
             ps.setString(7, user.getAvatar());
             ps.setInt(8, user.getAccountId());
             ps.setBoolean(9, user.getStatus());
@@ -116,7 +116,7 @@ public class UserDAO {
             ps.setDate(3, user.getDOB());
             ps.setString(4, user.getPhone());
             ps.setString(5, user.getAddress());
-            ps.setString(6, user.getGmail());
+            ps.setString(6, user.getEmail());
             ps.setString(7, user.getAvatar());
             ps.setBoolean(8, user.getStatus());
             ps.setInt(9, user.getUserId());
@@ -149,7 +149,7 @@ public class UserDAO {
                 newUser.setDOB(rs.getDate("DOB"));
                 newUser.setPhone(rs.getString("phone"));
                 newUser.setAddress(rs.getString("address"));
-                newUser.setGmail(rs.getString("gmail"));
+                newUser.setEmail(rs.getString("gmail"));
                 newUser.setAvatar(rs.getString("avatar"));
                 newUser.setAccountId(rs.getInt("account_id"));
                 newUser.setStatus(rs.getBoolean("status"));
