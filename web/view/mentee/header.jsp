@@ -23,7 +23,7 @@
     <nav class="navbar navbar-expand-xl">
         <div class="container">
             <!-- Logo START -->
-            <a class="navbar-brand" href="index-2.html">
+            <a class="navbar-brand" href="Home">
                 <img class="light-mode-item navbar-brand-item" src="../assets/images/logo.svg" alt="logo">
                 <img class="dark-mode-item navbar-brand-item" src="../assets/images/logo-light.svg" alt="logo">
             </a>
