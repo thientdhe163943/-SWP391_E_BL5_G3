@@ -28,4 +28,8 @@ public class DBConnect {
             System.out.println(ex);
         }
     }
+
+    public Connection getConnection() {
+        return connection;
+    }
 }
