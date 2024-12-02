@@ -18,7 +18,7 @@ public class User {
     private Date DOB;
     private String phone;
     private String address;
-    private String gmail;
+    private String email;
     private String avatar;
     private Integer accountId;
     private Boolean status;
@@ -30,51 +30,12 @@ public class User {
     public User() {
     }
 
-    public User(String name, Boolean gender, Date DOB, String phone, String address, String gmail, String avatar, Integer accountId, Boolean status, ArrayList<Request> requestList, ArrayList<FreeTime> timeList, ArrayList<CommentBlog> commentList) {
-        this.name = name;
-        this.gender = gender;
-        this.DOB = DOB;
-        this.phone = phone;
-        this.address = address;
-        this.gmail = gmail;
-        this.avatar = avatar;
-        this.accountId = accountId;
-        this.status = status;
-        this.requestList = requestList;
-        this.timeList = timeList;
-        this.commentList = commentList;
+    public int getUserId() {
+        return userId;
     }
 
     public void setUserId(int userId) {
         this.userId = userId;
-    }
-
-    public ArrayList<CommentBlog> getCommentList() {
-        return commentList;
-    }
-
-    public void setCommentList(ArrayList<CommentBlog> commentList) {
-        this.commentList = commentList;
-    }
-
-    public ArrayList<Request> getRequestList() {
-        return requestList;
-    }
-
-    public void setRequestList(ArrayList<Request> requestList) {
-        this.requestList = requestList;
-    }
-
-    public ArrayList<FreeTime> getTimeList() {
-        return timeList;
-    }
-
-    public void setTimeList(ArrayList<FreeTime> timeList) {
-        this.timeList = timeList;
-    }
-
-    public int getUserId() {
-        return userId;
     }
 
     public String getName() {
@@ -117,12 +78,12 @@ public class User {
         this.address = address;
     }
 
-    public String getGmail() {
-        return gmail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setGmail(String gmail) {
-        this.gmail = gmail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getAvatar() {
@@ -148,6 +109,30 @@ public class User {
     public void setStatus(Boolean status) {
         this.status = status;
     }
-    
+
+    public ArrayList<Request> getRequestList() {
+        return requestList;
+    }
+
+    public void setRequestList(ArrayList<Request> requestList) {
+        this.requestList = requestList;
+    }
+
+    public ArrayList<FreeTime> getTimeList() {
+        return timeList;
+    }
+
+    public void setTimeList(ArrayList<FreeTime> timeList) {
+        this.timeList = timeList;
+    }
+
+    public ArrayList<CommentBlog> getCommentList() {
+        return commentList;
+    }
+
+    public void setCommentList(ArrayList<CommentBlog> commentList) {
+        this.commentList = commentList;
+    }
+
     
 }
