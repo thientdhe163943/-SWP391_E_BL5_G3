@@ -30,6 +30,32 @@ public class User {
     public User() {
     }
 
+    public User(int userId, String name, Boolean gender, Date DOB, String phone, String address, String email, String avatar) {
+        this.userId = userId;
+        this.name = name;
+        this.gender = gender;
+        this.DOB = DOB;
+        this.phone = phone;
+        this.address = address;
+        this.email = email;
+        this.avatar = avatar;
+    }
+    
+    public User(int userId, String name, Boolean gender, Date DOB, String phone, String address, String email, String avatar, Integer accountId) {
+        this.userId = userId;
+        this.name = name;
+        this.gender = gender;
+        this.DOB = DOB;
+        this.phone = phone;
+        this.address = address;
+        this.email = email;
+        this.avatar = avatar;
+        this.accountId = accountId;
+        
+        
+    }
+
+
     public User(int userId, String name, Boolean gender, Date DOB, String phone, String address, String email, String avatar, Integer accountId, Boolean status) {
         this.userId = userId;
         this.name = name;

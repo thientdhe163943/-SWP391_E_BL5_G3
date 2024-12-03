@@ -97,7 +97,7 @@ public class AccountDAO extends DBConnect {
         return cus;
     }
    
-    public boolean updatePassword(String newPassword, int accountId) {
+    public boolean updatePassword( int accountId,String newPassword) {
         String sql = "UPDATE [dbo].[Account]\n"
                 + " SET [password] = ?\n"
                 + " WHERE [account_id] = '?'";

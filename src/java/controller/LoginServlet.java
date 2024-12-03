@@ -35,7 +35,7 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("account", account);
             
             if (account.getRoleId()==1) {
-                response.sendRedirect("mentee");
+                response.sendRedirect("HomePage.jsp");
             } else if (account.getRoleId()==2) {
                 response.sendRedirect("mentor");
             } else if (account.getRoleId()==3) {

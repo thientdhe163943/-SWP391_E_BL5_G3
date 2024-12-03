@@ -1,28 +1,32 @@
 package controller;
 
-import dal.DAOAccount;
-import entity.Account;
+import Dao.AccountDAO;
+import Dao.UserDAO;
+import Model.Account;
+import Model.User;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+
 import java.util.regex.Pattern;
+import java.sql.Date; 
 
 /**
  * ProfileServlet handles profile-related requests.
  */
-public class ProfileServlet extends HttpServlet {
+public class ProfileControler extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-        String[] listService = {"Account info", "Change password"};
+        String[] listService = {"User info", "Change password"};
         request.setAttribute("listService", listService);
 
-        Account acc = (Account) session.getAttribute("account");
+        User acc = (User) session.getAttribute("User");
         String service = request.getParameter("Service");
 
         if (acc != null) {
@@ -43,93 +47,143 @@ public class ProfileServlet extends HttpServlet {
     }
 
     @Override
+   
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        DAOAccount d = new DAOAccount();
+        UserDAO userDAO = new UserDAO();
+        AccountDAO accountDAO = new AccountDAO();
+        
         String service = request.getParameter("Service");
         HttpSession session = request.getSession();
-        Account acc = (Account) session.getAttribute("account");
+        User user = (User) session.getAttribute("User");
+        Account account = (Account) session.getAttribute("Account");
 
-        if ("updateInfo".equals(service)) {
-            updateInfo(request, response, d, session, acc);
-        } else if ("updatePassword".equals(service)) {
-            updatePassword(request, response, d, acc);
+        if (service == null) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Service không được để trống.");
+            return;
+        }
+
+        if (user == null) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Bạn phải đăng nhập để thực hiện thao tác này.");
+            return;
+        }
+
+        switch (service) {
+            case "updateInfo":
+                updateInfo(request, response, userDAO, session, user);
+                break;
+            case "updatePassword":
+                updatePassword(request, response, accountDAO, account);
+                break;
+            default:
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Yêu cầu không hợp lệ.");
         }
     }
+private void updateInfo(HttpServletRequest request, HttpServletResponse response, UserDAO d, HttpSession session, User acc)
+        throws ServletException, IOException {
+    try {
+        String name = request.getParameter("name");
+        Boolean gender = Boolean.parseBoolean(request.getParameter("gender"));
+        String dobParam = request.getParameter("dob"); // Lấy giá trị từ request
+        String phone = request.getParameter("phone");
+        String address = request.getParameter("address");
+        String email = request.getParameter("email");
+        String avatar = request.getParameter("avatar");
 
-    private void updateInfo(HttpServletRequest request, HttpServletResponse response, DAOAccount d, HttpSession session, Account acc)
-            throws ServletException, IOException {
-        String first_name = request.getParameter("first_name");
-        String last_name = request.getParameter("last_name");
-        String accountImage = request.getParameter("accountImage");
-
-        if (accountImage == null || accountImage.isEmpty()) {
-            accountImage = request.getParameter("beforeImage");
-        }
-
-        String account_email = request.getParameter("account_email");
-        String account_address = request.getParameter("account_address");
-        String account_phone = request.getParameter("account_phone");
-
-        String mess = "";
-        boolean isSuccess = false;
-
-        if (isValidName(first_name) && isValidName(last_name)) {
-            boolean haveUpdate = d.updateAccount(
-                    acc.getAccount_id(), account_email, first_name, last_name,
-                    account_phone, accountImage, account_address
-            );
-
-            Account updatedAccount = d.getAccountById(acc.getAccount_id());
-            session.setAttribute("account", updatedAccount);
-
-            mess = haveUpdate ? "Update success" : "Update unsuccess";
-            isSuccess = haveUpdate;
-        } else {
-            mess = "First name and last name must not contain numbers or special characters";
-        }
-
-        request.setAttribute("mess", mess);
-        request.setAttribute("isSuccess", isSuccess);
-        setCommonAttributes(request);
-        request.setAttribute("current", "Account info");
-        request.getRequestDispatcher("Profile.jsp").forward(request, response);
-    }
-
-    private void updatePassword(HttpServletRequest request, HttpServletResponse response, DAOAccount d, Account acc)
-            throws ServletException, IOException {
-        String currentPassword = request.getParameter("currentPassword");
-        String newPassword = request.getParameter("newPassword");
-        String confirmPassword = request.getParameter("confirmPassword");
-
-        String mess = "";
-        boolean isSuccess = false;
-
-        if (d.validateCustomer(acc.getEmail(), currentPassword) != null) {
-            if (isValidPassword(newPassword)) {
-                if (newPassword.equals(confirmPassword)) {
-                    d.updatePassword(newPassword, acc.getAccount_id());
-                    mess = "Change password success";
-                    isSuccess = true;
-                } else {
-                    mess = "The confirm password does not match the new password";
-                }
-            } else {
-                mess = "New password must be at least 8 characters long and include both letters and numbers";
+        // Kiểm tra giá trị ngày sinh (DOB)
+        Date dob = null;
+        if (dobParam != null && !dobParam.isEmpty()) {
+            try {
+              dob = Date.valueOf(dobParam); // Chuyển đổi nếu định dạng đúng
+            } catch (IllegalArgumentException e) {
+                request.setAttribute("error", "Ngày sinh không hợp lệ. Vui lòng nhập định dạng yyyy-MM-dd.");
+                request.getRequestDispatcher("Profile.jsp").forward(request, response);
+                return;
             }
-        } else {
-            mess = "The current password is incorrect";
         }
 
-        request.setAttribute("mess", mess);
-        request.setAttribute("isSuccess", isSuccess);
-        setCommonAttributes(request);
-        request.setAttribute("current", "Change password");
+        // Kiểm tra các trường khác
+        if (name == null || name.isEmpty() || phone == null || phone.isEmpty() || address == null || address.isEmpty() || email == null || email.isEmpty()) {
+            request.setAttribute("error", "Vui lòng điền đầy đủ thông tin.");
+            request.getRequestDispatcher("Profile.jsp").forward(request, response);
+            return;
+        }
+
+        // Cập nhật thông tin người dùng
+        acc.setName(name);
+        acc.setGender(gender);
+        acc.setDOB(dob);
+        acc.setPhone(phone);
+        acc.setAddress(address);
+        acc.setEmail(email);
+        acc.setAvatar(avatar);
+       
+
+        boolean isUpdated = d.updateUserInfo(name, gender, dob, phone, address, avatar, acc.getAccountId());
+
+        if (isUpdated) {
+            session.setAttribute("User", acc); // Cập nhật thông tin mới vào session
+            request.setAttribute("message", "Cập nhật thông tin thành công.");
+        } else {
+            request.setAttribute("error", "Cập nhật thông tin thất bại.");
+        }
+        request.getRequestDispatcher("Profile.jsp").forward(request, response);
+    } catch (Exception e) {
+        e.printStackTrace();
+        request.setAttribute("error", "Có lỗi xảy ra. Vui lòng thử lại.");
         request.getRequestDispatcher("Profile.jsp").forward(request, response);
     }
-//Password has at least 8 characters including numbers and letters
+}
+
+
+
+    private void updatePassword(HttpServletRequest request, HttpServletResponse response, AccountDAO accountDAO, Account account)
+            throws ServletException, IOException {
+        try {
+            String currentPassword = request.getParameter("currentPassword");
+            String newPassword = request.getParameter("newPassword");
+            String confirmPassword = request.getParameter("confirmPassword");
+
+            // Kiểm tra mật khẩu hiện tại
+            if (!account.getPassword().equals(currentPassword)) {
+                request.setAttribute("error", "Mật khẩu hiện tại không đúng.");
+                request.getRequestDispatcher("Profile.jsp").forward(request, response);
+                return;
+            }
+
+            // Kiểm tra mật khẩu mới
+            if (!newPassword.equals(confirmPassword)) {
+                request.setAttribute("error", "Mật khẩu mới và xác nhận không khớp.");
+                request.getRequestDispatcher("Profile.jsp").forward(request, response);
+                return;
+            }
+
+            if (!isValidPassword(newPassword)) {
+                request.setAttribute("error", "Mật khẩu phải có ít nhất 8 ký tự, bao gồm cả chữ và số.");
+                request.getRequestDispatcher("Profile.jsp").forward(request, response);
+                return;
+            }
+
+            // Cập nhật mật khẩu
+            boolean isUpdated = accountDAO.updatePassword(account.getAccountId(), newPassword);
+
+            if (isUpdated) {
+                account.setPassword(newPassword); // Cập nhật mật khẩu mới vào session
+                request.setAttribute("message", "Đổi mật khẩu thành công.");
+            } else {
+                request.setAttribute("error", "Đổi mật khẩu thất bại. Vui lòng thử lại.");
+            }
+
+            request.getRequestDispatcher("Profile.jsp").forward(request, response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("error", "Có lỗi xảy ra. Vui lòng thử lại.");
+            request.getRequestDispatcher("Profile.jsp").forward(request, response);
+        }
+    }
+
     private boolean isValidPassword(String password) {
-        if (password.length() < 8) {
+        if (password == null || password.length() < 8) {
             return false;
         }
         boolean hasLetter = false;
@@ -148,9 +202,8 @@ public class ProfileServlet extends HttpServlet {
     }
 
     private boolean isValidName(String name) {
-        // Check if name contains only letters and spaces
         String regex = "^[a-zA-Z\\s]+$";
-        return Pattern.matches(regex, name);
+        return name != null && Pattern.matches(regex, name);
     }
 
     private void setCommonAttributes(HttpServletRequest request) {
@@ -162,6 +215,6 @@ public class ProfileServlet extends HttpServlet {
     public String getServletInfo() {
         return "ProfileServlet handles profile-related requests";
     }
+
+    
 }
-
-
