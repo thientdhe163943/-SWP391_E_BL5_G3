@@ -111,10 +111,10 @@
                                     </div>
                                     <!-- Offcanvas body -->
                                     <div class="offcanvas-body p-3 p-xl-0">
-                                        <div class="bg-dark border rounded-3 pb-0 p-3 w-100">
+                                        <div class="bg-dark border rounded-3 pb-0 p-3 w-100">   
                                             <!-- Dashboard menu -->
                                             <div class="list-group list-group-dark list-group-borderless">
-                                                <a class="list-group-item active" href="student-course-list.html"><i class="bi bi-basket fa-fw me-2"></i>Dashboard</a>
+                                                <a class="list-group-item active" href="Home"><i class="bi bi-basket fa-fw me-2"></i>Dashboard</a>
                                                 <a class="list-group-item" href="student-payment-info.html"><i class="bi bi-credit-card-2-front fa-fw me-2"></i>Payment info</a>
                                                 <a class="list-group-item" href="instructor-edit-profile.html"><i class="bi bi-pencil-square fa-fw me-2"></i>Edit Profile</a>
                                                 <a class="list-group-item" href="instructor-setting.html"><i class="bi bi-gear fa-fw me-2"></i>Settings</a>
@@ -136,8 +136,8 @@
                                 <!-- Card header START -->
                                 <div class="card-header bg-transparent border-bottom">
                                     <h3 class="mb-0">My Requests List</h3>
-                                    <a href="">
-                                        <button class="btn btn-primary" onclick="">
+                                    <a href="Request/New">
+                                        <button class="btn btn-primary">
                                             <i class="bi bi-plus"></i>
                                         </button>
                                     </a>
@@ -151,7 +151,7 @@
                                     <div class="row g-3 align-items-center justify-content-between mb-4">
                                         <!-- Content -->
                                         <div class="col-md-8">
-                                            <form class="rounded position-relative" action="/Mentee/Request/Search" method="GET">
+                                            <form class="rounded position-relative" action="/Mentee/Home/Search" method="GET">
                                                 <input class="form-control pe-5 bg-transparent" id="requestSearch" type="search" placeholder="Search" aria-label="Search">
                                                 <button class="btn bg-transparent px-2 py-0 position-absolute top-50 end-0 translate-middle-y" type="submit"><i class="fas fa-search fs-6 "></i></button>
                                             </form>
@@ -160,11 +160,12 @@
                                         <!-- Select option -->
                                         <div class="col-md-3">
                                             <!-- Short by filter -->
-                                            <form>
+                                            <form id="sortRequest" action="Home" method="POST">
                                                 <select class="form-select js-choice border-0 z-index-9 bg-transparent" id="sortOrder" aria-label=".form-select-sm" onchange="showSortedResult()">
                                                     <option value="">Sort by</option>
                                                     <option value="title">Request Title</option>
                                                     <option value="mentor">Mentor Name</option>
+                                                    <option value="deadline">Deadline</option>
                                                 </select>
                                             </form>
                                         </div>
@@ -172,7 +173,7 @@
                                     <!-- Search and select END -->
 
                                     <!-- Course list table START -->
-                                    <div class="table-responsive border-0">
+                                    <div id="resultsTable" class="table-responsive border-0">
                                         <table class="table table-dark-gray align-middle p-4 mb-0 table-hover">
                                             <!-- Table head -->
                                             <thead>
@@ -192,7 +193,7 @@
                                                         <td>${re.content}</td>
                                                         <td>${re.mentor.name}</td>
                                                         <td>${re.deadline}</td>
-                                                        <td>${re.status}</td>
+                                                        <td>${re.status == 1 ? 'Processed' : 'Not Processed'}</td>
                                                         <td>
                                                             <button type="button" class="btn btn-primary">
                                                                 <i class="bi bi-pen"></i>
@@ -208,22 +209,22 @@
                                     </div>
                                     <!-- Course list table END -->
 
-                                    <!-- Pagination START -->
+<!--                                     Pagination START 
                                     <div class="d-sm-flex justify-content-sm-between align-items-sm-center mt-4 mt-sm-3">
-                                        <!-- Content -->
+                                         Content 
                                         <p class="mb-0 text-center text-sm-start">Showing 1 to 8 of 0 entries</p>
-                                        <!-- Pagination -->
+                                         Pagination 
                                         <nav class="d-flex justify-content-center mb-0" aria-label="navigation">
                                             <ul class="pagination pagination-sm pagination-primary-soft mb-0 pb-0">
                                                 <li class="page-item mb-0"><a class="page-link" href="#" tabindex="-1"><i class="fas fa-angle-left"></i></a></li>
                                                 <li class="page-item mb-0 active"><a class="page-link" href="#">1</a></li>
-                                                <!--                                                <li class="page-item mb-0"><a class="page-link" href="#">2</a></li>
-                                                                                                <li class="page-item mb-0"><a class="page-link" href="#">3</a></li>-->
+                                                                                                <li class="page-item mb-0"><a class="page-link" href="#">2</a></li>
+                                                                                                <li class="page-item mb-0"><a class="page-link" href="#">3</a></li>
                                                 <li class="page-item mb-0"><a class="page-link" href="#"><i class="fas fa-angle-right"></i></a></li>
                                             </ul>
                                         </nav>
                                     </div>
-                                    <!-- Pagination END -->
+                                     Pagination END -->
                                 </div>
                                 <!-- Card body START -->
                             </div>
@@ -242,19 +243,7 @@
 
         <script>
             function showSortedResult() {
-                // Get the selected sorting order
-                const sortOrder = document.getElementById("sortOrder").value;
-
-                // Perform an AJAX request
-                const xhr = new XMLHttpRequest();
-                xhr.open("GET", "Mentee/Request/Sort?order=" + sortOrder, true);
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState === 4 && xhr.status === 200) {
-                        // Update the table with the sorted data
-                        document.getElementById("resultsTable").innerHTML = xhr.responseText;
-                    }
-                };
-                xhr.send();
+                document.getElementById('sortRequest').submit();
             }
         </script>
 
