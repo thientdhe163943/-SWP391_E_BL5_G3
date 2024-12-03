@@ -10,7 +10,7 @@
 
     <!-- Mirrored from eduport.webestica.com/instructor-single.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 06 Jan 2022 19:19:58 GMT -->
     <head>
-        <title>Eduport - LMS, Education and Course Theme</title>
+        <title>Update CV of mentor</title>
 
         <!-- Meta Tags -->
         <meta charset="utf-8">
@@ -443,7 +443,13 @@
                             <!-- Title -->
                             <c:if test="${!cv.getIntroduction().isEmpty()}">
                                 <h5 class="mb-0">Hi, I am</h5>
-                                <h1 class="mb-0">${requestScope.mentor.name}</h1>
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <h1 class="mb-0">${requestScope.mentor.name}</h1>
+
+                                    <button type="button" class="btn btn-light p-2" data-bs-toggle="modal" data-bs-target="#editIntroductionModal">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </div>
                                 <!-- Content -->
                                 <p class="mt-4">${cv.getIntroduction()}</p>
                             </c:if>    
@@ -478,6 +484,58 @@
             </section>
             <!-- =======================
             Page content END -->
+
+            <!--Add introduction Modal--> 
+            <div class="modal fade" id="addIntroductionModal" tabindex="-1" aria-labelledby="addIntroductionLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="addIntroductionModalLabel">Add Introduction</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="addIntroductionForm" action="viewCV" method="POST">
+                                <input type="hidden" name="action" value="addIntro">
+                                <input type="hidden" name="mentorID" value="${requestScope.mentor.user_id}">
+                                <div class="form-group">
+                                    <label for="introduction">Introduction</label>
+                                    <input type="text" class="form-control" id="introduction" name="introduction" placeholder="Enter introduction" required>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" form="addIntroductionForm" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Edit introduction Modal--> 
+            <div class="modal fade" id="editIntroductionModal" tabindex="-1" aria-labelledby="editIntroductionModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editIntroductionModalLabel">Edit Introduction</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="editIntroductionForm" action="viewCV" method="POST">
+                                <input type="hidden" name="action" value="editIntro">
+                                <input type="hidden" name="mentorID" value="${requestScope.mentor.user_id}">
+                                <div class="form-group">
+                                    <label for="introduction">Introduction:</label>
+                                    <textarea name="introduction" style="height: 200px;width: 466px;" required="">${cv.getIntroduction()}</textarea>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" form="editIntroductionForm" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <!--Add Education Modal START-->
             <div class="modal fade" id="addEducationModal" tabindex="-1" aria-labelledby="addEducationModalLabel" aria-hidden="true">
