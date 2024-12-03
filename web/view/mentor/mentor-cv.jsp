@@ -34,7 +34,7 @@
 
         <!--D:\Project_SWP391_BL5\-SWP391_E_BL5_G3\web\assets\vendor-->
         <!-- Theme CSS -->
-        <link id="style-switch" rel="stylesheet" type="text/css" href="assets/css/style.css">
+        <link id="style-switch" rel="stylesheet" type="text/css" href="../../assets/css/style.css">
         <!-- Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
 
