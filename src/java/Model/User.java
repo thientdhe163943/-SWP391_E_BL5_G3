@@ -12,6 +12,7 @@ import java.sql.Date;
  * @author Hayashi
  */
 public class User {
+
     private int userId;
     private String name;
     private Boolean gender;
@@ -22,7 +23,7 @@ public class User {
     private String avatar;
     private Integer accountId;
     private Boolean status;
-    
+
     private ArrayList<Request> requestList;
     private ArrayList<FreeTime> timeList;
     private ArrayList<CommentBlog> commentList;
@@ -41,10 +42,12 @@ public class User {
         this.avatar = avatar;
         this.accountId = accountId;
         this.status = status;
-        
+
     }
 
-    
+    public int getUserId() {
+        return userId;
+    }
 
     public void setUserId(int userId) {
         this.userId = userId;
@@ -146,5 +149,4 @@ public class User {
         this.commentList = commentList;
     }
 
-    
 }
