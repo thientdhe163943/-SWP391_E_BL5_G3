@@ -5,6 +5,9 @@
 
 package controller.mentor;
 
+import Dao.MentorDAO;
+import Model.Account;
+import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,38 +15,17 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  *
  * @author ADMIN
  */
 @WebServlet(name="DashBoardServlet", urlPatterns={"/mentor-dashboard"})
-public class DashBoardServlet extends HttpServlet {
-   
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet DashBoardServlet</title>");  
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet DashBoardServlet at " + request.getContextPath () + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    } 
-
+public class DashBoardServlet extends HttpServlet { 
+    
+    private final MentorDAO mentorDAO = new MentorDAO();
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
      * Handles the HTTP <code>GET</code> method.
@@ -55,6 +37,20 @@ public class DashBoardServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+//        HttpSession session = request.getSession();
+//        Account account = (Account) session.getAttribute("account");
+//        if(account == null){
+//            request.getRequestDispatcher("Login.jsp").forward(request, response);
+//            return;
+//        }
+        
+        User mentor = mentorDAO.getByAccountId(1);
+        List<User> menteeList = mentorDAO.getMenteesById(mentor.getUser_id());
+        int totalMentees = menteeList.size();
+        
+        request.setAttribute("totalMentees", totalMentees);
+        request.setAttribute("menteeList", menteeList);
+        request.setAttribute("mentor", mentor);
         request.getRequestDispatcher("view/mentor/mentor-dashboard.jsp").forward(request, response);
     } 
 
@@ -68,7 +64,7 @@ public class DashBoardServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+//        processRequest(request, response);
     }
 
     /** 

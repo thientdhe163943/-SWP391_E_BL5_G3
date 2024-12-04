@@ -57,22 +57,18 @@
                                     <!-- Avatar -->
                                     <div class="col-auto mt-4 mt-md-0">
                                         <div class="avatar avatar-xxl mt-n3">
-                                            <img class="avatar-img rounded-circle border border-white border-3 shadow" src="assets/images/avatar/01.jpg" alt="">
+                                            <img class="avatar-img rounded-circle border border-white border-3 shadow" src="assets/images/avatar/01.jpg" alt="Avatar">
                                         </div>
                                     </div>
                                     <!-- Profile info -->
                                     <div class="col d-md-flex justify-content-between align-items-center mt-4">
                                         <div>
-                                            <h1 class="my-1 fs-4">Lori Stevens <i class="bi bi-patch-check-fill text-info small"></i></h1>
+                                            <h1 class="my-1 fs-4">${mentor.name} <i class="bi bi-patch-check-fill text-info small"></i></h1>
                                             <ul class="list-inline mb-0">
                                                 <li class="list-inline-item h6 fw-light me-3 mb-1 mb-sm-0"><i class="fas fa-star text-warning me-2"></i>4.5/5.0</li>
-                                                <li class="list-inline-item h6 fw-light me-3 mb-1 mb-sm-0"><i class="fas fa-user-graduate text-orange me-2"></i>12k Enrolled Students</li>
-                                                <li class="list-inline-item h6 fw-light me-3 mb-1 mb-sm-0"><i class="fas fa-book text-purple me-2"></i>25 Courses</li>
+                                                <li class="list-inline-item h6 fw-light me-3 mb-1 mb-sm-0"><i class="fas fa-user-graduate text-orange me-2"></i>${totalMentees} Total Mentees</li>
+<!--                                                <li class="list-inline-item h6 fw-light me-3 mb-1 mb-sm-0"><i class="fas fa-book text-purple me-2"></i>25 Courses</li>-->
                                             </ul>
-                                        </div>
-                                        <!-- Button -->
-                                        <div class="d-flex align-items-center mt-2 mt-md-0">
-                                            <a href="instructor-create-course.html" class="btn btn-success mb-0">Create a course</a>
                                         </div>
                                     </div>
                                 </div>
@@ -113,8 +109,8 @@
                                         <span class="display-6 text-purple mb-0"><i class="fas fa-user-graduate fa-fw"></i></span>
                                         <div class="ms-4">
                                             <div class="d-flex">
-                                                <h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0" data-purecounter-end="${totalMentees}"	data-purecounter-delay="200">0</h5>
-                                                <span class="mb-0 h5">K+</span>
+                                                <h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0" data-purecounter-end="${totalMentees}"	data-purecounter-delay="100">0</h5>
+                                                <span class="mb-0 h5">+</span>
                                             </div>
                                             <span class="mb-0 h6 fw-light">Total Mentees</span>
                                         </div>
@@ -123,13 +119,26 @@
                                 <!-- Counter item -->
                                 <div class="col-sm-6 col-lg-4">
                                     <div class="d-flex justify-content-center align-items-center p-4 bg-info bg-opacity-10 rounded-3">
-                                        <span class="display-6 text-info mb-0"><i class="fas fa-gem fa-fw"></i></span>
+                                        <span class="display-6 mb-0"><i class="fas fa-hourglass-start fa-fw"></i></span>
                                         <div class="ms-4">
                                             <div class="d-flex">
-                                                <h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0" data-purecounter-end="12" data-purecounter-delay="300">0</h5>
+                                                <h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0" data-purecounter-end="12" data-purecounter-delay="100">0</h5>
                                                 <span class="mb-0 h5">K</span>
                                             </div>
-                                            <span class="mb-0 h6 fw-light">Enrolled Students</span>
+                                            <span class="mb-0 h6 fw-light">Current Invited Requests</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Counter item -->
+                                <div class="col-sm-6 col-lg-4">
+                                    <div class="d-flex justify-content-center align-items-center p-4 bg-info bg-opacity-10 rounded-3">
+                                        <span class="display-6 text-info mb-0"><i class="fas fa-spinner fa-fw"></i></span>
+                                        <div class="ms-4">
+                                            <div class="d-flex">
+                                                <h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0" data-purecounter-end="12" data-purecounter-delay="100">0</h5>
+                                                <span class="mb-0 h5">K</span>
+                                            </div>
+                                            <span class="mb-0 h6 fw-light">Accepted Requests</span>
                                         </div>
                                     </div>
                                 </div>
