@@ -8,12 +8,20 @@
         <servlet-name>MenteeProfileServlet</servlet-name>
         <servlet-class>controller.mentee.MenteeProfileServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MenteeRequestListServlet</servlet-name>
+        <servlet-class>controller.mentee.MenteeRequestListServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>viewCVServlet</servlet-name>
         <url-pattern>/viewCV</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>MenteeProfileServlet</servlet-name>
-        <url-pattern>/MenteeProfile</url-pattern>
+        <url-pattern>/Mentee/Profile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MenteeRequestListServlet</servlet-name>
+        <url-pattern>/Mentee/Home</url-pattern>
     </servlet-mapping>
 </web-app>

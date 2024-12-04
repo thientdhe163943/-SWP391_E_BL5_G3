@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 public class CV {
     private int cvId;
-    private int userId;
+    private User applicant;
     private String introduction;
     private Integer experience;
     
@@ -21,12 +21,9 @@ public class CV {
     public CV() {
     }
 
-    public void setCvId(int cvId) {
+    public CV(int cvId, User applicant, String introduction, Integer experience, ArrayList<Skill> cvSkillList) {
         this.cvId = cvId;
-    }
-
-    public CV(int userId, String introduction, Integer experience, ArrayList<Skill> cvSkillList) {
-        this.userId = userId;
+        this.applicant = applicant;
         this.introduction = introduction;
         this.experience = experience;
         this.cvSkillList = cvSkillList;
@@ -36,12 +33,16 @@ public class CV {
         return cvId;
     }
 
-    public int getUserId() {
-        return userId;
+    public void setCvId(int cvId) {
+        this.cvId = cvId;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public User getApplicant() {
+        return applicant;
+    }
+
+    public void setApplicant(User applicant) {
+        this.applicant = applicant;
     }
 
     public String getIntroduction() {

@@ -13,7 +13,7 @@ import java.sql.Date;
  */
 public class FreeTime {
     private int timeId;
-    private int userId;
+    private User user;
     private Time startTime;
     private Time endtime;
     private Date date;
@@ -22,28 +22,29 @@ public class FreeTime {
     public FreeTime() {
     }
 
-    public FreeTime(int userId, Time startTime, Time endtime, Date date, Boolean status) {
-        this.userId = userId;
+    public FreeTime(int timeId, User user, Time startTime, Time endtime, Date date, Boolean status) {
+        this.timeId = timeId;
+        this.user = user;
         this.startTime = startTime;
         this.endtime = endtime;
         this.date = date;
         this.status = status;
     }
 
-    public void setTimeId(int timeId) {
-        this.timeId = timeId;
-    }
-
     public int getTimeId() {
         return timeId;
     }
 
-    public int getUserId() {
-        return userId;
+    public void setTimeId(int timeId) {
+        this.timeId = timeId;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Time getStartTime() {

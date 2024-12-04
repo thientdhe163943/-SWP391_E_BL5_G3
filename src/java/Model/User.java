@@ -22,7 +22,7 @@ public class User extends BaseUser{
     private String avatar;
     private Integer accountId;
     private Boolean status;
-    
+
     private ArrayList<Request> requestList;
     private ArrayList<FreeTime> timeList;
     private ArrayList<CommentBlog> commentList;
@@ -67,41 +67,15 @@ public class User extends BaseUser{
         this.avatar = avatar;
         this.accountId = accountId;
         this.status = status;
-        
-    }
 
-    
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public ArrayList<CommentBlog> getCommentList() {
-        return commentList;
-    }
-
-    public void setCommentList(ArrayList<CommentBlog> commentList) {
-        this.commentList = commentList;
-    }
-
-    public ArrayList<Request> getRequestList() {
-        return requestList;
-    }
-
-    public void setRequestList(ArrayList<Request> requestList) {
-        this.requestList = requestList;
-    }
-
-    public ArrayList<FreeTime> getTimeList() {
-        return timeList;
-    }
-
-    public void setTimeList(ArrayList<FreeTime> timeList) {
-        this.timeList = timeList;
     }
 
     public int getUserId() {
         return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getName() {
@@ -148,8 +122,8 @@ public class User extends BaseUser{
         return email;
     }
 
-    public void setEmail(String gmail) {
-        this.email = gmail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getAvatar() {
@@ -176,10 +150,28 @@ public class User extends BaseUser{
         this.status = status;
     }
 
-    @Override
-    public String toString() {
-        return "User{" + "userId=" + userId + ", name=" + name + ", gender=" + gender + ", DOB=" + DOB + ", phone=" + phone + ", address=" + address + ", email=" + email + ", avatar=" + avatar + ", accountId=" + accountId + ", status=" + status + '}';
+    public ArrayList<Request> getRequestList() {
+        return requestList;
     }
-    
-    
+
+    public void setRequestList(ArrayList<Request> requestList) {
+        this.requestList = requestList;
+    }
+
+    public ArrayList<FreeTime> getTimeList() {
+        return timeList;
+    }
+
+    public void setTimeList(ArrayList<FreeTime> timeList) {
+        this.timeList = timeList;
+    }
+
+    public ArrayList<CommentBlog> getCommentList() {
+        return commentList;
+    }
+
+    public void setCommentList(ArrayList<CommentBlog> commentList) {
+        this.commentList = commentList;
+    }
+
 }
