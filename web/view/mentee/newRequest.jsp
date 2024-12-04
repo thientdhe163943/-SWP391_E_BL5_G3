@@ -47,7 +47,7 @@
                         </div>
                         
                         <div class="card-body">
-                            <form action="" method="POST">
+                            <form action="menteeNewRequest" method="POST">
                                 <div class="row g-4">
                                     <div class="col-12">
                                         <label class="form-label">Title</label>
