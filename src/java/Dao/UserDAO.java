@@ -163,6 +163,39 @@ public class UserDAO {
         }
         return user;
     }
+    
+    public User getUserByIdd(int id) {
+    String sql = "SELECT * FROM [User] WHERE user_id = ?";
+    User user = null;
+
+    // Sử dụng try-with-resources để đảm bảo tài nguyên sẽ được đóng tự động
+    try (Connection connection = new DBConnect().getConnection();
+         PreparedStatement ps = connection.prepareStatement(sql)) {
+
+        ps.setInt(1, id);
+        
+        try (ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                user = new User();
+                user.setUserId(rs.getInt("user_id"));
+                user.setAccountId(rs.getInt("account_id"));
+                user.setAddress(rs.getString("address"));
+                user.setName(rs.getString("name"));
+                user.setGender(rs.getBoolean("gender"));
+                user.setDOB(rs.getDate("DOB"));
+                user.setPhone(rs.getString("phone"));
+                user.setEmail(rs.getString("email"));
+                user.setAvatar(rs.getString("avatar"));
+                user.setStatus(rs.getBoolean("status"));
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return user;
+}
+
 
     public void insertUser(User user) {
         String sql = "insert into [User] values(?,?,?,?,?,?,?,?,?)";
@@ -386,6 +419,7 @@ public BaseUser validateUser(String username, String password) {
 }
 
 
+
     public static void main(String[] args) {
         UserDAO userDAO = new UserDAO();
         String username = "thientd";  // Thay thế bằng tên đăng nhập cần kiểm tra
@@ -400,6 +434,8 @@ public BaseUser validateUser(String username, String password) {
             if (user instanceof User_role) {
                 User_role userRole = (User_role) user;
                 System.out.println("Role ID: " + userRole.getRole_id());
+                User User=userDAO.getUserByIdd(userRole.getRole_id());
+                System.out.println("AVATAR: "+User.getAvatar());
             } else {
                 System.out.println("This user does not have a role.");
             }

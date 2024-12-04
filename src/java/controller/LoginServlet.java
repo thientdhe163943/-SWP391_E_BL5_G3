@@ -3,6 +3,7 @@ package controller;
 import Dao.AccountDAO;
 import Dao.UserDAO;
 import Model.BaseUser;
+import Model.User;
 import Model.User_role;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -26,7 +27,7 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         UserDAO daoUser = new UserDAO();
-
+        
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
@@ -35,18 +36,23 @@ public class LoginServlet extends HttpServlet {
 
         if (baseUser != null) {
             HttpSession session = request.getSession();
-            session.setAttribute("user", baseUser);
+            
 
             if (baseUser instanceof User_role) {
                 User_role userRole = (User_role) baseUser;
+                User user=daoUser.getUserByIdd(userRole.getRole_id());
+                        session.setAttribute("user", user);
                 switch (userRole.getRole_id()) {
                     case 1: // Role User
+                        
                         response.sendRedirect("home");
                         break;
                     case 2: // Role Mentor
+                        
                         response.sendRedirect("mentor");
                         break;
                     case 3: // Role Admin
+                        
                         response.sendRedirect("admin");
                         break;
                     default:
