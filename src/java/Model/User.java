@@ -29,11 +29,11 @@ public class User extends BaseUser{
 
     public User() {
     }
-
-    public User(int userId, String name) {
-        this.userId = userId;
-        this.name = name;
+   public User(int userId, String name) {
+        super(userId, name);
     }
+
+
 
     public User(int userId, String name, Boolean gender, Date DOB, String phone, String address, String email, String avatar) {
         this.userId = userId;

@@ -75,46 +75,6 @@ public class UserDAO {
         return list;
     }
 
-    public BaseUser validateUser(String username, String password) {
-    String sql = "SELECT u.user_id, u.name, ur.role_id " +
-                 "FROM Account a " +
-                 "INNER JOIN [User] u ON u.account_id = a.account_id " +
-                 "INNER JOIN User_role ur ON ur.user_id = u.user_id " +
-                 "WHERE a.username = ? AND a.password = ?";
-    
-    try (Connection connection = new DBConnect().getConnection()) {
-        if (connection == null) {
-            System.out.println("Database connection failed.");
-            return null; // Xử lý lỗi nếu kết nối không thành công
-        }
-
-        try (PreparedStatement ps = connection.prepareStatement(sql)) {
-            ps.setString(1, username);
-            ps.setString(2, password);
-
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    int userId = rs.getInt("user_id");
-                    String name = rs.getString("name");
-                    int roleId = rs.getInt("role_id");
-
-                    // Trả về đối tượng phù hợp dựa trên role_id
-                    if (roleId == 1) { // Role là User
-                        return new User(userId, name); // Trả về đối tượng User nếu là role "user"
-                    
-                    } else if (roleId == 3) { // Role là Admin
-                        return new BaseUser(userId, "Admin: " + name); // Trả về đối tượng BaseUser nếu là role "admin"
-                    }
-                }
-            }
-        }
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
-    return null; // Thông tin đăng nhập không hợp lệ
-}
-
-
     public User getUserByEmail(String email) {
         String sql = "SELECT * FROM [User] WHERE email = ?";
         User user = null;
@@ -372,31 +332,80 @@ public class UserDAO {
         return userList;
     }
 
-    public static void main(String[] args) throws SQLException {
-        UserDAO dao = new UserDAO();
-//        User_role ur=new User_role();
-        User acc = dao.getUserByAccountId(1);
-//        User acc = dao.updateUserInfo("thientddd", true, "2002/03/03", 0123123123, "phu tho", "asdasd", 1);
-//        dao.changePassword("123123", acc.getAccount_id());
-//        String email = " or ""="";
-//        Account test = dao.validateCustomer("'' or 1 = 1", "'' or 1 = 1");
-//        System.out.println(test);
-        if (acc != null) {
-            System.out.println(acc);
-        } else {
-            System.out.println("Customer not found.");
+//    public static void main(String[] args) throws SQLException {
+//        UserDAO dao = new UserDAO();
+////        User_role ur=new User_role();
+//        User acc = dao.getUserByAccountId(1);
+////        User acc = dao.updateUserInfo("thientddd", true, "2002/03/03", 0123123123, "phu tho", "asdasd", 1);
+////        dao.changePassword("123123", acc.getAccount_id());
+////        String email = " or ""="";
+////        Account test = dao.validateCustomer("'' or 1 = 1", "'' or 1 = 1");
+////        System.out.println(test);
+//        if (acc != null) {
+//            System.out.println(acc);
+//        } else {
+//            System.out.println("Customer not found.");
+//        }
+//
+//    }
+public BaseUser validateUser(String username, String password) {
+    String sql = "SELECT u.user_id, u.name, ur.role_id "
+               + "FROM Account a "
+               + "INNER JOIN [User] u ON u.account_id = a.account_id "
+               + "LEFT JOIN User_Role ur ON ur.user_id = u.user_id "
+               + "WHERE a.username = ? AND a.password = ?";
+    try (Connection connection = new DBConnect().getConnection()) {
+        if (connection == null) {
+            System.out.println("Database connection failed.");
+            return null;
         }
 
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, username);
+            ps.setString(2, password);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    int userId = rs.getInt("user_id");
+                    String name = rs.getString("name");
+                    int roleId = rs.getInt("role_id");
+
+                    // Kiểm tra nếu người dùng có vai trò
+                    if (roleId != 0) {
+                        return new User_role(userId, name, roleId); // Người dùng có vai trò
+                    } else {
+                        return new BaseUser(userId, name); // Người dùng không có vai trò
+                    }
+                }
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
-//    public static void main(String[] args) {
-//       
-//            UserDAO dao = new UserDAO();
-//            List<User> list=dao.getAllMentor();
-//            for (User o : list) {
-//                System.out.println(o);
-//        }
-//           
-//            
-//        
-//    }
+    return null; // Trả về null nếu không tìm thấy thông tin
+}
+
+
+    public static void main(String[] args) {
+        UserDAO userDAO = new UserDAO();
+        String username = "thientd";  // Thay thế bằng tên đăng nhập cần kiểm tra
+        String password = "123123";  // Thay thế bằng mật khẩu cần kiểm tra
+
+        BaseUser user = userDAO.validateUser(username, password);
+
+        if (user != null) {
+            System.out.println("User validated: " + user.getName());
+
+            // Kiểm tra nếu đối tượng là User_role
+            if (user instanceof User_role) {
+                User_role userRole = (User_role) user;
+                System.out.println("Role ID: " + userRole.getRole_id());
+            } else {
+                System.out.println("This user does not have a role.");
+            }
+        } else {
+            System.out.println("Invalid username or password.");
+        }
+    }
+
 }

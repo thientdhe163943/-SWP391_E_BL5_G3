@@ -1,11 +1,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
     <%@page import="Dao.*" %>
     <%@page import="Model.*" %>
     <%@page import="java.util.*" %>
-    
+
     <head>
         <title>Eduport - LMS, Education and Course Theme</title>
 
@@ -43,7 +44,7 @@
         %>
 
         <!-- Header START -->
-      <%@include file="./Header.jsp" %>   
+        <%@include file="./Header.jsp" %>   
         <!-- Header END -->
 
         <!-- **************** MAIN CONTENT START **************** -->
@@ -208,7 +209,7 @@
                 </div>
                 <!-- Content END -->
             </section>
-           
+
             <section>
                 <div class="container">
                     <!-- Title -->
@@ -235,33 +236,25 @@
                         <div class="tiny-slider arrow-round arrow-creative arrow-blur">
                             <div class="tiny-slider-inner" data-autoplay="true" data-arrow="true" data-dots="false" data-items="4" data-items-lg="3" data-items-md="2" data-items-xs="1">
                                 <c:forEach items="${listMentor}" var="o">
-                                    <!-- Card item START -->
                                     <div class="card bg-transparent">
                                         <div class="position-relative">
-                                            <!-- Image -->
                                             <img src="${o.avatar}" class="card-img" alt="course image">
-                                            <!-- Overlay -->
                                             <div class="card-img-overlay d-flex flex-column p-3">
                                                 <div class="w-100 mt-auto text-end">
-                                                    <!-- Card category -->
                                                     <a href="#" class="badge text-white bg-info rounded-1"><i class="fas fa-user-graduate me-2"></i>25</a>
                                                     <a href="#" class="badge text-white bg-orange rounded-1"><i class="fas fa-clipboard-list me-2"></i>15</a>
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- Card body -->
                                         <div class="card-body text-center">
-                                            <!-- Title -->
                                             <h5 class="card-title"><a href="#">${o.name}</a></h5>
                                             <p class="mb-2">Computer Teacher</p>
-                                            <!-- Rating -->
-
                                         </div>
                                     </div>
-                                    <!-- Card item END -->
                                 </c:forEach>
-                                    
-                                  
+
+
+
 
                             </div>
                         </div>
@@ -339,7 +332,7 @@
 
         <!-- =======================
         Footer START -->
-         <%@include file="./Footer.jsp" %>
+        <%@include file="./Footer.jsp" %>
         <!-- =======================
         Footer END -->
 

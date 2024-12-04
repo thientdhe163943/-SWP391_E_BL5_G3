@@ -37,6 +37,11 @@ public class BaseUser {
     public void setName(String name) {
         this.name = name;
     }
+
+    @Override
+    public String toString() {
+        return "BaseUser{" + "id=" + id + ", name=" + name + '}';
+    }
     
 }
 

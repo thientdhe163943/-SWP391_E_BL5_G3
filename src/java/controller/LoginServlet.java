@@ -4,7 +4,6 @@ import Dao.AccountDAO;
 import Dao.UserDAO;
 import Model.BaseUser;
 import Model.User_role;
-import Model.User;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -19,13 +18,13 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        // Redirect to login page if it's a GET request
         request.getRequestDispatcher("Login.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        AccountDAO daoAccount = new AccountDAO();
         UserDAO daoUser = new UserDAO();
 
         String username = request.getParameter("username");
@@ -40,28 +39,25 @@ public class LoginServlet extends HttpServlet {
 
             if (baseUser instanceof User_role) {
                 User_role userRole = (User_role) baseUser;
-
-                // Điều hướng dựa trên vai trò người dùng
                 switch (userRole.getRole_id()) {
-                    case 1: // User
+                    case 1: // Role User
                         response.sendRedirect("home");
                         break;
-                    case 2: // Mentor
+                    case 2: // Role Mentor
                         response.sendRedirect("mentor");
                         break;
-                    case 3: // Admin
+                    case 3: // Role Admin
                         response.sendRedirect("admin");
                         break;
                     default:
                         request.setAttribute("mess", "You do not have permission to access the system.");
                         request.getRequestDispatcher("Login.jsp").forward(request, response);
                 }
-            } else if (baseUser instanceof User) {
-                // Điều hướng mặc định cho User
-                response.sendRedirect("home");
+            } else {
+                response.sendRedirect("home"); // Người dùng không có vai trò
             }
         } else {
-            // Thông tin đăng nhập không hợp lệ
+            // Đăng nhập không thành công
             request.setAttribute("mess", "Username or password is incorrect.");
             request.getRequestDispatcher("Login.jsp").forward(request, response);
         }
@@ -69,6 +65,7 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "Handles user login and redirects based on roles";
     }
+
 }

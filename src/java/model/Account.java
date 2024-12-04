@@ -12,24 +12,33 @@ public class Account {
     private int accountId;
     private String username;
     private String password;
-    private int roleId;
+   private int role_id;
     public Account() {
     }
 
-    public Account(int accountId, String username, String password, int roleId) {
+    public Account(int accountId, String username, String password) {
         this.accountId = accountId;
         this.username = username;
         this.password = password;
-        this.roleId = roleId;
+       
     }
 
-    public int getRoleId() {
-        return roleId;
+    public Account(int accountId, String username, String password, int role_id) {
+        this.accountId = accountId;
+        this.username = username;
+        this.password = password;
+        this.role_id = role_id;
     }
 
-    public void setRoleId(int roleId) {
-        this.roleId = roleId;
+    public int getRole_id() {
+        return role_id;
     }
+
+    public void setRole_id(int role_id) {
+        this.role_id = role_id;
+    }
+
+
 
    
 
@@ -64,7 +73,9 @@ public class Account {
 
     @Override
     public String toString() {
-        return "Account{" + "accountId=" + accountId + ", username=" + username + ", password=" + password + ", roleId=" + roleId + '}';
+        return "Account{" + "accountId=" + accountId + ", username=" + username + ", password=" + password + '}';
     }
+
+    
     
 }
