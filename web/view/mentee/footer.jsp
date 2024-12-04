@@ -4,7 +4,7 @@
     Author     : Hayashi
 --%>
 <!-- Favicon -->
-<link rel="shortcut icon" href="../assets/images/favicon.ico">
+<link rel="shortcut icon" href="./assets/images/favicon.ico">
 
 <!-- Google Font -->
 <link rel="preconnect" href="https://fonts.googleapis.com/">
@@ -12,11 +12,11 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&amp;family=Roboto:wght@400;500;700&amp;display=swap">
 
 <!-- Plugins CSS -->
-<link rel="stylesheet" type="text/css" href="../assets/vendor/font-awesome/css/all.min.css">
-<link rel="stylesheet" type="text/css" href="../assets/vendor/bootstrap-icons/bootstrap-icons.css">
+<link rel="stylesheet" type="text/css" href="./assets/vendor/font-awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="./assets/vendor/bootstrap-icons/bootstrap-icons.css">
 
 <!-- Theme CSS -->
-<link id="style-switch" rel="stylesheet" type="text/css" href="../assets/css/style.css">
+<link id="style-switch" rel="stylesheet" type="text/css" href="./assets/css/style.css">
 
 <!-- =======================
 Footer START -->
@@ -27,7 +27,7 @@ Footer START -->
             <!-- Widget -->
             <div class="col-md-4 text-center text-md-start mb-3 mb-md-0">
                 <!-- Logo START -->
-                <a href="index-2.html"> <img class="h-20px" src="../assets/images/logo-light.svg" alt="logo"> </a>
+                <a href="index-2.html"> <img class="h-20px" src="./assets/images/logo-light.svg" alt="logo"> </a>
             </div>
 
             <!-- Widget -->
@@ -53,11 +53,11 @@ Footer START -->
 Footer END -->
 
 <!-- Bootstrap JS -->
-<script src="../assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="./assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
 <!-- Vendors -->
-<script src="../assets/vendor/choices/js/choices.min.js"></script>
-<script src="../assets/vendor/aos/aos.js"></script>
+<script src="./assets/vendor/choices/js/choices.min.js"></script>
+<script src="./assets/vendor/aos/aos.js"></script>
 
 <!-- Template Functions -->
-<script src="../assets/js/functions.js"></script>
+<script src="./assets/js/functions.js"></script>

@@ -5,7 +5,7 @@
 --%>
 <header class="navbar-light navbar-sticky">
     <!-- Favicon -->
-    <link rel="shortcut icon" href="../assets/images/favicon.ico">
+    <link rel="shortcut icon" href="./assets/images/favicon.ico">
 
     <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com/">
@@ -13,19 +13,19 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&amp;family=Roboto:wght@400;500;700&amp;display=swap">
 
     <!-- Plugins CSS -->
-    <link rel="stylesheet" type="text/css" href="../assets/vendor/font-awesome/css/all.min.css">
-    <link rel="stylesheet" type="text/css" href="../assets/vendor/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="./assets/vendor/font-awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="./assets/vendor/bootstrap-icons/bootstrap-icons.css">
 
     <!-- Theme CSS -->
-    <link id="style-switch" rel="stylesheet" type="text/css" href="../assets/css/style.css">
+    <link id="style-switch" rel="stylesheet" type="text/css" href="./assets/css/style.css">
 
     <!-- Logo Nav START -->
     <nav class="navbar navbar-expand-xl">
         <div class="container">
             <!-- Logo START -->
-            <a class="navbar-brand" href="Home">
-                <img class="light-mode-item navbar-brand-item" src="../assets/images/logo.svg" alt="logo">
-                <img class="dark-mode-item navbar-brand-item" src="../assets/images/logo-light.svg" alt="logo">
+            <a class="navbar-brand" href="mentee">
+                <img class="light-mode-item navbar-brand-item" src="./assets/images/logo.svg" alt="logo">
+                <img class="dark-mode-item navbar-brand-item" src="./assets/images/logo-light.svg" alt="logo">
             </a>
             <!-- Logo END -->
 
@@ -209,7 +209,7 @@
             <!-- Profile START -->
             <div class="dropdown ms-1 ms-lg-0">
                 <a class="avatar avatar-sm p-0" href="#" id="profileDropdown" role="button" data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img class="avatar-img rounded-circle" src="../assets/images/avatar/01.jpg" alt="avatar">
+                    <img class="avatar-img rounded-circle" src="./assets/images/avatar/01.jpg" alt="avatar">
                 </a>
                 <ul class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3" aria-labelledby="profileDropdown">
                     <!-- Profile info -->
@@ -217,7 +217,7 @@
                         <div class="d-flex align-items-center">
                             <!-- Avatar -->
                             <div class="avatar me-3">
-                                <img class="avatar-img rounded-circle shadow" src="../assets/images/avatar/01.jpg" alt="avatar">
+                                <img class="avatar-img rounded-circle shadow" src="./assets/images/avatar/01.jpg" alt="avatar">
                             </div>
                             <div>
                                 <a class="h6" href="#">Lori Ferguson</a>
@@ -239,14 +239,14 @@
     <!-- Logo Nav END -->
 
     <!-- Bootstrap JS -->
-    <script src="../assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Vendors -->
-    <script src="../assets/vendor/choices/js/choices.min.js"></script>
-    <script src="../assets/vendor/aos/aos.js"></script>
+    <script src="./assets/vendor/choices/js/choices.min.js"></script>
+    <script src="./assets/vendor/aos/aos.js"></script>
 
     <!-- Template Functions -->
-    <script src="../assets/js/functions.js"></script>
+    <script src="./assets/js/functions.js"></script>
 
 </header>
 <!-- Header END -->

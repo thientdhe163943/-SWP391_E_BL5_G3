@@ -12,6 +12,10 @@
         <servlet-name>MenteeRequestListServlet</servlet-name>
         <servlet-class>controller.mentee.MenteeRequestListServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MenteeRequestSortServlet</servlet-name>
+        <servlet-class>controller.mentee.MenteeRequestSortServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>viewCVServlet</servlet-name>
         <url-pattern>/viewCV</url-pattern>
@@ -22,6 +26,10 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>MenteeRequestListServlet</servlet-name>
-        <url-pattern>/Mentee/Home</url-pattern>
+        <url-pattern>/mentee</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MenteeRequestSortServlet</servlet-name>
+        <url-pattern>/menteeSort</url-pattern>
     </servlet-mapping>
 </web-app>
