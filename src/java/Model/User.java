@@ -11,7 +11,7 @@ import java.sql.Date;
  *
  * @author Hayashi
  */
-public class User {
+public class User extends BaseUser{
     private int userId;
     private String name;
     private Boolean gender;
