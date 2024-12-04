@@ -5,6 +5,7 @@
 package controller.mentee;
 
 import Dao.RequestDAO;
+import Model.Request;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,14 +13,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
-import Model.Request;
-import java.util.Collections;
 
 /**
  *
  * @author Hayashi
  */
-public class MenteeRequestListServlet extends HttpServlet {
+public class MenteeRequestSortServlet extends HttpServlet {
+
+    private final RequestDAO dao = new RequestDAO();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,10 +39,10 @@ public class MenteeRequestListServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet MenteeRequestListServlet</title>");
+            out.println("<title>Servlet MenteeRequestSortServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet MenteeRequestListServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet MenteeRequestSortServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -58,12 +59,7 @@ public class MenteeRequestListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDAO dao = new RequestDAO();
-        ArrayList<Request> requestList = dao.getAllRequests();
-
-        request.setAttribute("requestList", requestList);
-
-        request.getRequestDispatcher("./view/mentee/home.jsp").forward(request, response);
+        
     }
 
     /**
@@ -77,6 +73,35 @@ public class MenteeRequestListServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        ArrayList<Request> requestList = dao.getAllRequests();
+
+        String sortOrder = request.getParameter("sortOrder");
+
+        if (requestList == null) {
+            request.setAttribute("error", "There are no requests");
+            request.setAttribute("requestList", requestList);
+            request.getRequestDispatcher("view/mentee/home.jsp").forward(request, response);
+        }
+        else if (sortOrder == null || sortOrder.isEmpty()) {
+            request.setAttribute("requestList", requestList);
+            request.getRequestDispatcher("./view/mentee/home.jsp").forward(request, response);
+        } else if (sortOrder.equalsIgnoreCase("title")) {
+            requestList.sort((r1, r2) -> r1.getTitle().compareToIgnoreCase(r2.getTitle()));
+            request.setAttribute("requestList", requestList);
+            request.getRequestDispatcher("./view/mentee/home.jsp").forward(request, response);
+        } else if (sortOrder.equalsIgnoreCase("mentor")) {
+            requestList.sort((r1, r2) -> r1.getMentor().getName().compareToIgnoreCase(r2.getMentor().getName()));
+            request.setAttribute("requestList", requestList);
+            request.getRequestDispatcher("./view/mentee/home.jsp").forward(request, response);
+        } else if (sortOrder.equalsIgnoreCase("deadline")) {
+            requestList.sort((r1, r2) -> r1.getDeadline().compareTo(r2.getDeadline()));
+            request.setAttribute("requestList", requestList);
+            request.getRequestDispatcher("./view/mentee/home.jsp").forward(request, response);
+        } else {
+            String error = "Request not found";
+            request.setAttribute("error", error);
+            request.getRequestDispatcher("./view/mentee/home.jsp").forward(request, response);
+        }
     }
 
 }
