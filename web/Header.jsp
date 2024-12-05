@@ -84,7 +84,7 @@
                     </div>
                     <!-- Main navbar END -->
 
-                  
+
                     <!-- Profile START -->
                     <div class="dropdown ms-1 ms-lg-0">
                         <a class="avatar avatar-sm p-0" href="#" id="profileDropdown" role="button" data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false">
@@ -92,21 +92,45 @@
                         </a>
                         <ul class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3" aria-labelledby="profileDropdown">
                             <!-- Profile info -->
+                            <% if (user != null) { %>
                             <li class="px-3">
                                 <div class="d-flex align-items-center">
                                     <!-- Avatar -->
                                     <div class="avatar me-3">
-                                        <img class="avatar-img rounded-circle shadow" src="assets/images/avatar/<%=user.getAvatar()%>" alt="avatar">
+                                        <img class="avatar-img rounded-circle shadow" 
+                                             src="assets/images/avatar/<%= (user.getAvatar() != null ? user.getAvatar() : "default-avatar.png") %>" 
+                                             alt="avatar">
                                     </div>
                                     <div>
-                                        <a class="h6" href="#"><%=user.getName()%></a>
-                                        <p class="small m-0"><%=user.getEmail()%></p>
+                                        <a class="h6" href="#">
+                                            <%= (user.getName() != null ? user.getName() : "Unknown User") %>
+                                        </a>
+                                        <p class="small m-0">
+                                            <%= (user.getEmail() != null ? user.getEmail() : "No email available") %>
+                                        </p>
                                     </div>
                                 </div>
                                 <hr>
                             </li>
+                            <% } else { %>
+                            <li class="px-3">
+                                <div class="d-flex align-items-center">
+                                    <!-- Tr??ng h?p user là null -->
+                                    <div class="avatar me-3">
+                                        <img class="avatar-img rounded-circle" src="assets/images/avatar/01.jpg" alt="avatar">
+                                    </div>
+                                    <div>
+                                        <a class="h6" href="#">Guest</a>
+                                        <p class="small m-0">No email available</p>
+                                    </div>
+                                </div>
+                                <hr>
+                            </li>
+                            <% } %>
+
+
                             <!-- Links -->
-                            <li><a class="dropdown-item" href="#"><i class="bi bi-person fa-fw me-2"></i>Edit Profile</a></li>
+                            <li><a class="dropdown-item" href="Profile.jsp"><i class="bi bi-person fa-fw me-2"></i>Edit Profile</a></li>
                             <li><a class="dropdown-item" href="#"><i class="bi bi-gear fa-fw me-2"></i>Account Settings</a></li>
                             <li><a class="dropdown-item" href="#"><i class="bi bi-info-circle fa-fw me-2"></i>Help</a></li>
                             <li><a class="dropdown-item bg-danger-soft-hover" href="logout"><i class="bi bi-power fa-fw me-2"></i>Sign Out</a></li>
@@ -123,13 +147,13 @@
                             <!-- Dark mode switch END -->
                         </ul>
                     </div>
-                    
+
                 </div>
             </nav>
-            
+
             <!-- Logo Nav END -->
         </header>
-        
+
         <!-- Header END -->
 
     </body>

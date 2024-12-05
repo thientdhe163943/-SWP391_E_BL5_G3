@@ -6,6 +6,7 @@ package Dao;
 
 import DB.DBConnect;
 import Model.Account;
+import com.sun.jdi.connect.spi.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -127,18 +128,73 @@ public class AccountDAO extends DBConnect {
 
         }
     }
-     public static void main(String[] args) throws SQLException {
-        AccountDAO dao = new AccountDAO();
-        Account acc = dao.getAccountByEmail("thientrieu20002@gmail.com");
-//        dao.changePassword("123123", acc.getAccount_id());
-//        String email = " or ""="";
-//        Account test = dao.validateCustomer("'' or 1 = 1", "'' or 1 = 1");
-//        System.out.println(test);
-        if (acc != null) {
-            System.out.println(acc);
-        } else {
-            System.out.println("Customer not found.");
-        }
+//     public static void main(String[] args) throws SQLException {
+//        AccountDAO dao = new AccountDAO();
+//        Account acc = dao.getAccountByEmail("thientrieu20002@gmail.com");
+////        dao.changePassword("123123", acc.getAccount_id());
+////        String email = " or ""="";
+////        Account test = dao.validateCustomer("'' or 1 = 1", "'' or 1 = 1");
+////        System.out.println(test);
+//        if (acc != null) {
+//            System.out.println(acc);
+//        } else {
+//            System.out.println("Customer not found.");
+//        }
+//
+//    }
+public Account addAccount(String username, String password) {
+    String sql = "INSERT INTO Account (username, password) VALUES (?, ?)";
+    Account account = null;
 
+    try (java.sql.Connection connection = new DBConnect().getConnection();
+         PreparedStatement ps = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+
+        // Thiết lập các tham số cho câu lệnh SQL
+        ps.setString(1, username);
+        ps.setString(2, password);
+
+        // Thực thi câu lệnh
+        int rowsInserted = ps.executeUpdate(); // Thực thi câu lệnh trước khi lấy khóa
+
+        if (rowsInserted > 0) {
+            try (ResultSet generatedKeys = ps.getGeneratedKeys()) { // Lấy khóa tự sinh
+                if (generatedKeys.next()) {
+                    int id = generatedKeys.getInt(1); // Lấy giá trị ID tự động sinh
+                    account = new Account(id, username, password); // Tạo đối tượng Account
+                    System.out.println("Account added successfully with ID: " + id);
+                }
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
+
+    return account; // Trả về null nếu không thêm được
+}
+
+
+
+ 
+    public static void main(String[] args) {
+    AccountDAO accountDAO = new AccountDAO();
+    UserDAO userDAO = new UserDAO();
+    
+    String username = "thi";
+    String password = "123";
+
+    Account result = accountDAO.addAccount(username, password);
+
+    if (result != null) { // Kiểm tra xem account có được tạo thành công không
+        boolean result1 = userDAO.addUser(result.getAccountId());
+        if (result1) {
+            System.out.println("Account and user added successfully!");
+        } else {
+            System.out.println("Failed to add user.");
+        }
+    } else {
+        System.out.println("Failed to add account.");
+    }
+}
+
+
 }

@@ -36,12 +36,7 @@
     </head>
 
     <body>
-        <%
-        User User = null;
-        if(session.getAttribute("User") != null) {
-            User = (User)session.getAttribute("User");
-        }
-        %>
+   
 
         <!-- Header START -->
         <%@include file="./Header.jsp" %>   

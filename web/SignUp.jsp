@@ -74,38 +74,58 @@
                             <div class="row my-5">
                                 <div class="col-sm-10 col-xl-8 m-auto">
                                     <!-- Title -->
-                                   
-                                    <h1 class="fs-2">Login into Eduport!</h1>
-                                    <p class="lead mb-4">Nice to see you! Please log in with your account.</p>
+                                  
 
                                     <!-- Form START -->
-                                    <form action="login" method="post" class="mx-auto">
+                                    <form action="signup" method="post" class="mx-auto">
                                         <div class="bg-white p-5 form-login">
-                                            
-                                            <div class="border-bottom">
-                                                <span class="fs-5 fw-bold text-black-weak">Username</span>
-                                                <div class="d-flex align-items-center fs-4 mt-3">
-                                                    <i class='bx bx-user'></i>
-                                                    <input type="text" name="username" placeholder="Username" class="w-100 py-4 outline-0 border-0 ms-3" required />
+                                            <h1 class="text-center fw-bold">Sign up</h1>
+                                            <div class="">
+                                                <div class="d-flex mt-5">
+                                                    <div class="me-3">
+                                                        <div class="d-flex align-items-center fs-4 mt-3">
+                                                            <input type="text" placeholder="Username" 
+                                                                   style="${(username.equals("error")) ? "border-bottom: 1px solid red !important;" : ''}"
+                                                                   value="${!username.equals("error")?username:""}" name="username"
+                                                                   class="w-100 py-4 outline-0 border-0 ms-3 border-bottom" />
+                                                        </div>
+                                                    </div>
+
                                                 </div>
-                                            </div>
-                                            <div class="border-bottom mt-5">
-                                                <span class="fs-5 fw-bold text-black-weak">Password</span>
-                                                <div class="d-flex align-items-center fs-4 mt-3">
-                                                    <i class='bx bx-lock'></i>
-                                                    <input type="password" name="password" placeholder="Password" class="w-100 py-4 outline-0 border-0 ms-3" required />
+                                             
+                                               
+                                                <div class="border-bottom mt-5">
+                                                    <div class="d-flex align-items-center fs-4 mt-3">
+                                                        <i class='bx bx-lock'></i>
+                                                        <input type="password" placeholder="Password" 
+                                                               ${password.equals("error")?"style='style=border-bottom: 1px solid red !important;'":""}
+                                                               value="${!password.equals("error")?password:""}"
+                                                               name="password"
+                                                               class="w-100 py-4 outline-0 border-0 ms-3" />
+                                                    </div>
+                                                </div>
+                                                <div class="border-bottom mt-5">
+                                                    <div class="d-flex align-items-center fs-4 mt-3">
+                                                        <i class='bx bx-lock'></i>
+                                                        <input type="password" placeholder="Confirm Password" name="confirmPassword"
+                                                               class="w-100 py-4 outline-0 border-0 ms-3" />
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="text-center mt-3 fs-5">
-                                                <div class="form-group">
-                                                    <a href="forgotPassword.jsp" style="color: blue" >Forgot Password?</a>
-                                                </div>
-                                                Do you want to create an account? <a href="signup" class="text-black-weak text-info">Sign up</a>
+                                                Already have an account?
+                                                <a href="login" class="text-black-weak text-info">Login</a>
                                             </div>
-                                            <button type="submit" class="d-flex align-items-center justify-content-center mt-5 fw-bold py-2 fs-4 px-5 btn bg-danger text-white mx-auto">Submit</button>
+                                            <button type="submit" class="border-0 rounded-xl fs-4 fw-bold w-100
+                                                    text-white py-3 mt-3 bg-red text-center bg-danger">
+                                                Sign up
+                                            </button>
+                                            <p class="text-center mt-3" style="color: red">${message}</p>
                                         </div>
                                     </form>
-                                    <div class="error-message">${mess!=null?mess:""}</div>
+                                    <!-- Form END -->
+
+                                   
                                 </div>
                             </div> <!-- Row END -->
                         </div>
