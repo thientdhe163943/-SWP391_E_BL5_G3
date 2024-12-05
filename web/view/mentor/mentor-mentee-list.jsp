@@ -103,43 +103,47 @@
 
                                             <!-- Table body START -->
                                             <tbody>
-                                                <!-- Table item -->
-                                                <tr>
-                                                    <!-- Table data -->
-                                                    <td>
-                                                        <div class="d-flex align-items-center position-relative">
-                                                            <!-- Image -->
-                                                            <div class="avatar avatar-md mb-2 mb-md-0">
-                                                                <img src="assets/images/avatar/01.jpg" class="rounded" alt="">
-                                                            </div>
-                                                            <div class="mb-0 ms-2">
-                                                                <!-- Title -->
-                                                                <h6 class="mb-0"><a href="#" class="stretched-link">Lori Stevens</a></h6>
-                                                                <!-- Address -->
-                                                                <span class="text-body small"><i class="fas fa-fw fa-map-marker-alt me-1 mt-1"></i>Mumbai</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-
-                                                    <!-- Table data -->
-                                                    <td class="text-center text-sm-start">
-                                                        <div class=" overflow-hidden">
-                                                            <h6 class="mb-0">85%</h6>
-                                                            <div class="progress progress-sm bg-primary bg-opacity-10">
-                                                                <div class="progress-bar bg-primary aos" role="progressbar" data-aos="slide-right" data-aos-delay="200" data-aos-duration="1000" data-aos-easing="ease-in-out" style="width: 85%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">
+                                                <c:forEach items="${menteeList}" var="mentee">
+                                                    <!-- Table item -->
+                                                    <tr>
+                                                        <!-- Table data -->
+                                                        <td>
+                                                            <div class="d-flex align-items-center position-relative">
+                                                                <!-- Image -->
+                                                                <div class="avatar avatar-md mb-2 mb-md-0">
+                                                                    <img src="assets/images/avatar/01.jpg" class="rounded" alt="">
+                                                                </div>
+                                                                <div class="mb-0 ms-2">
+                                                                    <!-- Name -->
+                                                                    <h6 class="mb-0"><a href="#" class="stretched-link">${mentee.name}</a></h6>
+                                                                    <!-- Address -->
+                                                                    <!--                                                                    <span class="text-body small"><i class="fas fa-fw fa-map-marker-alt me-1 mt-1"></i>Mumbai</span>-->
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    </td>
+                                                        </td>
 
-                                                    <!-- Table data -->
-                                                    <td>10</td>
+                                                        <!-- Table data -->
+                                                        <!--Completed Requests-->
+                                                        <td class="text-center text-sm-start">
+                                                            <div class=" overflow-hidden">
+                                                                <h6 class="mb-0">85%</h6>
+                                                                <div class="progress progress-sm bg-primary bg-opacity-10">
+                                                                    <div class="progress-bar bg-primary aos" role="progressbar" data-aos="slide-right" data-aos-delay="200" data-aos-duration="1000" data-aos-easing="ease-in-out" style="width: 85%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
 
-                                                    <!-- Table data -->
-                                                    <td>
-                                                        <a href="#" class="btn btn-success-soft btn-round me-1 mb-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Message"><i class="far fa-envelope"></i></a>
-                                                    </td>
-                                                </tr>
+                                                        <!-- Table data -->
+                                                        <!--Requests-->
+                                                        <td>10</td>
+
+                                                        <!-- Table data -->
+                                                        <td>
+                                                            <a href="#" class="btn btn-success-soft btn-round me-1 mb-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Requests"><i class="far fa-solid fa-paper-plane"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                </c:forEach>
                                             </tbody>
                                             <!-- Table body END -->
                                         </table>
@@ -154,9 +158,9 @@
                                         <nav class="d-flex justify-content-center mb-0" aria-label="navigation">
                                             <ul class="pagination pagination-sm pagination-primary-soft mb-0 pb-0">
                                                 <li class="page-item mb-0"><a class="page-link" href="#" tabindex="-1"><i class="fas fa-angle-left"></i></a></li>
-                                                <li class="page-item mb-0"><a class="page-link" href="#">1</a></li>
-                                                <li class="page-item mb-0 active"><a class="page-link" href="#">2</a></li>
-                                                <li class="page-item mb-0"><a class="page-link" href="#">3</a></li>
+                                                        <c:forEach begin="1" end="${totalPage}" var="i">
+                                                    <li class="page-item mb-0 page-number active"><a class="page-link" href="mentor-mentee-list?index=${i}">${i}</a></li>
+                                                    </c:forEach>
                                                 <li class="page-item mb-0"><a class="page-link" href="#"><i class="fas fa-angle-right"></i></a></li>
                                             </ul>
                                         </nav>
@@ -222,5 +226,25 @@
 
         <!-- Template Functions -->
         <script src="assets/js/functions.js"></script>
+        <script>
+            // Lấy URL hiện tại
+            const currentUrl = window.location.href;
+
+            // Lấy tất cả các phần tử có class 'list-group-item'
+            const navLinks = document.querySelectorAll('.page-number');
+
+            navLinks.forEach(link => {
+                // Nếu URL của link trùng với URL hiện tại
+                if (link.href === currentUrl) {
+                    link.classList.add('active'); // Thêm class 'active'
+                }
+
+                // Thêm sự kiện click để chuyển trạng thái 'active'
+                link.addEventListener('click', function () {
+                    navLinks.forEach(item => item.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+        </script>
     </body>
 </html>

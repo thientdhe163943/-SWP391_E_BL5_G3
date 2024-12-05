@@ -21,7 +21,7 @@
                 <div class="bg-dark border rounded-3 pb-0 p-3 w-100">
                     <!-- Dashboard menu -->
                     <div class="list-group list-group-dark list-group-borderless">
-                        <a class="list-group-item active" href="mentor-dashboard"><i class="bi bi-ui-checks-grid fa-fw me-2"></i>Dashboard</a>
+                        <a class="list-group-item" href="mentor-dashboard"><i class="bi bi-ui-checks-grid fa-fw me-2"></i>Dashboard</a>
                         <a class="list-group-item" href="mentor-mentee-list"><i class="bi bi-people fa-fw me-2"></i>Mentees</a>
                         <a class="list-group-item" href="mentor-review"><i class="bi bi-star fa-fw me-2"></i>Reviews</a>
                         <a class="list-group-item" href="profile"><i class="bi bi-pencil-square fa-fw me-2"></i>Edit Profile</a>
@@ -35,3 +35,24 @@
     <!-- Responsive offcanvas body END -->
 </div>
 <!-- Left sidebar END -->
+
+<script>
+    // Lấy URL hiện tại
+    const currentUrl = window.location.href;
+
+// Lấy tất cả các phần tử có class 'list-group-item'
+    const navLinks = document.querySelectorAll('.list-group-item');
+
+    navLinks.forEach(link => {
+        // Nếu URL của link trùng với URL hiện tại
+        if (link.href === currentUrl) {
+            link.classList.add('active'); // Thêm class 'active'
+        }
+
+        // Thêm sự kiện click để chuyển trạng thái 'active'
+        link.addEventListener('click', function () {
+            navLinks.forEach(item => item.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+</script>
