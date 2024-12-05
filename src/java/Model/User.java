@@ -11,39 +11,68 @@ import java.sql.Date;
  *
  * @author Hayashi
  */
-public class User {
+public class User extends BaseUser{
     private int userId;
     private String name;
     private Boolean gender;
     private Date DOB;
     private String phone;
     private String address;
-    private String gmail;
+    private String email;
     private String avatar;
     private Integer accountId;
     private Boolean status;
-    
+
     private ArrayList<Request> requestList;
     private ArrayList<FreeTime> timeList;
     private ArrayList<CommentBlog> commentList;
 
     public User() {
     }
+   public User(int userId, String name) {
+        super(userId, name);
+    }
 
-    public User(int userId, String name, Boolean gender, Date DOB, String phone, String address, String gmail, String avatar, Integer accountId, Boolean status, ArrayList<Request> requestList, ArrayList<FreeTime> timeList, ArrayList<CommentBlog> commentList) {
+
+
+    public User(int userId, String name, Boolean gender, Date DOB, String phone, String address, String email, String avatar) {
         this.userId = userId;
         this.name = name;
         this.gender = gender;
         this.DOB = DOB;
         this.phone = phone;
         this.address = address;
-        this.gmail = gmail;
+        this.email = email;
+        this.avatar = avatar;
+    }
+    
+    public User(int userId, String name, Boolean gender, Date DOB, String phone, String address, String email, String avatar, Integer accountId) {
+        this.userId = userId;
+        this.name = name;
+        this.gender = gender;
+        this.DOB = DOB;
+        this.phone = phone;
+        this.address = address;
+        this.email = email;
+        this.avatar = avatar;
+        this.accountId = accountId;
+        
+        
+    }
+
+
+    public User(int userId, String name, Boolean gender, Date DOB, String phone, String address, String email, String avatar, Integer accountId, Boolean status) {
+        this.userId = userId;
+        this.name = name;
+        this.gender = gender;
+        this.DOB = DOB;
+        this.phone = phone;
+        this.address = address;
+        this.email = email;
         this.avatar = avatar;
         this.accountId = accountId;
         this.status = status;
-        this.requestList = requestList;
-        this.timeList = timeList;
-        this.commentList = commentList;
+
     }
 
     public int getUserId() {
@@ -94,12 +123,12 @@ public class User {
         this.address = address;
     }
 
-    public String getGmail() {
-        return gmail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setGmail(String gmail) {
-        this.gmail = gmail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getAvatar() {
@@ -150,5 +179,4 @@ public class User {
         this.commentList = commentList;
     }
 
-    
 }
