@@ -23,6 +23,7 @@
                     <div class="list-group list-group-dark list-group-borderless">
                         <a class="list-group-item" href="mentor-dashboard"><i class="bi bi-ui-checks-grid fa-fw me-2"></i>Dashboard</a>
                         <a class="list-group-item" href="mentor-mentee-list"><i class="bi bi-people fa-fw me-2"></i>Mentees</a>
+                        <a class="list-group-item" href="mentor-request-list"><i class="bi bi-people fa-fw me-2"></i>Requests</a>
                         <a class="list-group-item" href="mentor-review"><i class="bi bi-star fa-fw me-2"></i>Reviews</a>
                         <a class="list-group-item" href="profile"><i class="bi bi-pencil-square fa-fw me-2"></i>Edit Profile</a>
                         <a class="list-group-item" href="instructor-delete-account.html"><i class="bi bi-trash fa-fw me-2"></i>Delete Profile</a>

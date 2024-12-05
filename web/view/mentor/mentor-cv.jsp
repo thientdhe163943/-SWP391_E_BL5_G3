@@ -466,7 +466,7 @@
                                 </li>
                                 <li class="list-group-item px-0">
                                     <span class="h6 fw-light"><i class="fas fa-fw fa-envelope text-primary me-1 me-sm-3"></i>Email:</span>
-                                    <span>${mentor.gmail}</span>
+                                    <span>${mentor.email}</span>
                                 </li>
                                 <li class="list-group-item px-0">
                                     <span class="h6 fw-light"><i class="fas fa-fw fa-headphones text-primary me-1 me-sm-3"></i>Phone number:</span>

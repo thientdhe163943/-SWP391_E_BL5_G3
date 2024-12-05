@@ -90,6 +90,43 @@ public class RequestDAO {
 
         return requestList;
     }
+    
+    public ArrayList<Request> getRequestsByMentor(int mentorId) {
+        ArrayList<Request> requestList = null;
+        String sql = "SELECT * from Request where mentor_id = ?";
+
+        try {
+            Connection connection = db.getConnection();
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, mentorId);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                if (requestList == null) {
+                    requestList = new ArrayList<>();
+                }
+
+                Request request = new Request();
+                request.setRequestId(rs.getInt("request_id"));
+                request.setTitle(rs.getString("title"));
+                request.setDeadline(rs.getDate("deadline"));
+                request.setContent(rs.getString("content"));
+                request.setMentor(userDao.getUserById(rs.getInt("mentor_id")));
+                request.setMentee(userDao.getUserById(rs.getInt("mentee_id")));
+                request.setStatus(rs.getInt("status"));
+                requestList.add(request);
+            }
+
+            rs.close();
+            ps.close();
+            connection.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return requestList;
+    }
 
     public void addRequest(Request request) {
         String sql = "INSERT INTO Request values(?, ?, ?, ?, ?, ?)";

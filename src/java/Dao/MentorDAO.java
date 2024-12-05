@@ -37,7 +37,7 @@ public class MentorDAO extends DBConnect {
                 mentor.setGender(rs.getBoolean("gender"));
                 mentor.setDOB(rs.getDate("DOB"));
                 mentor.setPhone(rs.getString("phone"));
-                mentor.setGmail(rs.getString("email"));
+                mentor.setEmail(rs.getString("email"));
                 mentor.setAvatar(rs.getString("avatar"));
                 mentor.setStatus(rs.getBoolean("status"));
                 // Map rs to Object fields here
@@ -65,7 +65,7 @@ public class MentorDAO extends DBConnect {
                 user.setGender(rs.getBoolean("gender"));
                 user.setDOB(rs.getDate("DOB"));
                 user.setPhone(rs.getString("phone"));
-                user.setGmail(rs.getString("email"));
+                user.setEmail(rs.getString("email"));
                 user.setAvatar(rs.getString("avatar"));
                 user.setStatus(rs.getBoolean("status"));
             }
@@ -95,7 +95,7 @@ public class MentorDAO extends DBConnect {
                 user.setGender(rs.getBoolean("gender"));
                 user.setDOB(rs.getDate("DOB"));
                 user.setPhone(rs.getString("phone"));
-                user.setGmail(rs.getString("email"));
+                user.setEmail(rs.getString("email"));
                 user.setAvatar(rs.getString("avatar"));
                 user.setStatus(rs.getBoolean("status"));
             }
@@ -134,7 +134,7 @@ public class MentorDAO extends DBConnect {
                 mentor.setGender(rs.getBoolean("gender"));
                 mentor.setDOB(rs.getDate("DOB"));
                 mentor.setPhone(rs.getString("phone"));
-                mentor.setGmail(rs.getString("email"));
+                mentor.setEmail(rs.getString("email"));
                 mentor.setAvatar(rs.getString("avatar"));
                 mentor.setStatus(rs.getBoolean("status"));
                 // Map rs to Object fields here
@@ -179,7 +179,7 @@ public class MentorDAO extends DBConnect {
                 mentor.setGender(rs.getBoolean("gender"));
                 mentor.setDOB(rs.getDate("DOB"));
                 mentor.setPhone(rs.getString("phone"));
-                mentor.setGmail(rs.getString("email"));
+                mentor.setEmail(rs.getString("email"));
                 mentor.setAvatar(rs.getString("avatar"));
                 mentor.setStatus(rs.getBoolean("status"));
                 // Map rs to Object fields here
