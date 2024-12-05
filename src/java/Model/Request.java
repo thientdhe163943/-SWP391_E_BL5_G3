@@ -4,35 +4,31 @@
  */
 package Model;
 
-import java.util.Date;
+import java.sql.Date;
 
 /**
  *
  * @author Hayashi
  */
 public class Request {
+
     private int requestId;
     private String title;
     private Date deadline;
     private String content;
-    private int mentorId;
-    private int menteeId;
-    private boolean status;
+    private User mentor;
+    private User mentee;
+    private int status;
 
     public Request() {
     }
 
-    public Request(String title, Date deadline, String content, int mentorId, int menteeId, boolean status) {
-        this.title = title;
-        this.deadline = deadline;
-        this.content = content;
-        this.mentorId = mentorId;
-        this.menteeId = menteeId;
-        this.status = status;
-    }
-
     public int getRequestId() {
         return requestId;
+    }
+
+    public void setRequestId(int requestId) {
+        this.requestId = requestId;
     }
 
     public String getTitle() {
@@ -59,27 +55,28 @@ public class Request {
         this.content = content;
     }
 
-    public int getMentorId() {
-        return mentorId;
+    public User getMentor() {
+        return mentor;
     }
 
-    public void setMentorId(int mentorId) {
-        this.mentorId = mentorId;
+    public void setMentor(User mentor) {
+        this.mentor = mentor;
     }
 
-    public int getMenteeId() {
-        return menteeId;
+    public User getMentee() {
+        return mentee;
     }
 
-    public void setMenteeId(int menteeId) {
-        this.menteeId = menteeId;
+    public void setMentee(User mentee) {
+        this.mentee = mentee;
     }
 
-    public boolean isStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(int status) {
         this.status = status;
     }
+
 }

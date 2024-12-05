@@ -153,7 +153,7 @@
                                     <!-- Pagination START -->
                                     <div class="d-sm-flex justify-content-sm-between align-items-sm-center mt-4 mt-sm-3">
                                         <!-- Content -->
-                                        <p class="mb-0 text-center text-sm-start">Showing 1 to 8 of 20 entries</p>
+                                        <p class="mb-0 text-center text-sm-start"></p>
                                         <!-- Pagination -->
                                         <nav class="d-flex justify-content-center mb-0" aria-label="navigation">
                                             <ul class="pagination pagination-sm pagination-primary-soft mb-0 pb-0">

@@ -41,7 +41,7 @@ public class MenteeListServlet extends HttpServlet {
         if(index == null){
             index = "1";
         }
-        List<User> menteeList = mentorDAO.getMenteesById(mentor.getUser_id(), Integer.parseInt(index));
+        List<User> menteeList = mentorDAO.getMenteesById(mentor.getUserId(), Integer.parseInt(index));
         int totalMentees = menteeList.size();
         int totalPage = mentorDAO.getNumberPage(1);
         

@@ -496,7 +496,7 @@
                         <div class="modal-body">
                             <form id="addIntroductionForm" action="viewCV" method="POST">
                                 <input type="hidden" name="action" value="addIntro">
-                                <input type="hidden" name="mentorID" value="${requestScope.mentor.user_id}">
+                                <input type="hidden" name="mentorID" value="${requestScope.mentor.userId}">
                                 <div class="form-group">
                                     <label for="introduction">Introduction</label>
                                     <input type="text" class="form-control" id="introduction" name="introduction" placeholder="Enter introduction" required>
@@ -522,7 +522,7 @@
                         <div class="modal-body">
                             <form id="editIntroductionForm" action="viewCV" method="POST">
                                 <input type="hidden" name="action" value="editIntro">
-                                <input type="hidden" name="mentorID" value="${requestScope.mentor.user_id}">
+                                <input type="hidden" name="mentorID" value="${requestScope.mentor.userId}">
                                 <div class="form-group">
                                     <label for="introduction">Introduction:</label>
                                     <textarea name="introduction" style="height: 200px;width: 466px;" required="">${cv.getIntroduction()}</textarea>
@@ -548,7 +548,7 @@
                         <div class="modal-body">
                             <form id="addEducationForm" action="viewCV" method="POST">
                                 <input type="hidden" name="action" value="addEdu">
-                                <input type="hidden" name="mentorID" value="${requestScope.mentor.user_id}">
+                                <input type="hidden" name="mentorID" value="${requestScope.mentor.userId}">
                                 <div class="form-group">
                                     <label for="schoolName">School Name</label>
                                     <input type="text" class="form-control" id="schoolName" name="schoolName" placeholder="Enter school name" required>
@@ -580,7 +580,7 @@
                             <form id="editEducationForm" action="viewCV" method="POST">
                                 <input type="hidden" name="action" value="editEdu">
                                 <input type="hidden" id="editEduID" name="eduID">
-                                <input type="hidden" name="mentorID" value="${requestScope.mentor.user_id}">
+                                <input type="hidden" name="mentorID" value="${requestScope.mentor.userId}">
                                 <div class="form-group">
                                     <label for="editSchoolName">School Name</label>
                                     <input type="text" class="form-control" id="editSchoolName" name="schoolName" required>
@@ -612,7 +612,7 @@
                             <form id="removeEducationForm" action="viewCV" method="POST">
                                 <input type="hidden" name="action" value="removeEdu">
                                 <input type="hidden" id="removeEduID" name="eduID">
-                                <input type="hidden" name="mentorID" value="${requestScope.mentor.user_id}">
+                                <input type="hidden" name="mentorID" value="${requestScope.mentor.userId}">
                                 Are you sure to remove this?
                             </form>
                         </div>
@@ -638,7 +638,7 @@
                         <div class="modal-body">
                             <form id="addSkillForm" action="viewCV" method="POST">
                                 <input type="hidden" name="action" value="addSkill">
-                                <input type="hidden" name="mentorID" value="${requestScope.mentor.user_id}">
+                                <input type="hidden" name="mentorID" value="${requestScope.mentor.userId}">
                                 <input type="hidden" name="cvID" value="${cv.cvId}">
                                 <!-- Dropdown list for skills -->
                                 <select class="form-select" id="skillSelect" aria-label="Select a skill" name="skillId">
@@ -670,7 +670,7 @@
                             <form id="removeSkillForm" action="viewCV" method="POST">
                                 <input type="hidden" name="action" value="removeSkill">
                                 <input type="hidden" id="removeSkillID" name="cvSkillId">
-                                <input type="hidden" name="mentorID" value="${requestScope.mentor.user_id}">
+                                <input type="hidden" name="mentorID" value="${requestScope.mentor.userId}">
                                 Are you sure to remove this?
                             </form>
                         </div>
