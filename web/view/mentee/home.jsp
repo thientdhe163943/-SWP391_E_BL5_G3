@@ -152,8 +152,8 @@
                                     <div class="row g-3 align-items-center justify-content-between mb-4">
                                         <!-- Content -->
                                         <div class="col-md-8">
-                                            <form class="rounded position-relative" action="Request/Search" method="GET">
-                                                <input class="form-control pe-5 bg-transparent" id="requestSearch" type="search" placeholder="Search" aria-label="Search">
+                                            <form class="rounded position-relative" action="mentee" method="GET">
+                                                <input class="form-control pe-5 bg-transparent" id="requestSearch" name="requestSearch" type="search" placeholder="Search" aria-label="Search" value="${requestSearch}">
                                                 <button class="btn bg-transparent px-2 py-0 position-absolute top-50 end-0 translate-middle-y" type="submit"><i class="fas fa-search fs-6 "></i></button>
                                             </form>
                                         </div>
@@ -161,12 +161,12 @@
                                         <!-- Select option -->
                                         <div class="col-md-3">
                                             <!-- Short by filter -->
-                                            <form id="sortRequest" action="menteeSort" method="get">
+                                            <form id="sortRequest" action="mentee" method="get">
                                                 <select class="form-select js-choice border-0 z-index-9 bg-transparent" id="sortOrder" name="sortOrder" aria-label=".form-select-sm" onchange="this.form.submit()">
                                                     <option value="">Sort by</option>
-                                                    <option value="title">Request Title</option>
-                                                    <option value="mentor">Mentor Name</option>
-                                                    <option value="deadline">Deadline</option>
+                                                    <option value="title" ${sortOrder == "title" ? 'selected' : ''}>Request Title</option>
+                                                    <option value="mentor" ${sortOrder == "mentor" ? 'selected' : ''}>Mentor Name</option>
+                                                    <option value="deadline" ${sortOrder == "deadline" ? 'selected' : ''}>Deadline</option>
                                                 </select>
                                             </form>
                                         </div>
