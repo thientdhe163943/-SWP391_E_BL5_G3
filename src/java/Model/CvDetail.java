@@ -26,20 +26,20 @@ public class CvDetail {
         this.rating = rating;
     }
 
+    public CV getCv() {
+        return cv;
+    }
+
+    public void setCv(CV cv) {
+        this.cv = cv;
+    }
+    
     public int getCvDetailId() {
         return cvDetailId;
     }
 
     public void setCvDetailId(int cvDetailId) {
         this.cvDetailId = cvDetailId;
-    }
-
-    public int getCvId() {
-        return cvId;
-    }
-
-    public void setCvId(int cvId) {
-        this.cvId = cvId;
     }
 
     public User getMentee() {
@@ -65,6 +65,5 @@ public class CvDetail {
     public void setRating(Float rating) {
         this.rating = rating;
     }
-
     
 }

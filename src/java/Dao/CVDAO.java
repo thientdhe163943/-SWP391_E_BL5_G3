@@ -27,6 +27,7 @@ public class CVDAO extends DBConnect {
     private static final Logger logger = Logger.getLogger(CVDAO.class.getName());
     private final CvSkillDAO cvSkillDAO = new CvSkillDAO();
     private final EducationDAO educationDAO = new EducationDAO();
+    private final MentorDAO mentorDAO = new MentorDAO();
 
     // Lấy tất cả CV
     public List<CV> getAllCVs() {
@@ -36,7 +37,7 @@ public class CVDAO extends DBConnect {
             while (rs.next()) {
                 CV cv = new CV();
                 cv.setCvId(rs.getInt("cv_id"));
-                cv.setUserId(rs.getInt("user_id"));
+                cv.setApplicant(mentorDAO.getById(rs.getInt("user_id")));
                 cv.setIntroduction(rs.getString("introduction"));
                 cv.setExperience(rs.getInt("experience"));
 
@@ -64,7 +65,7 @@ public class CVDAO extends DBConnect {
                 if (rs.next()) {
                     CV cv = new CV();
                     cv.setCvId(rs.getInt("cv_id"));
-                    cv.setUserId(rs.getInt("user_id"));
+                    cv.setApplicant(mentorDAO.getById(rs.getInt("user_id")));
                     cv.setIntroduction(rs.getString("introduction"));
                     cv.setExperience(rs.getInt("experience"));
 
@@ -92,7 +93,7 @@ public class CVDAO extends DBConnect {
                 if (rs.next()) {
                     CV cv = new CV();
                     cv.setCvId(rs.getInt("cv_id"));
-                    cv.setUserId(rs.getInt("user_id"));
+                    cv.setApplicant(mentorDAO.getById(rs.getInt("user_id")));
                     cv.setIntroduction(rs.getString("introduction"));
                     cv.setExperience(rs.getInt("experience"));
 
@@ -112,7 +113,7 @@ public class CVDAO extends DBConnect {
     public boolean addCV(CV cv) {
         String query = "INSERT INTO CV (user_id, introduction, experience) VALUES (?, ?, ?)";
         try (PreparedStatement stm = connection.prepareStatement(query)) {
-            stm.setInt(1, cv.getUserId());
+            stm.setInt(1, cv.getApplicant().getUserId());
             stm.setString(2, cv.getIntroduction());
             stm.setObject(3, cv.getExperience());
             int rowsAffected = stm.executeUpdate();
@@ -125,24 +126,16 @@ public class CVDAO extends DBConnect {
 
     // Cập nhật CV
     public boolean updateCV(CV cv) {
-        String query = "UPDATE CV SET user_id = ?, introduction = ?, experience = ? WHERE cv_id = ?";
+        String query = "UPDATE CV SET introduction = ? WHERE cv_id = ?";
         try (PreparedStatement stm = connection.prepareStatement(query)) {
-            stm.setInt(1, cv.getUserId());
-            stm.setString(2, cv.getIntroduction());
-            stm.setObject(3, cv.getExperience());
-            stm.setInt(4, cv.getCvId());
+            stm.setString(1, cv.getIntroduction());
+            stm.setInt(2, cv.getCvId());
             int rowsAffected = stm.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Lỗi khi cập nhật CV: {0}", e.getMessage());
         }
         return false;
-    }
-
-    // Lấy chi tiết CV (nếu có bảng CvDetails)
-    private ArrayList<CvDetail> getCvDetailsByCVId(int cvId) {
-        // Cài đặt query để lấy danh sách chi tiết CV theo cvId từ database
-        return new ArrayList<>();
     }
 
     public static void main(String[] args) {

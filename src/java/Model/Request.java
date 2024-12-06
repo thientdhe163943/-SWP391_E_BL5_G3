@@ -42,10 +42,6 @@ public class Request {
         this.requestId = requestId;
     }
 
-    public void setRequestId(int requestId) {
-        this.requestId = requestId;
-    }
-
     public String getTitle() {
         return title;
     }

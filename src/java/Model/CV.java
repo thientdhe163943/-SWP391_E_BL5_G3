@@ -25,9 +25,9 @@ public class CV {
     public CV() {
     }
 
-    public CV(int cvId, int userId, String introduction, Integer experience, ArrayList<CvSkill> cvSkillList, List<Education> eduList, List<CvDetail> cvDetailList) {
+    public CV(int cvId, User applicant, String introduction, Integer experience, List<CvSkill> cvSkillList, List<Education> eduList, List<CvDetail> cvDetailList) {
         this.cvId = cvId;
-        this.userId = userId;
+        this.applicant = applicant;
         this.introduction = introduction;
         this.experience = experience;
         this.cvSkillList = cvSkillList;
@@ -41,10 +41,6 @@ public class CV {
 
     public int getCvId() {
         return cvId;
-    }
-
-    public void setCvId(int cvId) {
-        this.cvId = cvId;
     }
 
     public User getApplicant() {

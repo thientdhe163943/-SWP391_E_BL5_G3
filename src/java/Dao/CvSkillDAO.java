@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 public class CvSkillDAO extends DBConnect {
 
     private static final Logger logger = Logger.getLogger(CvSkillDAO.class.getName());
-
+    private final MentorDAO mentorDAO = new MentorDAO();
     // Lấy tất cả CvSkill
     public List<CvSkill> getAllCvSkills() {
         List<CvSkill> list = new ArrayList<>();
@@ -46,7 +46,7 @@ public class CvSkillDAO extends DBConnect {
                 // Map CV
                 CV cv = new CV();
                 cv.setCvId(rs.getInt("cv_id"));
-                cv.setUserId(rs.getInt("user_id"));
+                cv.setApplicant(mentorDAO.getById(rs.getInt("user_id")));
 
                 cvSkill.setSkill(skill);
                 cvSkill.setCv(cv);
@@ -86,7 +86,7 @@ public class CvSkillDAO extends DBConnect {
                     // Map CV
                     CV cv = new CV();
                     cv.setCvId(rs.getInt("cv_id"));
-                    cv.setUserId(rs.getInt("user_id"));
+                    cv.setApplicant(mentorDAO.getById(rs.getInt("user_id")));
 
                     cvSkill.setSkill(skill);
                     cvSkill.setCv(cv);
@@ -127,7 +127,7 @@ public class CvSkillDAO extends DBConnect {
                     // Map CV
                     CV cv = new CV();
                     cv.setCvId(rs.getInt("cv_id"));
-                    cv.setUserId(rs.getInt("user_id"));
+                    cv.setApplicant(mentorDAO.getById(rs.getInt("user_id")));
 
                     cvSkill.setSkill(skill);
                     cvSkill.setCv(cv);
@@ -209,7 +209,7 @@ public class CvSkillDAO extends DBConnect {
                     // Map CV
                     CV cv = new CV();
                     cv.setCvId(rs.getInt("cv_id"));
-                    cv.setUserId(rs.getInt("user_id"));
+                    cv.setApplicant(mentorDAO.getById(rs.getInt("user_id")));
 
                     cvSkill.setSkill(skill);
                     cvSkill.setCv(cv);
