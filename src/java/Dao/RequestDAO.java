@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.sql.Statement;
 
 /**
  *
@@ -55,10 +56,12 @@ public class RequestDAO {
         return request;
     }
 
-    public ArrayList<Request> getAllRequests() {
+    public ArrayList<Request> getAllRequests(String search) {
         ArrayList<Request> requestList = null;
         String sql = "SELECT * from Request";
-
+        if (search != null && !search.trim().isEmpty()) {
+            sql += " WHERE title LIKE '%" + search + "%'";
+        }
         try {
             Connection connection = db.getConnection();
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -91,26 +94,37 @@ public class RequestDAO {
         return requestList;
     }
 
-    public void addRequest(Request request) {
+    public void addRequest(Request request, ArrayList<Integer> skillList) {
         String sql = "INSERT INTO Request values(?, ?, ?, ?, ?, ?)";
 
         try {
             Connection connection = db.getConnection();
-            PreparedStatement ps = connection.prepareStatement(sql);
+
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, request.getTitle());
             ps.setDate(2, request.getDeadline());
             ps.setString(3, request.getContent());
-            ps.setInt(4, request.getMentor().getUserId());
+            ps.setNull(4, java.sql.Types.INTEGER);
             ps.setInt(5, request.getMentee().getUserId());
             ps.setInt(6, request.getStatus());
+            int rowsAffected = ps.executeUpdate();
 
-            ps.executeUpdate();
+            if (rowsAffected > 0) {
+                ResultSet generatedKeys = ps.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    int requestId = generatedKeys.getInt(1);
+
+                    for (int skillId : skillList) {
+                        addRequestSkill(requestId, skillId);
+                    }
+                }
+            }
 
             ps.close();
             connection.close();
 
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e);
         }
     }
 
@@ -134,6 +148,24 @@ public class RequestDAO {
             ps.setInt(6, request.getStatus());
             ps.setInt(7, request.getRequestId());
 
+            ps.executeUpdate();
+
+            ps.close();
+            connection.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void addRequestSkill(int requestId, int skillId) {
+        String sql = "INSERT INTO Skill_Request VALUES(?, ?)";
+
+        try {
+            Connection connection = db.getConnection();
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, requestId);
+            ps.setInt(2, skillId);
             ps.executeUpdate();
 
             ps.close();
