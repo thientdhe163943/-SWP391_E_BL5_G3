@@ -43,7 +43,7 @@ public class MenteeListServlet extends HttpServlet {
         }
         List<User> menteeList = mentorDAO.getMenteesById(mentor.getUserId(), Integer.parseInt(index));
         int totalMentees = menteeList.size();
-        int totalPage = mentorDAO.getNumberPage(1);
+        int totalPage = mentorDAO.getNumberPageMentees(1);
         
         request.setAttribute("totalPage", totalPage);
         request.setAttribute("totalMentees", totalMentees);

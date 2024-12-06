@@ -10,7 +10,7 @@
     </servlet>
     <servlet>
         <servlet-name>RequestServlet</servlet-name>
-        <servlet-class>controller.mentor.RequestServlet</servlet-class>
+        <servlet-class>controller.mentor.RequestListServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>viewCVServlet</servlet-name>
