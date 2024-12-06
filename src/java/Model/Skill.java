@@ -15,6 +15,7 @@ public class Skill {
     private String skillName;
     
     private ArrayList<CV> cvSkillList;
+    private ArrayList<Request> requestList;
 
     public Skill() {
     }
@@ -22,6 +23,14 @@ public class Skill {
     public Skill(String skillName, ArrayList<CV> cvSkillList) {
         this.skillName = skillName;
         this.cvSkillList = cvSkillList;
+    }
+
+    public ArrayList<Request> getRequestList() {
+        return requestList;
+    }
+
+    public void setRequestList(ArrayList<Request> requestList) {
+        this.requestList = requestList;
     }
 
     public void setSkillId(int skillId) {
