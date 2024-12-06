@@ -138,13 +138,32 @@
                                                                 <div class="badge bg-warning bg-opacity-10 text-warning">Closed</div>
                                                             </c:if>
                                                         </td>
-                                                        <!-- Price item -->
+                                                        <!-- Hour item -->
                                                         <td>$250</td>
                                                         <!-- Action item -->
                                                         <td>
-                                                            <a href="#" class="btn btn-sm btn-info-soft btn-round me-1 mb-0"><i class="far fa-fw fa-eye"></i></a>
-                                                            <a href="#" class="btn btn-sm btn-success-soft btn-round me-1 mb-0"><i class="far fa-fw fa-check-square"></i></a>
-                                                            <button class="btn btn-sm btn-danger-soft btn-round mb-0"><i class="fas fa-fw fa-times"></i></button>
+                                                            <button type="button" 
+                                                                    title="View Detail" 
+                                                                    class="btn btn-sm btn-info-soft btn-round me-1 mb-0"
+                                                                    data-bs-toggle="modal" 
+                                                                    data-bs-target="#addEducationModal">
+                                                                <i class="far fa-fw fa-eye"></i>
+                                                            </button>
+                                                            
+                                                            <button type="button" 
+                                                                    title="Accept" 
+                                                                    class="btn btn-sm btn-success-soft btn-round me-1 mb-0"
+                                                                    data-bs-toggle="modal" 
+                                                                    data-bs-target="#addEducationModal">
+                                                                <i class="far fa-fw fa-check-square"></i>
+                                                            </button>
+                                                            <button type="button" 
+                                                                    title="Cancel" 
+                                                                    class="btn btn-sm btn-danger-soft btn-round mb-0"
+                                                                    data-bs-toggle="modal" 
+                                                                    data-bs-target="#addEducationModal">
+                                                                <i class="fas fa-fw fa-times"></i>
+                                                            </button>
                                                         </td>
                                                     </tr>
                                                 </c:forEach>
