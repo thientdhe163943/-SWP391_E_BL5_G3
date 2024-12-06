@@ -143,7 +143,13 @@ public class RequestDAO {
             ps.setString(1, request.getTitle());
             ps.setDate(2, request.getDeadline());
             ps.setString(3, request.getContent());
-            ps.setInt(4, request.getMentor().getUserId());
+            
+            if (request.getMentor() == null) {
+                ps.setNull(4, java.sql.Types.INTEGER);
+            } else{
+                ps.setInt(4, request.getMentor().getUserId());
+            }
+            
             ps.setInt(5, request.getMentee().getUserId());
             ps.setInt(6, request.getStatus());
             ps.setInt(7, request.getRequestId());
