@@ -2,7 +2,7 @@
 <web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
     <servlet>
         <servlet-name>viewCVServlet</servlet-name>
-        <servlet-class>controller.ViewCVServlet</servlet-class>
+        <servlet-class>controller.mentor.ViewCVServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>MenteeProfileServlet</servlet-name>
@@ -16,20 +16,20 @@
         <servlet-name>MenteeNewRequestServlet</servlet-name>
         <servlet-class>controller.mentee.MenteeNewRequestServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RequestServlet</servlet-name>
+        <servlet-class>controller.mentor.RequestListServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>viewCVServlet</servlet-name>
         <url-pattern>/viewCV</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>MenteeProfileServlet</servlet-name>
-        <url-pattern>/Mentee/Profile</url-pattern>
+        <url-pattern>/MenteeProfile</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>MenteeRequestListServlet</servlet-name>
-        <url-pattern>/mentee</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>MenteeNewRequestServlet</servlet-name>
-        <url-pattern>/menteeNewRequest</url-pattern>
+        <servlet-name>RequestServlet</servlet-name>
+        <url-pattern>/mentor-request-list</url-pattern>
     </servlet-mapping>
 </web-app>

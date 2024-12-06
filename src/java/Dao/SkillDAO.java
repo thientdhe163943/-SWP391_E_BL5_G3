@@ -6,106 +6,130 @@ package Dao;
 
 import DB.DBConnect;
 import Model.Skill;
-import java.util.ArrayList;
-import java.sql.Connection;
+import java.util.List;
+import java.util.logging.Logger;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
- * @author Hayashi
+ * @author ADMIN
  */
-public class SkillDAO {
-    
-    private final DBConnect db = new DBConnect();
-    
-    public ArrayList<Skill> getAllSkills() {
-        ArrayList<Skill> skillList = null;
-        String sql = "SELECT * from Skill";
-        String sql2 = "SELECT * from Skill_Request";
-        
-        try {
-            Connection connection = db.getConnection();
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            
+public class SkillDAO extends DBConnect {
+
+    private static final Logger logger = Logger.getLogger(SkillDAO.class.getName());
+
+    // Lấy tất cả Skills
+    public List<Skill> getAllSkills() {
+        List<Skill> list = new ArrayList<>();
+        String query = "SELECT * FROM Skill";
+        try (PreparedStatement stm = connection.prepareStatement(query); ResultSet rs = stm.executeQuery()) {
             while (rs.next()) {
-                if (skillList == null) skillList = new ArrayList<>();
-                
                 Skill skill = new Skill();
                 skill.setSkillId(rs.getInt("skill_id"));
                 skill.setSkillName(rs.getString("skill_name"));
-                skill.setCvSkillList(null);
-                skill.setRequestList(null);
-                
-                skillList.add(skill);
+                list.add(skill);
             }
-            
-            rs.close();
-            ps.close();            
-            connection.close();
-            
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            logger.severe("Lỗi khi lấy danh sách Skill: " + e.getMessage());
         }
-        
-        return skillList;
+        return list;
     }
     
-    public void addSkill(Skill skill) {
-        String sql = "INSERT INTO Skill values(?)";
-        
-        try {
-            Connection connection = db.getConnection();
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setString(1, skill.getSkillName());
-            ps.executeUpdate();
-            
-            ps.close();
-            connection.close();
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    
-    public void updateSkill(Skill skill) {
-        String sql = "UPDATE Skill SET skill_name = ?";
-        
-        try {
-            Connection connection = db.getConnection();
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setString(1, skill.getSkillName());
-            ps.executeUpdate();
-            
-            ps.close();
-            connection.close();
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    
-    public Skill getSkillById(int id) {
-        String sql = "SELECT * from Skill WHERE skill_id = ?";
-        
-        try {
-            Connection connection = db.getConnection();
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-            
-            while (rs.next()) {
-                Skill skill = new Skill();
-                skill.setSkillId(id);
-                skill.setSkillName(rs.getString("skill_name"));
-                
-                return skill;
+    // Lấy tất cả Skills mà không có trong CV_Skill cho cv_id cụ thể
+    public List<Skill> getNotExistedSkills(int cvId) {
+        List<Skill> list = new ArrayList<>();
+        String query = """
+                   SELECT s.skill_id, s.skill_name
+                   FROM Skill s
+                   LEFT JOIN CV_Skill cv ON s.skill_id = cv.skill_id AND cv.cv_id = ?
+                   WHERE cv.skill_id IS NULL;
+                   """;
+
+        try (PreparedStatement stm = connection.prepareStatement(query)) {
+            // Set giá trị cho tham số ? trong câu truy vấn
+            stm.setInt(1, cvId);
+
+            try (ResultSet rs = stm.executeQuery()) {
+                while (rs.next()) {
+                    Skill skill = new Skill();
+                    skill.setSkillId(rs.getInt("skill_id"));
+                    skill.setSkillName(rs.getString("skill_name"));
+                    list.add(skill);
+                }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            logger.severe("Lỗi khi lấy danh sách Skills không tồn tại trong CV_Skill: " + e.getMessage());
         }
-        
+        return list;
+    }
+
+    // Thêm mới Skill
+    public boolean addSkill(Skill skill) {
+        String query = "INSERT INTO Skill (skill_name) VALUES (?)";
+        try (PreparedStatement stm = connection.prepareStatement(query)) {
+            stm.setString(1, skill.getSkillName());
+            int rowsAffected = stm.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            logger.severe("Lỗi khi thêm Skill: " + e.getMessage());
+        }
+        return false;
+    }
+
+    // Cập nhật Skill
+    public boolean updateSkill(Skill skill) {
+        String query = "UPDATE Skill SET skill_name = ? WHERE skill_id = ?";
+        try (PreparedStatement stm = connection.prepareStatement(query)) {
+            stm.setString(1, skill.getSkillName());
+            stm.setInt(2, skill.getSkillId());
+            int rowsAffected = stm.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            logger.severe("Lỗi khi cập nhật Skill: " + e.getMessage());
+        }
+        return false;
+    }
+
+    // Xóa Skill
+    public boolean deleteSkill(int skillId) {
+        String query = "DELETE FROM Skill WHERE skill_id = ?";
+        try (PreparedStatement stm = connection.prepareStatement(query)) {
+            stm.setInt(1, skillId);
+            int rowsAffected = stm.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            logger.severe("Lỗi khi xóa Skill: " + e.getMessage());
+        }
+        return false;
+    }
+
+    // Lấy Skill theo ID
+    public Skill getSkillById(int skillId) {
+        String query = "SELECT * FROM Skill WHERE skill_id = ?";
+        try (PreparedStatement stm = connection.prepareStatement(query)) {
+            stm.setInt(1, skillId);
+            try (ResultSet rs = stm.executeQuery()) {
+                if (rs.next()) {
+                    Skill skill = new Skill();
+                    skill.setSkillId(rs.getInt("skill_id"));
+                    skill.setSkillName(rs.getString("skill_name"));
+                    return skill;
+                }
+            }
+        } catch (SQLException e) {
+            logger.severe("Lỗi khi lấy Skill theo ID: " + e.getMessage());
+        }
         return null;
+    }
+
+    public static void main(String[] args) {
+        SkillDAO skillDAO = new SkillDAO();
+        List<Skill> list = skillDAO.getAllSkills();
+        for (Skill skill : list) {
+            System.out.println(skill.getSkillName());
+        }
     }
 }
