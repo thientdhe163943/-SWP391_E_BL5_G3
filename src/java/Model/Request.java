@@ -5,7 +5,7 @@
 package Model;
 
 import java.sql.Date;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -21,25 +21,21 @@ public class Request {
     private User mentee;
     private int status;
     
-    private ArrayList<Skill> skillList;
+    private List<Skill> skillList;
 
     public Request() {
     }
 
-    public ArrayList<Skill> getSkillList() {
+    public List<Skill> getSkillList() {
         return skillList;
     }
 
-    public void setSkillList(ArrayList<Skill> skillList) {
+    public void setSkillList(List<Skill> skillList) {
         this.skillList = skillList;
     }
 
     public int getRequestId() {
         return requestId;
-    }
-
-    public void setRequestId(int requestId) {
-        this.requestId = requestId;
     }
 
     public void setRequestId(int requestId) {

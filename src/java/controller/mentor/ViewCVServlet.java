@@ -75,10 +75,19 @@ public class ViewCVServlet extends HttpServlet {
             throws ServletException, IOException {
         String action = request.getParameter("action");
         String mentorID = request.getParameter("mentorID");
+        CV cv = null;
         switch (action) {
+            case "editIntro":
+                String introduction = request.getParameter("introduction");
+                cv = cvdao.getCvByUserId(Integer.parseInt(mentorID));
+                cv.setIntroduction(introduction);
+                if(cvdao.updateCV(cv)){
+                    response.sendRedirect("viewCV?mentor=" + mentorID);
+                }
+                break;
             case "addEdu":
                 Education education = new Education();
-                CV cv = cvdao.getCvByUserId(Integer.parseInt(mentorID));
+                cv = cvdao.getCvByUserId(Integer.parseInt(mentorID));
                 education.setCvId(cv.getCvId());
                 String schoolName = request.getParameter("schoolName");
                 education.setSchoolName(schoolName);
