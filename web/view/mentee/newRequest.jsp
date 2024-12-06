@@ -43,34 +43,39 @@
                 <div class="container">
                     <div class="card bg-transparent border rounded-3 mb-5">
                         <div class="card-header bg-light border-bottom px-lg-5">
+                            <br>
                             <h4>Create New Request</h4>
                         </div>
-                        
+
                         <div class="card-body">
                             <form action="menteeNewRequest" method="POST">
-                                <div class="row g-4">
-                                    <div class="col-12">
-                                        <label class="form-label">Title</label>
-                                        <input class="form-control" type="text" placeholder="Enter request title">
-                                    </div>
+                                <div class="form-group">
+                                    <label for="txtTitle">Title</label>
+                                    <input class="form-control" type="text" id="title" name="title" placeholder="Enter request title">
                                 </div>
-                                <div class="row g-4">
-                                    <div class="col-12">
-                                        <label class="form-label">Deadline</label>
-                                        <input class="form-control" type="date">
-                                    </div>
+                                <br>
+                                <div class="form-group">
+                                    <label for="dtDeadline">Deadline</label>
+                                    <input class="form-control" type="date" id="deadline" name="deadline">
                                 </div>
-                                <div class="row g-4">
-                                    <div class="col-12">
-                                        <label class="form-label">content</label>  
-                                        <textarea class="form-control" rows="3" placeholder="Enter content of the request"></textarea>
-                                    </div>
+                                <br>
+                                <div class="form-group">
+                                    <label for="txtContent">Content</label>  
+                                    <textarea class="form-control" rows="3" id="content" name="content" placeholder="Enter content of the request"></textarea>
                                 </div>
-                                <div class="row g-4">
-                                    <div class="col-12">
-                                        
-                                    </div>
+                                <br>
+                                <div class="form-group">
+                                    <br>
+                                    <input type="checkbox" name="skill" value="11" />C Plus Plus
+                                    <br>
+                                    <input type="checkbox" name="skill" value="12" />Java
+                                    <br>
+                                    <input type="checkbox" name="skill" value="13" />C Sharp
+                                    <br>
+                                    <input type="checkbox" name="skill" value="14" />Unity
                                 </div>
+                                <br>
+                                <button type="submit" class="btn btn-primary">Create</button>
                             </form>
                         </div>
                     </div>
