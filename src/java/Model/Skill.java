@@ -4,6 +4,8 @@
  */
 package Model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Hayashi
@@ -39,10 +41,6 @@ public class Skill {
 
     public int getSkillId() {
         return skillId;
-    }
-
-    public void setSkillId(int skillId) {
-        this.skillId = skillId;
     }
 
     public String getSkillName() {

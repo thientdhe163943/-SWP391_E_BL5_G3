@@ -34,12 +34,12 @@ public class CvDetail {
         this.cvDetailId = cvDetailId;
     }
 
-    public int getCvId() {
-        return cvId;
+    public CV getCv() {
+        return cv;
     }
 
-    public void setCvId(int cvId) {
-        this.cvId = cvId;
+    public void setCv(CV cv) {
+        this.cv = cv;
     }
 
     public User getMentee() {
