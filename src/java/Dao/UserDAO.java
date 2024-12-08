@@ -75,6 +75,8 @@ public class UserDAO {
         return list;
     }
 
+   
+
     public User getUserByEmail(String email) {
         String sql = "SELECT * FROM [User] WHERE email = ?";
         User user = null;
@@ -461,14 +463,13 @@ public class UserDAO {
 
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
                 ps.setInt(1, user_id);
-               
 
                 try (ResultSet rs = ps.executeQuery()) {
                     if (rs.next()) {
-                        
-                        return new User_role(rs.getInt("user_role_id")
-                                , rs.getInt("role_id")
-                                , rs.getInt("user_id"));
+
+                        return new User_role(rs.getInt("user_role_id"),
+                                 rs.getInt("role_id"),
+                                 rs.getInt("user_id"));
 
                     }
                 }
@@ -511,6 +512,7 @@ public class UserDAO {
         }
         return null; // Trả về null nếu không tìm thấy thông tin
     }
+
     public User getUserByIddd(int id) {
         String sql = "SELECT * FROM [User] WHERE user_id = ?";
         User user = null;
@@ -540,33 +542,48 @@ public class UserDAO {
 
         return user;
     }
+     public List<User> SearchlMentor(String txtSearch) {
+        List<User> list = new ArrayList<>();
+        String sql = "select u.*\n"
+                + "from [user] u, User_Role ur\n"
+                + "where u.user_id=ur.user_id and role_id=2 and u.name like ?";
+
+        try {
+            Connection connection = new DBConnect().getConnection();
+
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1,"%"+ txtSearch +"%");
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) { // Lấy dữ liệu người dùng từ ResultSet
+                list.add(new User(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getBoolean(3),
+                        rs.getDate(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getString(8)
+                )
+                );
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
 
     public static void main(String[] args) {
         // Khởi tạo đối tượng DAO để làm việc với dữ liệu người dùng
-        UserDAO daoUser = new UserDAO();
-
-        AccountDAO acc = new AccountDAO();
-
-        // Xác thực người dùng dựa trên tên đăng nhập và mật khẩu
-        Account ac = acc.validateCustomer("john_doe", "123");
-
-        if (ac != null) {
-            // Kiểm tra xem baseUser có phải là một instance của User_role hay không
-            System.out.println(ac);
-           
-            User us = daoUser.getUserByAccountId(ac.getAccountId());
-            System.out.println(us);
-           
-           
-            User_role usr=daoUser.getRoleByUser_id(us.getUserId());
-            System.out.println(usr);
-            
-            
-
-        } else {
-            // Xử lý khi không tìm thấy người dùng
-            System.out.println("Thông tin đăng nhập không chính xác.");
+        UserDAO dao = new UserDAO();
+        
+        List<User> list=dao.SearchlMentor("t");
+        for (User o : list) {
+            System.out.println(o);
         }
+        
     }
 
 }

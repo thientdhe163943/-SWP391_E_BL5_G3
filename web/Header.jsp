@@ -60,12 +60,12 @@
                         <span></span>
                     </span>
                 </button>
-
+                
                 <div class="navbar-collapse w-100 collapse" id="navbarCollapse">
                     <div class="nav my-3 my-xl-0 px-4 flex-nowrap align-items-center">
                         <div class="nav-item w-100">
-                            <form class="position-relative">
-                                <input class="form-control pe-5 bg-transparent" type="search" placeholder="Search" aria-label="Search">
+                            <form action="SearchMentor" method="post" class="position-relative">
+                                <input name="txt" class="form-control pe-5 bg-transparent" type="search" placeholder="Search" aria-label="Search">
                                 <button class="btn bg-transparent px-2 py-0 position-absolute top-50 end-0 translate-middle-y" type="submit"><i class="fas fa-search fs-6"></i></button>
                             </form>
                         </div>
