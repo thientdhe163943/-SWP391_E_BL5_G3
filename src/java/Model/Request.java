@@ -26,6 +26,16 @@ public class Request {
     public Request() {
     }
 
+    public Request(int requestId, String title, Date deadline, String content, User mentor, User mentee, int status) {
+        this.requestId = requestId;
+        this.title = title;
+        this.deadline = deadline;
+        this.content = content;
+        this.mentor = mentor;
+        this.mentee = mentee;
+        this.status = status;
+    }
+
     public List<Skill> getSkillList() {
         return skillList;
     }
