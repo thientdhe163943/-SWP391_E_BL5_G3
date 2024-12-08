@@ -40,4 +40,12 @@
         <servlet-name>MenteeUpdateRequestServlet</servlet-name>
         <url-pattern>/update-request</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MenteeRequestListServlet</servlet-name>
+        <url-pattern>/mentee</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MenteeNewRequestServlet</servlet-name>
+        <url-pattern>/new-request</url-pattern>
+    </servlet-mapping>
 </web-app>
