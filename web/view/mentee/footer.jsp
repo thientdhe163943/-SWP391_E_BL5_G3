@@ -33,7 +33,7 @@ Footer START -->
             <!-- Widget -->
             <div class="col-md-4 mb-3 mb-md-0">
                 <div class="text-center text-white">
-                    Copyrights ©2021 <a href="#" class="text-reset btn-link">Eduport</a>. All rights reserved.
+                    Copyrights ?2021 <a href="#" class="text-reset btn-link">Eduport</a>. All rights reserved.
                 </div>
             </div>
             <!-- Widget -->
