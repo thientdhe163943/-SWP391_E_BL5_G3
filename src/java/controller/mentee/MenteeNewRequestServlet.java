@@ -18,6 +18,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.sql.Date;
+import java.util.List;
 
 /**
  *
@@ -27,6 +28,7 @@ public class MenteeNewRequestServlet extends HttpServlet {
 
     private final RequestDAO requestDao = new RequestDAO();
     private final UserDAO userDao = new UserDAO();
+    private final SkillDAO skillDao = new SkillDAO();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -65,6 +67,10 @@ public class MenteeNewRequestServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        List<Skill> skillList = skillDao.getAllSkills();
+        
+        request.setAttribute("skillList", skillList);
 
         request.getRequestDispatcher("./view/mentee/new-request.jsp").forward(request, response);
     }
