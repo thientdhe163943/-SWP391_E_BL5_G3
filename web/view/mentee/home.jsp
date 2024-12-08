@@ -136,7 +136,7 @@
                             <div class="card bg-transparent border rounded-3">
                                 <!-- Card header START -->
                                 <div class="card-header bg-transparent border-bottom">
-                                    <h3 class="mb-0">My Requests List&nbsp;&nbsp; <a href="menteeNewRequest">
+                                    <h3 class="mb-0">My Requests List&nbsp;&nbsp; <a href="new-request">
                                             <button class="btn btn-primary">
                                                 <i class="bi bi-plus"></i>
                                             </button>
@@ -203,9 +203,11 @@
                                                             <button type="button" class="btn btn-primary">
                                                                 <i class="bi bi-pen"></i>
                                                             </button>
-                                                            <button type="button" class="btn btn-outline-danger">
-                                                                <i class="bi bi-trash"></i>
-                                                            </button>
+                                                            <a href="update-request">
+                                                                <button type="button" class="btn btn-outline-danger">
+                                                                    <i class="bi bi-trash"></i>
+                                                                </button>
+                                                            </a>
                                                         </td>
                                                     </tr>
                                                 </c:forEach>
