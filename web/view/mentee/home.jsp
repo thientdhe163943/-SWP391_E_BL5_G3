@@ -200,14 +200,16 @@
                                                         <td>${re.deadline}</td>
                                                         <td>${re.status == 1 ? 'Processed' : 'Not Processed'}</td>
                                                         <td>
-                                                            <button type="button" class="btn btn-primary">
-                                                                <i class="bi bi-pen"></i>
-                                                            </button>
-                                                            <a href="update-request">
-                                                                <button type="button" class="btn btn-outline-danger">
-                                                                    <i class="bi bi-trash"></i>
+                                                            <a href="update-request?requestId=${re.requestId}">
+                                                                <button type="button" class="btn btn-primary">
+                                                                    <i class="bi bi-pen"></i>
                                                                 </button>
                                                             </a>
+                                                            <form action="delete-request?requestId=${re.requestId}" method="POST">
+                                                                <button type="submit" class="btn btn-outline-danger">
+                                                                    <i class="bi bi-trash"></i>
+                                                                </button>
+                                                            </form>
                                                         </td>
                                                     </tr>
                                                 </c:forEach>
@@ -215,24 +217,6 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <!-- Course list table END -->
-
-                                    <!--                                     Pagination START 
-                                                                        <div class="d-sm-flex justify-content-sm-between align-items-sm-center mt-4 mt-sm-3">
-                                                                             Content 
-                                                                            <p class="mb-0 text-center text-sm-start">Showing 1 to 8 of 0 entries</p>
-                                                                             Pagination 
-                                                                            <nav class="d-flex justify-content-center mb-0" aria-label="navigation">
-                                                                                <ul class="pagination pagination-sm pagination-primary-soft mb-0 pb-0">
-                                                                                    <li class="page-item mb-0"><a class="page-link" href="#" tabindex="-1"><i class="fas fa-angle-left"></i></a></li>
-                                                                                    <li class="page-item mb-0 active"><a class="page-link" href="#">1</a></li>
-                                                                                                                                    <li class="page-item mb-0"><a class="page-link" href="#">2</a></li>
-                                                                                                                                    <li class="page-item mb-0"><a class="page-link" href="#">3</a></li>
-                                                                                    <li class="page-item mb-0"><a class="page-link" href="#"><i class="fas fa-angle-right"></i></a></li>
-                                                                                </ul>
-                                                                            </nav>
-                                                                        </div>
-                                                                         Pagination END -->
                                 </div>
                                 <!-- Card body START -->
                             </div>
