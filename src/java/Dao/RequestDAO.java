@@ -16,18 +16,16 @@ import java.sql.Statement;
  *
  * @author Hayashi
  */
-public class RequestDAO {
+public class RequestDAO extends DBConnect {
 
     private final UserDAO userDao = new UserDAO();
-    private final DBConnect db = new DBConnect();
 
     public Request getRequestById(int id) {
         String sql = "SELECT * from Request WHERE id = ?";
         Request request = null;
 
-        try {
-            Connection connection = new DBConnect().getConnection();
-            PreparedStatement ps = connection.prepareStatement(sql);
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
 
@@ -43,10 +41,6 @@ public class RequestDAO {
                 request.setMentor(userDao.getUserById(rs.getInt("mentor_id")));
                 request.setMentee(userDao.getUserById(rs.getInt("mentee_id")));
                 request.setStatus(rs.getInt("status"));
-
-                rs.close();
-                ps.close();
-                connection.close();
             }
 
         } catch (Exception e) {
@@ -62,10 +56,7 @@ public class RequestDAO {
         if (search != null && !search.trim().isEmpty()) {
             sql += " WHERE title LIKE '%" + search + "%'";
         }
-        try {
-            Connection connection = db.getConnection();
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
+        try (PreparedStatement ps = connection.prepareStatement(sql); ResultSet rs = ps.executeQuery();) {
 
             while (rs.next()) {
                 if (requestList == null) {
@@ -83,10 +74,6 @@ public class RequestDAO {
                 requestList.add(request);
             }
 
-            rs.close();
-            ps.close();
-            connection.close();
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -97,10 +84,7 @@ public class RequestDAO {
     public void addRequest(Request request, ArrayList<Integer> skillList) {
         String sql = "INSERT INTO Request values(?, ?, ?, ?, ?, ?)";
 
-        try {
-            Connection connection = db.getConnection();
-
-            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, request.getTitle());
             ps.setDate(2, request.getDeadline());
             ps.setString(3, request.getContent());
@@ -120,9 +104,6 @@ public class RequestDAO {
                 }
             }
 
-            ps.close();
-            connection.close();
-
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -137,27 +118,22 @@ public class RequestDAO {
                 + "status = ?"
                 + "WHERE request_id = ?";
 
-        try {
-            Connection connection = db.getConnection();
-            PreparedStatement ps = connection.prepareStatement(sql);
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, request.getTitle());
             ps.setDate(2, request.getDeadline());
             ps.setString(3, request.getContent());
-            
+
             if (request.getMentor() == null) {
                 ps.setNull(4, java.sql.Types.INTEGER);
-            } else{
+            } else {
                 ps.setInt(4, request.getMentor().getUserId());
             }
-            
+
             ps.setInt(5, request.getMentee().getUserId());
             ps.setInt(6, request.getStatus());
             ps.setInt(7, request.getRequestId());
 
             ps.executeUpdate();
-
-            ps.close();
-            connection.close();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -167,15 +143,11 @@ public class RequestDAO {
     public void addRequestSkill(int requestId, int skillId) {
         String sql = "INSERT INTO Skill_Request VALUES(?, ?)";
 
-        try {
-            Connection connection = db.getConnection();
-            PreparedStatement ps = connection.prepareStatement(sql);
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+
             ps.setInt(1, requestId);
             ps.setInt(2, skillId);
             ps.executeUpdate();
-
-            ps.close();
-            connection.close();
 
         } catch (Exception e) {
             e.printStackTrace();
