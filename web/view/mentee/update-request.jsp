@@ -50,18 +50,18 @@
                         <div class="card-body">
                             <form action="menteeNewRequest" method="POST">
                                 <div class="form-group">
-                                    <label for="txtTitle">Title</label>
-                                    <input class="form-control" type="text" id="title" name="title" placeholder="Enter request title">
+                                    <label for="title">Title</label>
+                                    <input class="form-control" type="text" id="title" name="title" placeholder="Enter request title" value="${currentRequest.title}">
                                 </div>
                                 <br>
                                 <div class="form-group">
-                                    <label for="dtDeadline">Deadline</label>
-                                    <input class="form-control" type="date" id="deadline" name="deadline">
+                                    <label for="deadline">Deadline</label>
+                                    <input class="form-control" type="date" id="deadline" name="deadline" value="${currentRequest.deadline}">
                                 </div>
                                 <br>
                                 <div class="form-group">
-                                    <label for="txtContent">Content</label>  
-                                    <textarea class="form-control" rows="3" id="content" name="content" placeholder="Enter content of the request"></textarea>
+                                    <label for="content">Content</label>  
+                                    <textarea class="form-control" rows="3" id="content" name="content" placeholder="Enter content of the request" value="${currentRequest.content}"></textarea>
                                 </div>
                                 <br>
                                 <div class="form-group">
