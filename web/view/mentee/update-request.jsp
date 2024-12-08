@@ -49,30 +49,29 @@
 
                         <div class="card-body">
                             <form action="menteeNewRequest" method="POST">
+                                <input type="hidden" id="requestId" name="requestId" value="${currentRequest.requestId}" />
+                                <input type="hidden" id="status" name="status" value="${currentRequest.status}" />
                                 <div class="form-group">
                                     <label for="title">Title</label>
-                                    <input class="form-control" type="text" id="title" name="title" placeholder="Enter request title" value="${currentRequest.title}">
+                                    <input class="form-control" type="text" id="title" name="title" placeholder="Enter request title" value="${currentRequest.title}" />
                                 </div>
                                 <br>
                                 <div class="form-group">
                                     <label for="deadline">Deadline</label>
-                                    <input class="form-control" type="date" id="deadline" name="deadline" value="${currentRequest.deadline}">
+                                    <input class="form-control" type="date" id="deadline" name="deadline" value="${currentRequest.deadline}" />
                                 </div>
                                 <br>
                                 <div class="form-group">
                                     <label for="content">Content</label>  
-                                    <textarea class="form-control" rows="3" id="content" name="content" placeholder="Enter content of the request" value="${currentRequest.content}"></textarea>
+                                    <textarea class="form-control" rows="3" id="content" name="content" placeholder="Enter content of the request" />${currentRequest.content}</textarea>
                                 </div>
                                 <br>
                                 <div class="form-group">
-                                    <br>
-                                    <input type="checkbox" name="skill" value="11" />C Plus Plus
-                                    <br>
-                                    <input type="checkbox" name="skill" value="12" />Java
-                                    <br>
-                                    <input type="checkbox" name="skill" value="13" />C Sharp
-                                    <br>
-                                    <input type="checkbox" name="skill" value="14" />Unity
+                                    <c:forEach items="${skillList}" var="s">
+                                        <br>
+                                        <input type="checkbox" name="skill" id="skill" value="${s.skillId}" 
+                                               <c:if test="${chosenSkills.contains(s.skillId)}">checked</c:if> />${s.skillName}
+                                    </c:forEach>
                                 </div>
                                 <br>
                                 <button type="submit" class="btn btn-primary">Create</button>
