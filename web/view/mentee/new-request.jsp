@@ -48,31 +48,28 @@
                         </div>
 
                         <div class="card-body">
-                            <form action="menteeNewRequest" method="POST">
+                            <form action="new-request" method="POST">
                                 <div class="form-group">
-                                    <label for="txtTitle">Title</label>
+                                    <label for="title">Title</label>
                                     <input class="form-control" type="text" id="title" name="title" placeholder="Enter request title">
                                 </div>
                                 <br>
                                 <div class="form-group">
-                                    <label for="dtDeadline">Deadline</label>
+                                    <label for="deadline">Deadline</label>
                                     <input class="form-control" type="date" id="deadline" name="deadline">
                                 </div>
                                 <br>
                                 <div class="form-group">
-                                    <label for="txtContent">Content</label>  
+                                    <label for="content">Content</label>  
                                     <textarea class="form-control" rows="3" id="content" name="content" placeholder="Enter content of the request"></textarea>
                                 </div>
                                 <br>
                                 <div class="form-group">
-                                    <br>
-                                    <input type="checkbox" name="skill" value="11" />C Plus Plus
-                                    <br>
-                                    <input type="checkbox" name="skill" value="12" />Java
-                                    <br>
-                                    <input type="checkbox" name="skill" value="13" />C Sharp
-                                    <br>
-                                    <input type="checkbox" name="skill" value="14" />Unity
+                                    <label for="skill">Skills</label>  
+                                    <c:forEach items="${skillList}" var="s">
+                                        <br>
+                                        <input type="checkbox" name="skill" id="skill" value="${s.skillId}" />${s.skillName}
+                                    </c:forEach>
                                 </div>
                                 <br>
                                 <button type="submit" class="btn btn-primary">Create</button>
