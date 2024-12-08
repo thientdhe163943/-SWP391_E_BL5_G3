@@ -20,6 +20,10 @@
         <servlet-name>RequestServlet</servlet-name>
         <servlet-class>controller.mentor.RequestListServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MenteeUpdateRequestServlet</servlet-name>
+        <servlet-class>controller.mentee.MenteeUpdateRequestServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>viewCVServlet</servlet-name>
         <url-pattern>/viewCV</url-pattern>
@@ -31,5 +35,9 @@
     <servlet-mapping>
         <servlet-name>RequestServlet</servlet-name>
         <url-pattern>/mentor-request-list</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MenteeUpdateRequestServlet</servlet-name>
+        <url-pattern>/update-request</url-pattern>
     </servlet-mapping>
 </web-app>
