@@ -38,17 +38,19 @@ public class NewPasswordController extends HttpServlet {
             String confPassword = request.getParameter("confPassword");
             RequestDispatcher dispatcher = null;
             Account acc=new Account();
+            
             AccountDAO dao = new AccountDAO();
+            acc = dao.getAccountByEmail(email);
 
             if (newPassword != null && confPassword != null && newPassword.equals(confPassword)) {
-                acc = dao.getAccountByEmail(email);
+                
                 //Ma hoa pass
 //                String newPassword = toSHA1(newPassword);
                 dao.changePassword(newPassword, acc.getAccountId());
 
                 if (dao.getAccountByEmail(email).getPassword().equals(newPassword)) {
                     request.setAttribute("status", "resetSuccess");
-                    dispatcher = request.getRequestDispatcher("Login.jsp");
+                    dispatcher = request.getRequestDispatcher("home");
                 } else {
                     request.setAttribute("status", "resetFailed");
                     dispatcher = request.getRequestDispatcher("newPassword.jsp");

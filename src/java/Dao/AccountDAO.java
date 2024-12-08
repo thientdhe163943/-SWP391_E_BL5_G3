@@ -84,10 +84,9 @@ public class AccountDAO extends DBConnect {
             st.setString(2, password);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                cus = new Account(rs.getInt("account_id")
-                        , rs.getString("username")
-                        , rs.getString("password")
-                       
+                cus = new Account(rs.getInt("account_id"),
+                         rs.getString("username"),
+                         rs.getString("password")
                 );
                 return cus;
             }
@@ -142,6 +141,39 @@ public class AccountDAO extends DBConnect {
 //        }
 //
 //    }
+
+    public boolean isUsernameExists(String username) {
+        // Assuming you already have a database connection through the inherited connection object
+        String query = "SELECT COUNT(*) FROM Account WHERE username = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, username);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0; // If the count is greater than 0, the username exists
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false; // Username does not exist
+    }
+
+
+    public boolean updatePassword(String newPassword, int accountId) {
+        String sql = "UPDATE [dbo].[Account]\n"
+                + " SET [password] = ?\n"
+                + " WHERE [account_id] = ?";
+        int n = 0;
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, newPassword);
+            st.setInt(2, accountId);
+            n = st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return n > 0;
+    }
 
     public Account addAccount(String username, String password) {
         String sql = "INSERT INTO Account (username, password) VALUES (?, ?)";

@@ -31,12 +31,13 @@ public class LoginServlet extends HttpServlet {
          AccountDAO acc = new AccountDAO();
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-
+        HttpSession session = request.getSession();
         // Kiểm tra thông tin đăng nhập
         Account ac = acc.validateCustomer(username, password);
+         session.setAttribute("account", ac);
 
         if (ac != null) {
-            HttpSession session = request.getSession();
+            
           
                   User us = daoUser.getUserByAccountId(ac.getAccountId());
                   User_role usr=daoUser.getRoleByUser_id(us.getUserId());

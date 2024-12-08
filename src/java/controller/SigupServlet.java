@@ -4,7 +4,6 @@
  */
 package controller;
 
-
 import Dao.AccountDAO;
 import Dao.UserDAO;
 import Model.Account;
@@ -35,7 +34,7 @@ public class SigupServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -81,41 +80,47 @@ public class SigupServlet extends HttpServlet {
         String confirmPassword = request.getParameter("confirmPassword");
 
         // Kiểm tra dữ liệu nhập
-        if (username.isEmpty() || username.isEmpty() || password == null || password.isEmpty()) {
+        if (username.isEmpty() || password == null || password.isEmpty()) {
             request.setAttribute("message", "Username and password cannot be empty.");
             request.getRequestDispatcher("SignUp.jsp").forward(request, response);
             return;
         }
         if (!password.equals(confirmPassword)) {
-            String mess = "Password and confirm password do not match.";
-            request.setAttribute("message", mess);
+            request.setAttribute("message", "Password and confirm password do not match.");
+            request.getRequestDispatcher("SignUp.jsp").forward(request, response);
+            return;
+        }
+
+        // Kiểm tra nếu tên người dùng đã tồn tại
+        // Kiểm tra nếu tên người dùng đã tồn tại
+        AccountDAO accountDAO = new AccountDAO();
+        if (accountDAO.isUsernameExists(username)) {
+            // Nếu tên người dùng đã tồn tại
+            request.setAttribute("message", "Username already exists. Please choose a different username.");
             request.getRequestDispatcher("SignUp.jsp").forward(request, response);
             return;
         }
 
         // Thêm tài khoản vào cơ sở dữ liệu
-        AccountDAO accountDAO = new AccountDAO();
-        UserDAO user=new UserDAO();
-        Account acc=new Account(username, password);
-        
+        UserDAO userDAO = new UserDAO();
+        Account acc = new Account(username, password);
+
         Account isAdded = accountDAO.addAccount(username, password);
-        boolean addUser=user.addUser(isAdded.getAccountId());
-        
-        HttpSession session = request.getSession();
-        
-        if (isAdded!=null) {
-            // Thành công
-            
+        if (isAdded != null) {
+            // Thêm user vào hệ thống (chưa xác định thêm chi tiết)
+            boolean addUser = userDAO.addUser(isAdded.getAccountId());
+
+            // Lưu tài khoản vào session nếu thành công
+            HttpSession session = request.getSession();
             session.setAttribute("account", acc);
+
             request.setAttribute("message", "Account added successfully!");
             request.getRequestDispatcher("SignUp.jsp").forward(request, response);
         } else {
             // Thất bại
             request.setAttribute("message", "Failed to add account. Please try again.");
+            request.getRequestDispatcher("SignUp.jsp").forward(request, response);
         }
-
-        // Quay lại trang thêm tài khoản
-        request.getRequestDispatcher("SignUp.jsp").forward(request, response);
     }
 
     @Override
@@ -123,6 +128,3 @@ public class SigupServlet extends HttpServlet {
         return "Handles adding accounts to the system";
     }
 }
-
-    
-

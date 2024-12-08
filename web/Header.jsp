@@ -115,19 +115,12 @@
 
                         <!-- Links -->
                         <li><a class="dropdown-item" href="Profile.jsp"><i class="bi bi-person fa-fw me-2"></i>Edit Profile</a></li>
-                        <li><a class="dropdown-item" href="newPassword.jsp"><i class="bi bi-gear fa-fw me-2"></i>Change Password</a></li>
+                        <li><a class="dropdown-item" href="changePasswordwithOldPass.jsp"><i class="bi bi-gear fa-fw me-2"></i>Change Password</a></li>
                         <li><a class="dropdown-item" href="#"><i class="bi bi-info-circle fa-fw me-2"></i>Help</a></li>
                         <li><a class="dropdown-item bg-danger-soft-hover" href="logout"><i class="bi bi-power fa-fw me-2"></i>Sign Out</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <!-- Dark mode switch -->
-                        <li>
-                            <div class="modeswitch-wrap" id="darkModeSwitch">
-                                <div class="modeswitch-item">
-                                    <div class="modeswitch-icon"></div>
-                                </div>
-                                <span>Dark mode</span>
-                            </div>
-                        </li> 
+                         
                     </ul>
                 </div>
             </div>
