@@ -5,7 +5,9 @@
 package controller.mentor;
 
 import Dao.MentorDAO;
+import Dao.RequestDAO;
 import Model.Request;
+import Model.User;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -20,6 +22,7 @@ import java.util.List;
 public class RequestListServlet extends HttpServlet {
 
     private final MentorDAO mentorDAO = new MentorDAO();
+    private final RequestDAO requestDAO = new RequestDAO();
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -33,13 +36,33 @@ public class RequestListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //Banner
+        User mentor = mentorDAO.getByAccountId(1);
+        List<User> menteeList = mentorDAO.getMenteesById(mentor.getUserId());
+        int totalMentees = menteeList.size();
+
+        request.setAttribute("totalMentees", totalMentees);
+        request.setAttribute("menteeList", menteeList);
+        request.setAttribute("mentor", mentor);
+
+        //Table List
         String index = request.getParameter("index");
         if (index == null) {
             index = "1";
         }
-        List<Request> requestList = mentorDAO.getRequestsByMentor(1, Integer.parseInt(index));
         int totalPage = mentorDAO.getNumberPageRequests(1);
-        
+        List<Request> requestList;
+        if (Integer.parseInt(index) > totalPage || Integer.parseInt(index) <= 0) {
+            index = "1";
+            requestList = mentorDAO.getRequestsByMentor(1, Integer.parseInt(index));
+            request.setAttribute("index", index);
+            request.setAttribute("totalPage", totalPage);
+            request.setAttribute("requestList", requestList);
+            response.sendRedirect(request.getContextPath() + "/mentor-request-list?index=1");
+            return;
+        } else {
+            requestList = mentorDAO.getRequestsByMentor(1, Integer.parseInt(index));
+        }
         request.setAttribute("index", index);
         request.setAttribute("totalPage", totalPage);
         request.setAttribute("requestList", requestList);
@@ -57,7 +80,22 @@ public class RequestListServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        processRequest(request, response);
+        String requestId = request.getParameter("requestId");
+        String action = request.getParameter("action");
+        switch (action) {
+            case "cancel":
+                requestDAO.updateStatus(Integer.parseInt(requestId), 3);
+                break;
+            case "accept":
+                requestDAO.updateStatus(Integer.parseInt(requestId), 2);
+                break;
+            case "finish":
+                requestDAO.updateStatus(Integer.parseInt(requestId), 4);
+                break;
+            default:
+                throw new AssertionError();
+        }
+        doGet(request, response);
     }
 
     /**

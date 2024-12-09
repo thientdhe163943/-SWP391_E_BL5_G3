@@ -272,6 +272,37 @@ public class MentorDAO extends DBConnect {
         }
         return requestList;
     }
+    
+    public List<Request> getStatusRequests(int mentorId, int status) {
+        List<Request> requestList = new ArrayList<>();
+        String sql = """
+                 SELECT * FROM Request r 
+                 WHERE mentor_id = ? and status = ?;
+                 """;
+
+        try (PreparedStatement stm = connection.prepareStatement(sql)) {
+
+            stm.setInt(1, mentorId);
+            stm.setInt(2, status);
+
+            try (ResultSet rs = stm.executeQuery()) {
+                while (rs.next()) {
+                    Request request = new Request();
+                    request.setRequestId(rs.getInt("request_id"));
+                    request.setTitle(rs.getString("title"));
+                    request.setDeadline(rs.getDate("deadline"));
+                    request.setContent(rs.getString("content"));
+                    request.setMentor(getById(rs.getInt("mentor_id"))); // Assuming `getById` fetches a `User` object
+                    request.setMentee(getById(rs.getInt("mentee_id"))); // Assuming `getById` fetches a `User` object
+                    request.setStatus(rs.getInt("status"));
+                    requestList.add(request);
+                }
+            }
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Lỗi khi lấy danh sách Request theo mentor_id: {0}", e.getMessage());
+        }
+        return requestList;
+    }
 
     public static void main(String[] args) {
         MentorDAO mentorDAO = new MentorDAO();

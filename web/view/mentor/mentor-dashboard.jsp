@@ -60,7 +60,7 @@
                                         <div class="ms-4">
                                             <div class="d-flex">
                                                 <h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0" data-purecounter-end="${totalMentees}"	data-purecounter-delay="100">0</h5>
-                                                <span class="mb-0 h5">+</span>
+                                                <span class="mb-0 h5"></span>
                                             </div>
                                             <span class="mb-0 h6 fw-light">Total Mentees</span>
                                         </div>
@@ -72,7 +72,7 @@
                                         <span class="display-6 text-primary mb-0"><i class="fas fa-regular fa-paper-plane fa-fw"></i></span>
                                         <div class="ms-4">
                                             <div class="d-flex">
-                                                <h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0" data-purecounter-end="${request.size()}" data-purecounter-delay="100">0</h5>
+                                                <h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0" data-purecounter-end="${totalRequest}" data-purecounter-delay="100">0</h5>
                                                 <span class="mb-0 h5"></span>
                                             </div>
                                             <span class="mb-0 h6 fw-light">Total Requests</span>
@@ -92,8 +92,8 @@
                                         <span class="display-6 text-info mb-0"><i class="fas fa-spinner fa-fw"></i></span>
                                         <div class="ms-4">
                                             <div class="d-flex">
-                                                <h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0" data-purecounter-end="12" data-purecounter-delay="100">0</h5>
-                                                <span class="mb-0 h5">+</span>
+                                                <h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0" data-purecounter-end="${pendingRequests.size()}" data-purecounter-delay="100">0</h5>
+                                                <span class="mb-0 h5"></span>
                                             </div>
                                             <span class="mb-0 h6 fw-light">Current Invited Requests</span>
                                         </div>
@@ -105,8 +105,8 @@
                                         <span class="display-6 text-success mb-0"><i class="fas fa-check fa-fw"></i></span>
                                         <div class="ms-4">
                                             <div class="d-flex">
-                                                <h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0" data-purecounter-end="12" data-purecounter-delay="100">0</h5>
-                                                <span class="mb-0 h5">+</span>
+                                                <h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0" data-purecounter-end="${acceptedRequests.size()}" data-purecounter-delay="100">0</h5>
+                                                <span class="mb-0 h5"></span>
                                             </div>
                                             <span class="mb-0 h6 fw-light">Accepted Requests</span>
                                         </div>
@@ -118,7 +118,7 @@
                                         <span class="display-6 text-danger mb-0"><i class="fas fa-fw fa-ban"></i></i></span>
                                         <div class="ms-4">
                                             <div class="d-flex">
-                                                <h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0" data-purecounter-end="12" data-purecounter-delay="100">0</h5>
+                                                <h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0" data-purecounter-end="${canceledRequests.size()}" data-purecounter-delay="100">0</h5>
                                                 <span class="mb-0 h5"></span>
                                             </div>
                                             <span class="mb-0 h6 fw-light">Canceled Requests</span>
@@ -134,7 +134,7 @@
                                 <div class="col-2 mt-5">Completed Request:</div>
                                 <div class="col-5 mt-5">
                                     <div class="progress">
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: ${completedRate}%" aria-valuenow="${completedRate}" aria-valuemin="0" aria-valuemax="100">${completedRate}%</div>
                                     </div>
                                 </div>
                             </div>
@@ -144,7 +144,7 @@
                                 <div class="col-2 mt-5">Cancel Request:</div>
                                 <div class="col-5 mt-5">
                                     <div class="progress">
-                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 50%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">50%</div>
+                                        <div class="progress-bar bg-danger" role="progressbar" style="width: ${canceledRate}%" aria-valuenow="${canceledRate}" aria-valuemin="0" aria-valuemax="100">${canceledRate}%</div>
                                     </div>
                                 </div>
                             </div>

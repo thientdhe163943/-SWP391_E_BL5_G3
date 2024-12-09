@@ -75,7 +75,7 @@ public class ViewCVServlet extends HttpServlet {
             throws ServletException, IOException {
         String action = request.getParameter("action");
         String mentorID = request.getParameter("mentorID");
-        CV cv = null;
+        CV cv;
         switch (action) {
             case "editIntro":
                 String introduction = request.getParameter("introduction");

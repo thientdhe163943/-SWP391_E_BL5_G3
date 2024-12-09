@@ -100,9 +100,9 @@
                                             <thead>
                                                 <tr>
                                                     <th scope="col" class="border-0 rounded-start">Request Title</th>
+                                                    <th scope="col" class="border-0">Deadline Hour</th>
                                                     <th scope="col" class="border-0">Deadline Date</th>
                                                     <th scope="col" class="border-0">Status</th>
-                                                    <th scope="col" class="border-0">Price</th>
                                                     <th scope="col" class="border-0 rounded-end">Action</th>
                                                 </tr>
                                             </thead>
@@ -117,11 +117,14 @@
                                                             <div class="d-flex align-items-center">
                                                                 <div class="mb-0 ms-2">
                                                                     <!-- Title -->
-                                                                    <h6><a href="mentor-request-detail?id=${request.requestId}">${request.title}</a></h6>
+                                                                    <h6>${request.title}</h6>
                                                                 </div>
                                                             </div>
                                                         </td>
                                                         <!-- Deadline item -->
+
+                                                        <!-- Hour item -->
+                                                        <td class="text-center text-sm-start">10:00</td>
                                                         <td class="text-center text-sm-start">${request.deadline}</td>
                                                         <!-- Status item -->
                                                         <td>
@@ -135,34 +138,50 @@
                                                                 <div class="badge bg-warning bg-opacity-10 text-warning">Canceled</div>
                                                             </c:if>
                                                             <c:if test="${request.status == 4}">
-                                                                <div class="badge bg-warning bg-opacity-10 text-warning">Closed</div>
+                                                                <div class="badge bg-secondary bg-opacity-10 text-secondary">Closed</div>
                                                             </c:if>
                                                         </td>
-                                                        <!-- Hour item -->
-                                                        <td>$250</td>
+
                                                         <!-- Action item -->
                                                         <td>
+                                                            <!--View Detail-->
                                                             <button type="button" 
                                                                     title="View Detail" 
                                                                     class="btn btn-sm btn-info-soft btn-round me-1 mb-0"
                                                                     data-bs-toggle="modal" 
-                                                                    data-bs-target="#addEducationModal">
+                                                                    data-bs-target="#viewRequestModal"
+                                                                    onclick="viewRequestModal('${request.requestId}', '${request.title}', '${request.deadline}', '${request.content}', '${request.mentee.name}', '${request.status}')">
                                                                 <i class="far fa-fw fa-eye"></i>
                                                             </button>
-                                                            
+
+                                                            <!--Accept Button-->
                                                             <button type="button" 
                                                                     title="Accept" 
                                                                     class="btn btn-sm btn-success-soft btn-round me-1 mb-0"
                                                                     data-bs-toggle="modal" 
-                                                                    data-bs-target="#addEducationModal">
+                                                                    data-bs-target="#acceptRequestModal"
+                                                                    onclick="acceptRequestModal('${request.requestId}')">
                                                                 <i class="far fa-fw fa-check-square"></i>
                                                             </button>
-                                                            <button type="button" 
-                                                                    title="Cancel" 
-                                                                    class="btn btn-sm btn-danger-soft btn-round mb-0"
-                                                                    data-bs-toggle="modal" 
-                                                                    data-bs-target="#addEducationModal">
+                                                            <!--Cancel Button-->
+                                                            <button 
+                                                                type="button" 
+                                                                title="Cancel" 
+                                                                class="btn btn-sm btn-danger-soft btn-round mb-0"
+                                                                data-bs-toggle="modal" 
+                                                                data-bs-target="#cancelRequestModal"
+                                                                onclick="cancelRequestModal('${request.requestId}')">
                                                                 <i class="fas fa-fw fa-times"></i>
+                                                            </button>
+                                                            <!--Closed Button--> 
+                                                            <button <c:if test="${request.status != 2}">disabled</c:if>
+                                                                    type="button" 
+                                                                    title="Finish" 
+                                                                    class="btn btn-sm btn-info-soft btn-round me-1 mb-0"
+                                                                    data-bs-toggle="modal" 
+                                                                    data-bs-target="#finishRequestModal"
+                                                                    onclick="finishRequestModal('${request.requestId}')">
+                                                                <i class="far fa-fw fa-flag"></i>
                                                             </button>
                                                         </td>
                                                     </tr>
@@ -181,8 +200,8 @@
                                         <nav class="d-flex justify-content-center mb-0" aria-label="navigation">
                                             <ul class="pagination pagination-sm pagination-primary-soft mb-0 pb-0">
                                                 <li class="page-item mb-0"><a class="page-link" href="#" tabindex="-1"><i class="fas fa-angle-left"></i></a></li>
-                                                    <c:forEach begin="1" end="${totalPage}" var="i">
-                                                        <li class="page-item mb-0 page-number ${i == index ? 'active' : ''}"><a class="page-link" href="mentor-request-list?index=${i}">${i}</a></li>
+                                                        <c:forEach begin="1" end="${totalPage}" var="i">
+                                                    <li class="page-item mb-0 page-number ${i == index ? 'active' : ''}"><a class="page-link" href="mentor-request-list?index=${i}">${i}</a></li>
                                                     </c:forEach>
                                                 <li class="page-item mb-0"><a class="page-link" href="#"><i class="fas fa-angle-right"></i></a></li>
                                             </ul>
@@ -203,6 +222,132 @@
 
         </main>
         <!-- **************** MAIN CONTENT END **************** -->
+
+        <!--View Request Detail Model START-->
+        <div class="modal fade" id="viewRequestModal" tabindex="-1" aria-labelledby="viewRequestModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="viewRequestModalLabel">Request Detail</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="viewRequestForm">
+                            <input type="hidden" name="action" value="viewRequest">
+                            <input type="hidden" id="viewID" name="viewID">
+                            <input type="hidden" name="mentorID" value="${requestScope.mentor.userId}">
+                            <div class="form-group">
+                                <label for="editSchoolName">Title</label>
+                                <input type="text" class="form-control" id="viewTitle" readonly="">
+                            </div>
+                            <div class="form-group mt-3">
+                                <label for="viewDeadline">Deadline Date</label>
+                                <input type="text" class="form-control" id="viewDeadline" name="deadline" readonly="">
+                            </div>
+                            <div class="form-group mt-3">
+                                <label for="viewDeadline">Deadline Hour</label>
+                                <input type="text" class="form-control" id="viewHour" name="deadline" value="10:00" readonly="">
+                            </div>
+                            <div class="form-group mt-3">
+                                <label for="viewDeadline">Content</label>
+                                <input type="text" class="form-control" id="viewContent" name="viewContent" readonly="">
+                            </div>
+                            <div class="form-group mt-3">
+                                <label for="viewDeadline">Mentee Name:</label>
+                                <input type="text" class="form-control" id="viewMentee" name="viewMentee" readonly="">
+                            </div>
+                            <div class="form-group mt-3">
+                                <label for="viewStatus">Status:</label>
+                                <input type="text" class="form-control" id="viewStatus" name="viewStatus" readonly="">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <!--                            <button type="submit" form="editEducationForm" class="btn btn-primary">Save changes</button>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--View Request Detail Model END-->
+
+        <!--Accept request Model START-->
+        <div class="modal fade" id="acceptRequestModal" tabindex="-1" aria-labelledby="acceptRequestModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="acceptRequestModalLabel">Accept Request</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="acceptRequestForm" action="mentor-request-list" method="POST">
+                            <input type="hidden" name="action" value="accept">
+                            <input type="hidden" id="acceptRequestID" name="requestId">
+                            <input type="hidden" name="index" value="${index}">
+                            <!--<input type="hidden" name="mentorID" value="${requestScope.mentor.userId}">-->
+                            Are you sure to accept this request?
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" form="acceptRequestForm" class="btn btn-primary">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Accept request Model End-->
+
+        <!--Cancel request Model START-->
+        <div class="modal fade" id="cancelRequestModal" tabindex="-1" aria-labelledby="cancelRequestModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="cancelRequestModalLabel">Cancel Request</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="cancelRequestForm" action="mentor-request-list" method="POST">
+                            <input type="hidden" name="action" value="cancel">
+                            <input type="hidden" id="cancelRequestID" name="requestId">
+                            <input type="hidden" name="index" value="${index}">
+                            <!--<input type="hidden" name="mentorID" value="${requestScope.mentor.userId}">-->
+                            Are you sure to cancel this request?
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" form="cancelRequestForm" class="btn btn-primary">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Cancel request Model End-->
+        
+        <!--Finish request Model START-->
+        <div class="modal fade" id="finishRequestModal" tabindex="-1" aria-labelledby="finishRequestModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="finishRequestModalLabel">Cancel Request</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="finishRequestForm" action="mentor-request-list" method="POST">
+                            <input type="hidden" name="action" value="cancel">
+                            <input type="hidden" id="finishRequestID" name="requestId">
+                            <input type="hidden" name="index" value="${index}">
+                            <!--<input type="hidden" name="mentorID" value="${requestScope.mentor.userId}">-->
+                            Are you sure to close this request?
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" form="finishRequestForm" class="btn btn-primary">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Cancel request Model End-->
 
         <!-- =======================
         Footer START -->
@@ -248,7 +393,42 @@
 
         <!-- Template Functions -->
         <script src="assets/js/functions.js"></script>
+        <script>
+                                                                        function viewRequestModal(id, title, deadline, content, menteeName, status) {
+                                                                            document.getElementById('viewID').value = id;
+                                                                            document.getElementById('viewTitle').value = title;
+                                                                            document.getElementById('viewDeadline').value = deadline;
+                                                                            document.getElementById('viewContent').value = content;
+                                                                            document.getElementById('viewMentee').value = menteeName;
+                                                                            switch (status) {
+                                                                                case '1':
+                                                                                    document.getElementById('viewStatus').value = 'Pending';
+                                                                                    break;
+                                                                                case '2':
+                                                                                    document.getElementById('viewStatus').value = 'Accepted';
+                                                                                    break;
+                                                                                case '3':
+                                                                                    document.getElementById('viewStatus').value = 'Canceled';
+                                                                                    break;
+                                                                                case '4':
+                                                                                    document.getElementById('viewStatus').value = 'Closed';
+                                                                                    break;
+                                                                                default:
+                                                                                    document.getElementById('viewStatus').value = 'Unknown';
+                                                                                    break;
+                                                                            }
+                                                                        }
 
+                                                                        function cancelRequestModal(id) {
+                                                                            document.getElementById('cancelRequestID').value = id;
+                                                                        }
+                                                                        function acceptRequestModal(id) {
+                                                                            document.getElementById('acceptRequestID').value = id;
+                                                                        }
+                                                                        function finishRequestModal(id) {
+                                                                            document.getElementById('finishRequestID').value = id;
+                                                                        }
+        </script>
     </body>
 
     <!-- Mirrored from eduport.webestica.com/instructor-manage-course.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 06 Jan 2022 19:20:05 GMT -->

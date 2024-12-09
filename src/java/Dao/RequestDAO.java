@@ -12,6 +12,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.sql.Statement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -20,6 +23,7 @@ import java.sql.Statement;
 public class RequestDAO extends DBConnect {
 
     private final UserDAO userDao = new UserDAO();
+    private static final Logger logger = Logger.getLogger(RequestDAO.class.getName());
 
     public Request getRequestById(int id) {
         String sql = "SELECT * from Request WHERE request_id = ?";
@@ -132,9 +136,9 @@ public class RequestDAO extends DBConnect {
             ps.setInt(7, request.getRequestId());
 
             ps.executeUpdate();
-            
+
             deleteRequestSkill(request.getRequestId());
-            
+
             for (int skillId : skills) {
                 addRequestSkill(request.getRequestId(), skillId);
             }
@@ -195,19 +199,19 @@ public class RequestDAO extends DBConnect {
                 request.setMentor(userDao.getUserById(rs.getInt("mentor_id")));
                 request.setMentee(userDao.getUserById(rs.getInt("mentee_id")));
                 request.setStatus(rs.getInt("status"));
-                
+
                 visibleRequestList.add(request);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
         return visibleRequestList;
     }
 
     private void deleteRequestSkill(int requestId) {
         String sqlDelete = "DELETE FROM Request_Skill WHERE requestId = ?";
-        
+
         try (PreparedStatement ps = connection.prepareStatement(sqlDelete)) {
             ps.setInt(1, requestId);
             ps.executeUpdate();
@@ -215,16 +219,35 @@ public class RequestDAO extends DBConnect {
             e.printStackTrace();
         }
     }
-    
+
     public void softDeleteRequest(int requestId) {
         String sql = "UPDATE Request SET status = 2 WHERE request_id = ?";
-        
+
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, requestId);
             ps.executeUpdate();
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean updateStatus(int requestId, int status) {
+        String sql = """
+                 UPDATE Request
+                 SET status = ?
+                 WHERE request_id = ?;
+                 """;
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+
+            ps.setInt(1, status);
+            ps.setInt(2, requestId);
+
+            int rowsUpdated = ps.executeUpdate();
+            return rowsUpdated > 0; // Trả về true nếu có ít nhất một dòng được cập nhật
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Lỗi khi cập nhật trạng thái Request: {0}", e.getMessage());
+        }
+        return false; // Trả về false nếu có lỗi xảy ra
     }
 }
