@@ -11,17 +11,28 @@ import java.util.ArrayList;
  * @author Hayashi
  */
 public class Skill {
+
     private int skillId;
     private String skillName;
     
     private ArrayList<CV> cvSkillList;
+    private ArrayList<Request> requestList;
 
     public Skill() {
     }
 
-    public Skill(String skillName, ArrayList<CV> cvSkillList) {
+    public Skill(int skillId, String skillName) {
+        this.skillId = skillId;
         this.skillName = skillName;
         this.cvSkillList = cvSkillList;
+    }
+
+    public ArrayList<Request> getRequestList() {
+        return requestList;
+    }
+
+    public void setRequestList(ArrayList<Request> requestList) {
+        this.requestList = requestList;
     }
 
     public void setSkillId(int skillId) {
@@ -40,11 +51,4 @@ public class Skill {
         this.skillName = skillName;
     }
 
-    public ArrayList<CV> getCvSkillList() {
-        return cvSkillList;
-    }
-
-    public void setCvSkillList(ArrayList<CV> cvSkillList) {
-        this.cvSkillList = cvSkillList;
-    }
 }

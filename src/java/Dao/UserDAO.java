@@ -9,9 +9,17 @@ import DB.DBConnect;
 import Model.Account;
 import Model.BaseUser;
 import Model.User_role;
+import Model.Account;
+import Model.BaseUser;
+import Model.User_role;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.sql.SQLException;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ArrayList;
 import java.sql.SQLException;
 import java.sql.Date;
@@ -108,29 +116,30 @@ public class UserDAO {
         return user;
     }
 
-//    public User_role validateCustomer(String username, String password) {
-//        String sql = "select ur.user_role_id,ur.role_id,ur.user_id\n"
-//                + "from [User] u,Account a,User_Role ur\n"
-//                + "where u.account_id=a.account_id and u.user_id=ur.user_id and a.username = ? and a.password =?";
-//        User_role user = null;
-//        try {
-//            Connection connection = new DBConnect().getConnection();
-//            PreparedStatement ps = connection.prepareStatement(sql);
-//            ps.setString(1, username);
-//            ps.setString(2, password);
-//            ResultSet rs = ps.executeQuery();
-//
-//            if (rs.next()) { // Lấy dữ liệu người dùng từ ResultSet
-//                user = new User_role(rs.getInt("user_role_id"),
-//                        rs.getInt("role_id"),
-//                       rs.getInt("user_id")
-//                );
-//            }
-//        } catch (SQLException e) {
-//            System.out.println(e);
-//        }
-//        return user;
-//    }
+    public User_role validateCustomer(String username, String password) {
+        String sql = "select ur.user_role_id,ur.role_id,ur.user_id\n"
+                + "from [User] u,Account a,User_Role ur\n"
+                + "where u.account_id=a.account_id and u.user_id=ur.user_id and a.username = ? and a.password =?";
+        User_role user = null;
+        try {
+            Connection connection = new DBConnect().getConnection();
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, username);
+            ps.setString(2, password);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) { // Lấy dữ liệu người dùng từ ResultSet
+                user = new User_role(rs.getInt("user_role_id"),
+                        rs.getInt("role_id"),
+                        rs.getInt("user_id")
+                );
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return user;
+    }
+
     public User getUserById(int id) {
         String sql = "select * from [User] where user_id = ?";
         User user = null;
@@ -155,11 +164,12 @@ public class UserDAO {
                 user.setEmail(rs.getString("email"));
                 user.setAvatar(rs.getString("avatar"));
                 user.setStatus(rs.getBoolean("status"));
-
-                rs.close();
-                ps.close();
-                connection.close();
             }
+
+            rs.close();
+            ps.close();
+            connection.close();
+            
         } catch (Exception e) {
             e.printStackTrace();
         }

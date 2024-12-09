@@ -5,12 +5,14 @@
 package Model;
 
 import java.sql.Date;
+import java.util.List;
 
 /**
  *
  * @author Hayashi
  */
 public class Request {
+
     private int requestId;
     private String title;
     private Date deadline;
@@ -18,8 +20,28 @@ public class Request {
     private User mentor;
     private User mentee;
     private int status;
+    
+    private List<Skill> skillList;
 
     public Request() {
+    }
+
+    public Request(int requestId, String title, Date deadline, String content, User mentor, User mentee, int status) {
+        this.requestId = requestId;
+        this.title = title;
+        this.deadline = deadline;
+        this.content = content;
+        this.mentor = mentor;
+        this.mentee = mentee;
+        this.status = status;
+    }
+
+    public List<Skill> getSkillList() {
+        return skillList;
+    }
+
+    public void setSkillList(List<Skill> skillList) {
+        this.skillList = skillList;
     }
 
     public int getRequestId() {

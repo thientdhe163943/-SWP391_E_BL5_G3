@@ -11,15 +11,17 @@ package Model;
 public class CvDetail {
     private int cvDetailId;
     private CV cv;
+    private User mentee;
     private String comment;
     private Float rating;
 
     public CvDetail() {
     }
 
-    public CvDetail(int cvDetailId, CV cv, String comment, Float rating) {
+    public CvDetail(int cvDetailId, CV cv, User mentee, String comment, Float rating) {
         this.cvDetailId = cvDetailId;
         this.cv = cv;
+        this.mentee = mentee;
         this.comment = comment;
         this.rating = rating;
     }
@@ -40,6 +42,14 @@ public class CvDetail {
         this.cv = cv;
     }
 
+    public User getMentee() {
+        return mentee;
+    }
+
+    public void setMentee(User mentee) {
+        this.mentee = mentee;
+    }
+
     public String getComment() {
         return comment;
     }
@@ -55,4 +65,6 @@ public class CvDetail {
     public void setRating(Float rating) {
         this.rating = rating;
     }
+
+    
 }

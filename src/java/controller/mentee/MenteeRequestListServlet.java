@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import Model.Request;
 import java.util.Collections;
+import java.util.Comparator;
 
 /**
  *
@@ -59,11 +60,33 @@ public class MenteeRequestListServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         RequestDAO dao = new RequestDAO();
-        ArrayList<Request> requestList = dao.getAllRequests();
-
+        String titleSearch = request.getParameter("requestSearch");
+        ArrayList<Request> requestList = dao.getAllVisibleRequests(titleSearch);
+        String sortOrder = request.getParameter("sortOrder");
+        
+        
+        if (sortOrder != null && !sortOrder.isEmpty()) {
+            switch (sortOrder) {
+                case "title": {
+                    requestList.sort((r1, r2) -> r1.getTitle().compareTo(r2.getTitle()));
+                    break;
+                }
+                case "mentor": {
+                    requestList.sort((r1, r2) -> r1.getMentor().getName().compareTo(r2.getMentor().getName()));
+                    break;
+                }
+                case "deadline": {
+                    requestList.sort((r1, r2) -> r1.getDeadline().compareTo(r2.getDeadline()));
+                    break;
+                }
+            }
+        }
+        
         request.setAttribute("requestList", requestList);
+        request.setAttribute("sortOrder", sortOrder);
+        request.setAttribute("requestSearch", titleSearch);
 
-        request.getRequestDispatcher("../view/mentee/home.jsp").forward(request, response);
+        request.getRequestDispatcher("./view/mentee/home.jsp").forward(request, response);
     }
 
     /**
@@ -77,23 +100,6 @@ public class MenteeRequestListServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDAO dao = new RequestDAO();
-        String sortOrder = (String) request.getParameter("sortOrder");
-        System.out.println("sortOrder");
-        ArrayList<Request> requestList = dao.getAllRequests();;
-
-        if (sortOrder == null || sortOrder.isEmpty()) {
-            request.setAttribute("requestList", requestList);
-        } else if (sortOrder.equalsIgnoreCase("title")) {
-            requestList.sort((o1, o2) -> o1.getTitle().compareTo(o2.getTitle()));
-            request.setAttribute("requestList", requestList);
-
-        } else if (sortOrder.equalsIgnoreCase("mentor")) {
-            requestList.sort((o1, o2) -> o1.getMentor().getName().compareTo(o2.getMentor().getName()));
-            request.setAttribute("requestList", requestList);
-        }
-
-        request.getRequestDispatcher("../view/mentee/home.jsp").forward(request, response);
     }
 
 }
