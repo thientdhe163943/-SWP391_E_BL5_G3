@@ -179,4 +179,9 @@ public class User extends BaseUser{
         this.commentList = commentList;
     }
 
+    @Override
+    public String toString() {
+        return "User{" + "userId=" + userId + ", name=" + name + ", gender=" + gender + ", DOB=" + DOB + ", phone=" + phone + ", address=" + address + ", email=" + email + ", avatar=" + avatar + ", accountId=" + accountId + ", status=" + status + '}';
+    }
+
 }

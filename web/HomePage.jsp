@@ -36,12 +36,7 @@
     </head>
 
     <body>
-        <%
-        User User = null;
-        if(session.getAttribute("User") != null) {
-            User = (User)session.getAttribute("User");
-        }
-        %>
+   
 
         <!-- Header START -->
         <%@include file="./Header.jsp" %>   
@@ -83,30 +78,12 @@
                             <p class="mb-3">The most reliable online courses and certifications in marketing, information technology, programming, and data science.
                             </p>
                             <!-- Search bar -->
-                            <form class="border rounded p-2 mb-4">
-                                <div class="input-group">
-                                    <input class="form-control border-0 me-1" type="search" placeholder="Find your course">
-                                    <button type="button" class="btn btn-primary mb-0 rounded"><i class="fas fa-search"></i></button>
-                                </div>
-                            </form>
+                          
 
                             <!-- Counter START -->
                             <div class="row g-3 mb-3 mb-lg-0">
                                 <!-- Item -->
-                                <div class="col-sm-6">
-                                    <div class="d-flex align-items-center">
-                                        <!-- Icon -->
-                                        <div class="icon-lg fs-4 text-orange bg-orange bg-opacity-10 rounded"> <i class="bi bi-book-half"></i> </div>
-                                        <!-- Info -->
-                                        <div class="ms-3">
-                                            <div class="d-flex">
-                                                <h4 class="purecounter fw-bold mb-0" data-purecounter-start="0" data-purecounter-end="600" data-purecounter-delay="100">0</h4>
-                                                <span class="h4 mb-0">+</span>
-                                            </div>
-                                            <div>Online Courses</div>
-                                        </div>
-                                    </div>
-                                </div>
+                               
                                 <!-- Item -->
                                 <div class="col-sm-6">
                                     <div class="d-flex align-items-center">
@@ -216,7 +193,7 @@
                     <div class="row mb-4">
                         <div class="col-12">
                             <h2 class="fs-1 fw-bold">
-                                <span class="position-relative z-index-9">Best</span>
+                                <span class="position-relative z-index-9"></span>
                                 <span class="position-relative z-index-1">Mentor
                                     <!-- SVG START -->
                                     <span class="position-absolute top-50 start-50 translate-middle z-index-n1">
