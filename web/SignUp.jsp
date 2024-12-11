@@ -84,9 +84,9 @@
                                                 <div class="d-flex mt-5">
                                                     <div class="me-3">
                                                         <div class="d-flex align-items-center fs-4 mt-3">
-                                                            <input type="text" placeholder="Username" 
-                                                                   style="${(username.equals("error")) ? "border-bottom: 1px solid red !important;" : ''}"
-                                                                   value="${!username.equals("error")?username:""}" name="username"
+                                                            <input type="text" placeholder="email" 
+                                                                   style="${(email.equals("error")) ? "border-bottom: 1px solid red !important;" : ''}"
+                                                                   value="${!email.equals("error")?email:""}" name="email"
                                                                    class="w-100 py-4 outline-0 border-0 ms-3 border-bottom" />
                                                         </div>
                                                     </div>
