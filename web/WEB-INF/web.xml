@@ -25,8 +25,12 @@
         <servlet-class>controller.mentee.MenteeUpdateRequestServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>MenteeDeleteRequestServlet</servlet-name>
-        <servlet-class>controller.mentee.MenteeDeleteRequestServlet</servlet-class>
+        <servlet-name>MenteeRequestStatistics</servlet-name>
+        <servlet-class>controller.mentee.MenteeRequestStatistics</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MenteeUpdateRequestStatusServlet</servlet-name>
+        <servlet-class>controller.mentee.MenteeUpdateRequestStatusServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>viewCVServlet</servlet-name>
@@ -53,7 +57,11 @@
         <url-pattern>/new-request</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>MenteeDeleteRequestServlet</servlet-name>
-        <url-pattern>/delete-request</url-pattern>
+        <servlet-name>MenteeRequestStatistics</servlet-name>
+        <url-pattern>/mentee-dashboard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MenteeUpdateRequestStatusServlet</servlet-name>
+        <url-pattern>/update-request-status</url-pattern>
     </servlet-mapping>
 </web-app>
