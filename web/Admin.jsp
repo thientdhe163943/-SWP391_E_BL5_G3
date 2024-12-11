@@ -205,7 +205,7 @@
                                 <ul class="pagination">
                                     <c:forEach begin="1" end="${endP}" var="i">
                                         <li class="page-item ${i == currentPage ? 'active' : ''}">
-                                            <a class="page-link" href="ListUser?index=${i}">${i}</a>
+                                            <a class="page-link" href="admin?index=${i}">${i}</a>
                                         </li>
                                     </c:forEach>
                                 </ul>
