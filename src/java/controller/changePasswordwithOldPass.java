@@ -1,7 +1,8 @@
 package controller;
 
-import Dao.AccountDAO;
-import Model.Account;
+
+import Dao.UserDAO;
+import Model.User;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -17,11 +18,11 @@ public class changePasswordwithOldPass extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        AccountDAO d = new AccountDAO();
+        UserDAO d = new UserDAO();
         
         // Kiểm tra session để lấy account đã đăng nhập
         HttpSession session = request.getSession();
-        Account acc = (Account) session.getAttribute("account");
+        User acc = (User) session.getAttribute("user");
         
        
 
@@ -29,7 +30,7 @@ public class changePasswordwithOldPass extends HttpServlet {
         updatePassword(request, response, d, acc);
     }
 
-    private void updatePassword(HttpServletRequest request, HttpServletResponse response, AccountDAO d, Account acc)
+    private void updatePassword(HttpServletRequest request, HttpServletResponse response, UserDAO d, User acc)
             throws ServletException, IOException {
         
         String currentPassword = request.getParameter("currentPassword");
@@ -40,11 +41,11 @@ public class changePasswordwithOldPass extends HttpServlet {
         boolean isSuccess = false;
 
         // Kiểm tra mật khẩu cũ
-        if (d.validateCustomer(acc.getUsername(), currentPassword) != null) {
+        if (d.validateCustomer(acc.getEmail(), currentPassword) != null) {
             // Kiểm tra tính hợp lệ của mật khẩu mới
             if (isValidPassword(newPassword)) {
                 if (newPassword.equals(confirmPassword)) {
-                    d.updatePassword(newPassword, acc.getAccountId());
+                    d.updatePassword(newPassword, acc.getUserId());
                     mess = "Password changed successfully!";
                     isSuccess = true;
                 } else {

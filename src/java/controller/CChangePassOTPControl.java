@@ -4,11 +4,9 @@
  */
 package controller;
 
+
 import Dao.UserDAO;
 import Model.User;
-
-import Dao.AccountDAO;
-import Model.Account;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -94,8 +92,8 @@ public class CChangePassOTPControl extends HttpServlet {
             RequestDispatcher dispatcher = null;
             int otpvalue = 0;
             HttpSession mySession = request.getSession();
-            AccountDAO ac = new AccountDAO();
-            Account userf = ac.getAccountByEmail(email);
+            UserDAO ac=new UserDAO();
+            User userf = ac.getUserByEmail(email);
            
             if (userf != null) {
                 // sending otp
@@ -115,7 +113,6 @@ public class CChangePassOTPControl extends HttpServlet {
                         return new PasswordAuthentication("thientdhe163943@fpt.edu.vn", "iwrg kcdz utwi jpei ");// Put your email and password
                     }
                 });
-                
 
                 // compose message
                 try {

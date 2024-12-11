@@ -1,9 +1,6 @@
 package controller;
 
-import Dao.AccountDAO;
 import Dao.UserDAO;
-import Model.Account;
-import Model.BaseUser;
 import Model.User;
 import Model.User_role;
 import java.io.IOException;
@@ -20,7 +17,6 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Redirect to login page if it's a GET request
         request.getRequestDispatcher("Login.jsp").forward(request, response);
     }
 
@@ -28,49 +24,37 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         UserDAO daoUser = new UserDAO();
-         AccountDAO acc = new AccountDAO();
+        
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        HttpSession session = request.getSession();
-        // Kiểm tra thông tin đăng nhập
-        Account ac = acc.validateCustomer(username, password);
-         session.setAttribute("account", ac);
-
-        if (ac != null) {
+    
+        User user = daoUser.validateCustomer(username, password);
+        
+        if (user != null) {
+            HttpSession session = request.getSession();
+            session.setAttribute("user", user);
+            User_role ur=daoUser.getUserByUserId(user.getUserId());
+           
             
-          
-                  User us = daoUser.getUserByAccountId(ac.getAccountId());
-                  User_role usr=daoUser.getRoleByUser_id(us.getUserId());
-                        session.setAttribute("user", us);
-                switch (usr.getRole_id()) {
-                    case 1: // Role User
-                        
-                        response.sendRedirect("home");
-                        break;
-                    case 2: // Role Mentor
-                        
-                        response.sendRedirect("home");
-                        break;
-                    case 3: // Role Admin
-                        
-                        response.sendRedirect("admin");
-                        break;
-                    default:
-                        request.setAttribute("mess", "You do not have permission to access the system.");
-                        request.getRequestDispatcher("Login.jsp").forward(request, response);
-                }
-            
-            
+            if (ur.getRole_id()==1) {
+                response.sendRedirect("home");
+            } else if (ur.getRole_id()==2) {
+                response.sendRedirect("home");
+            } else if (ur.getRole_id()==3) {
+                response.sendRedirect("Admin");
+            } else {
+                // Người dùng không có quyền hoặc không hoạt động
+                request.setAttribute("mess", "You do not have permission to access the system.");
+                request.getRequestDispatcher("Login.jsp").forward(request, response);
+            }
         } else {
-            // Đăng nhập không thành công
-            request.setAttribute("mess", "Username or password is incorrect.");
+            request.setAttribute("mess", "Email or password is wrong");
             request.getRequestDispatcher("Login.jsp").forward(request, response);
         }
     }
 
     @Override
     public String getServletInfo() {
-        return "Handles user login and redirects based on roles";
+        return "Short description";
     }
-
 }

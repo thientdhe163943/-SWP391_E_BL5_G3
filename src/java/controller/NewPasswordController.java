@@ -4,9 +4,9 @@
  */
 package controller;
 
+import Dao.UserDAO;
+import Model.User;
 
-import Dao.AccountDAO;
-import Model.Account;
 import java.io.IOException;
 
 import jakarta.servlet.RequestDispatcher;
@@ -37,20 +37,18 @@ public class NewPasswordController extends HttpServlet {
             String newPassword = request.getParameter("password");
             String confPassword = request.getParameter("confPassword");
             RequestDispatcher dispatcher = null;
-            Account acc=new Account();
-            
-            AccountDAO dao = new AccountDAO();
-            acc = dao.getAccountByEmail(email);
+            User acc=new User();
+            UserDAO dao = new UserDAO();
 
             if (newPassword != null && confPassword != null && newPassword.equals(confPassword)) {
-                
+                acc = dao.getUserByEmail(email);
                 //Ma hoa pass
 //                String newPassword = toSHA1(newPassword);
-                dao.changePassword(newPassword, acc.getAccountId());
+                dao.changePassword(newPassword, acc.getUserId());
 
-                if (dao.getAccountByEmail(email).getPassword().equals(newPassword)) {
+                if (dao.getUserByEmail(email).getPassword().equals(newPassword)) {
                     request.setAttribute("status", "resetSuccess");
-                    dispatcher = request.getRequestDispatcher("home");
+                    dispatcher = request.getRequestDispatcher("Login.jsp");
                 } else {
                     request.setAttribute("status", "resetFailed");
                     dispatcher = request.getRequestDispatcher("newPassword.jsp");
