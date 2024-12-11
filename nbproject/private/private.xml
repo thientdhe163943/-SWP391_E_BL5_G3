@@ -5,6 +5,7 @@
         <group>
             <file>file:/D:/Studies/General/SWP391/-SWP391_E_BL5_G3/web/view/mentee/home.jsp</file>
             <file>file:/D:/Studies/General/SWP391/-SWP391_E_BL5_G3/web/view/mentee/new-request.jsp</file>
+            <file>file:/D:/Studies/General/SWP391/-SWP391_E_BL5_G3/web/view/mentee/update-request.jsp</file>
             <file>file:/D:/Studies/General/SWP391/-SWP391_E_BL5_G3/src/java/Dao/RequestDAO.java</file>
             <file>file:/D:/Studies/General/SWP391/-SWP391_E_BL5_G3/src/java/controller/mentee/MenteeNewRequestServlet.java</file>
             <file>file:/D:/Studies/General/SWP391/-SWP391_E_BL5_G3/src/java/controller/mentee/MenteeRequestListServlet.java</file>
