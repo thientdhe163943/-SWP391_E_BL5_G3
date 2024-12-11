@@ -29,70 +29,14 @@
 
         <!-- Theme CSS -->
         <link id="style-switch" rel="stylesheet" type="text/css" href="./assets/css/style.css">
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     </head>
     <body>
         <jsp:include page="header.jsp" />
 
         <main>
-            <!-- =======================
-            Page Banner START -->
-            <section class="pt-0">
-                <div class="container-fluid px-0">
-                    <div class="card bg-blue h-100px h-md-200px rounded-0" style="background:url(./assets/images/pattern/04.png) no-repeat center center; background-size:cover;">
-                    </div>
-                </div>
-                <div class="container mt-n4">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card bg-transparent card-body pb-0 ps-0 mt-2 mt-sm-0">
-                                <div class="row d-sm-flex justify-sm-content-between mt-2 mt-md-0">
-                                    <!-- Avatar -->
-                                    <div class="col-auto">
-                                        <div class="avatar avatar-xxl position-relative mt-n3">
-                                            <img class="avatar-img rounded-circle border border-white border-3 shadow" src="./assets/images/avatar/09.jpg" alt="">
-                                            <span class="badge bg-success text-white rounded-pill position-absolute top-50 start-100 translate-middle mt-4 mt-md-5 ms-n3 px-md-3">Pro</span>
-                                        </div>
-                                    </div>
-                                    <!-- Profile info -->
-                                    <div class="col d-sm-flex justify-content-between align-items-center">
-                                        <div>
-                                            <h1 class="my-1 fs-4">Lori Stevens</h1>
-                                            <!--                                            <ul class="list-inline mb-0">
-                                                                                            <li class="list-inline-item me-3 mb-1 mb-sm-0">
-                                                                                                <span class="h6">255</span>
-                                                                                                <span class="text-body fw-light">points</span>
-                                                                                            </li>
-                                                                                            <li class="list-inline-item me-3 mb-1 mb-sm-0">
-                                                                                                <span class="h6">7</span>
-                                                                                                <span class="text-body fw-light">Completed courses</span>
-                                                                                            </li>
-                                                                                            <li class="list-inline-item me-3 mb-1 mb-sm-0">
-                                                                                                <span class="h6">52</span>
-                                                                                                <span class="text-body fw-light">Completed lessons</span>
-                                                                                            </li>
-                                                                                        </ul>-->
-                                        </div>
-                                        <!-- Button -->
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Advanced filter responsive toggler START -->
-                            <!-- Divider -->
-                            <hr class="d-xl-none">
-                            <div class="col-12 col-xl-3 d-flex justify-content-between align-items-center">
-                                <a class="h6 mb-0 fw-bold d-xl-none" href="#">Menu</a>
-                                <button class="btn btn-primary d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-                                    <i class="fas fa-sliders-h"></i>
-                                </button>
-                            </div>
-                            <!-- Advanced filter responsive toggler END -->
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <!-- =======================
-            Page Banner END -->
+            <jsp:include page="banner.jsp" />
 
             <!-- =======================
             Page content START -->
@@ -115,11 +59,10 @@
                                         <div class="bg-dark border rounded-3 pb-0 p-3 w-100">   
                                             <!-- Dashboard menu -->
                                             <div class="list-group list-group-dark list-group-borderless">
-                                                <a class="list-group-item active" href="mentee"><i class="bi bi-basket fa-fw me-2"></i>Dashboard</a>
-                                                <a class="list-group-item" href="student-payment-info.html"><i class="bi bi-credit-card-2-front fa-fw me-2"></i>Payment info</a>
-                                                <a class="list-group-item" href="instructor-edit-profile.html"><i class="bi bi-pencil-square fa-fw me-2"></i>Edit Profile</a>
-                                                <a class="list-group-item" href="instructor-setting.html"><i class="bi bi-gear fa-fw me-2"></i>Settings</a>
-                                                <a class="list-group-item" href="instructor-delete-account.html"><i class="bi bi-trash fa-fw me-2"></i>Delete Profile</a>
+                                                <a class="list-group-item" href="mentee-dashboard"><i class="bi bi-basket fa-fw me-2"></i>Dashboard</a>
+                                                <a class="list-group-item active" href="mentee"><i class="bi bi-credit-card-2-front fa-fw me-2"></i>Requests List</a>
+                                                <a class="list-group-item" href=""><i class="bi bi-pencil-square fa-fw me-2"></i>Edit Profile</a>
+                                                <a class="list-group-item" href=""><i class="bi bi-trash fa-fw me-2"></i>Delete Profile</a>
                                                 <a class="list-group-item text-danger bg-danger-soft-hover" href="#"><i class="fas fa-sign-out-alt fa-fw me-2"></i>Sign Out</a>
                                             </div>
                                         </div>
@@ -165,7 +108,6 @@
                                                 <select class="form-select js-choice border-0 z-index-9 bg-transparent" id="sortOrder" name="sortOrder" aria-label=".form-select-sm" onchange="this.form.submit()">
                                                     <option value="">Sort by</option>
                                                     <option value="title" ${sortOrder == "title" ? 'selected' : ''}>Request Title</option>
-                                                    <option value="mentor" ${sortOrder == "mentor" ? 'selected' : ''}>Mentor Name</option>
                                                     <option value="deadline" ${sortOrder == "deadline" ? 'selected' : ''}>Deadline</option>
                                                 </select>
                                             </form>
@@ -198,14 +140,21 @@
                                                         <td>${re.content}</td>
                                                         <td>${re.mentor.name}</td>
                                                         <td>${re.deadline}</td>
-                                                        <td>${re.status == 1 ? 'Processed' : 'Not Processed'}</td>
+                                                        <td>${re.status == 1 ? 'Open' : 
+                                                              re.status == 2 ? 'Processing' : 
+                                                              re.status == 3 ? 'Cancel' : 'Closed'}</td>
                                                         <td>
-                                                            <a href="update-request?requestId=${re.requestId}">
+                                                            <a href="update-request?requestId=${re.requestId}" class="d-inline">
                                                                 <button type="button" class="btn btn-primary">
                                                                     <i class="bi bi-pen"></i>
                                                                 </button>
                                                             </a>
-                                                            <form action="delete-request?requestId=${re.requestId}" method="POST">
+                                                            <form action="update-request-status?requestId=${re.requestId}&status=3" method="POST" class="d-inline" onsubmit="return confirmCancelWithPopup(event, this);">
+                                                                <button type="submit" class="btn btn-outline-danger">
+                                                                    <i class="bi bi-x"></i>
+                                                                </button>
+                                                            </form>
+                                                            <form action="update-request-status?requestId=${re.requestId}&status=0" method="POST" class="d-inline" onsubmit="return confirmDeleteWithPopup(event, this);">
                                                                 <button type="submit" class="btn btn-outline-danger">
                                                                     <i class="bi bi-trash"></i>
                                                                 </button>
@@ -232,6 +181,50 @@
         <!-- **************** MAIN CONTENT END **************** -->
 
         <jsp:include page="footer.jsp"></jsp:include>
+
+        <script>
+            function confirmDeleteWithPopup(event, form) {
+                event.preventDefault();
+
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: 'Are you sure you want to delete this request?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Delete Request',
+                    cancelButtonText: 'Cancel'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
+
+                return false;
+            }
+            
+            function confirmCancelWithPopup(event, form) {
+                event.preventDefault();
+                
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: 'Are you sure you want to cancel this request?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Cancel Request',
+                    cancelButtonText: 'Cancel'
+                }).then((result) => {
+                    if(result.isConfirmed) {
+                        form.submit();
+                    }
+                });
+                
+                return false;
+            }
+        </script>
 
         <!-- Bootstrap JS -->
         <script src="./assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

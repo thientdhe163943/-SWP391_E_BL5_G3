@@ -44,7 +44,7 @@
                     <div class="card bg-transparent border rounded-3 mb-5">
                         <div class="card-header bg-light border-bottom px-lg-5">
                             <br>
-                            <h4>Create New Request</h4>
+                            <h4>Update Request</h4>
                         </div>
 
                         <div class="card-body">
@@ -53,17 +53,17 @@
                                 <input type="hidden" id="status" name="status" value="${currentRequest.status}" />
                                 <div class="form-group">
                                     <label for="title">Title</label>
-                                    <input class="form-control" type="text" id="title" name="title" placeholder="Enter request title" value="${currentRequest.title}" />
+                                    <input class="form-control" type="text" id="title" name="title" placeholder="Enter request title" value="${currentRequest.title}" required/>
                                 </div>
                                 <br>
                                 <div class="form-group">
                                     <label for="deadline">Deadline</label>
-                                    <input class="form-control" type="date" id="deadline" name="deadline" value="${currentRequest.deadline}" />
+                                    <input class="form-control" type="date" id="deadline" name="deadline" value="${currentRequest.deadline}" required/>
                                 </div>
                                 <br>
                                 <div class="form-group">
                                     <label for="content">Content</label>  
-                                    <textarea class="form-control" rows="3" id="content" name="content" placeholder="Enter content of the request" />${currentRequest.content}</textarea>
+                                    <textarea class="form-control" rows="3" id="content" name="content" placeholder="Enter content of the request" required/>${currentRequest.content}</textarea>
                                 </div>
                                 <br>
                                 <div class="form-group">
@@ -74,7 +74,8 @@
                                     </c:forEach>
                                 </div>
                                 <br>
-                                <button type="submit" class="btn btn-primary">Create</button>
+                                <button type="submit" class="btn btn-primary">Update</button>
+                                <button type="button" class="btn btn-secondary" onclick="window.history.back();">Cancel</button>
                             </form>
                         </div>
                     </div>
