@@ -93,9 +93,9 @@ public class MenteeNewRequestServlet extends HttpServlet {
         newRequest.setContent(request.getParameter("content"));
         newRequest.setMentor(null);
         User mentee = new User();
-        mentee.setUserId(2);
+        mentee.setUserId(1);
         newRequest.setMentee(mentee);
-        newRequest.setStatus(0);
+        newRequest.setStatus(1);
 
         String[] skills = request.getParameterValues("skill");
         ArrayList<Integer> chosenSkills = new ArrayList<>();
