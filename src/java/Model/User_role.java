@@ -8,7 +8,7 @@ package Model;
  *
  * @author laptop368
  */
-public class User_role extends BaseUser{
+public class User_role{
     private int user_role_id;
     private int role_id;
     private int user_id;
@@ -16,11 +16,7 @@ public class User_role extends BaseUser{
     public User_role() {
         
     }
-    public User_role(int user_id, String name, int role_id) {
-        super(user_id, name);  // Gọi constructor của BaseUser
-        this.role_id = role_id;
-    }
-
+    
     public User_role(int user_role_id, int role_id, int user_id) {
         this.user_role_id = user_role_id;
         this.role_id = role_id;
