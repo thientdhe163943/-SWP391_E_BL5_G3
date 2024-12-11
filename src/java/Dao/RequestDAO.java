@@ -204,7 +204,7 @@ public class RequestDAO extends DBConnect {
 
         try (PreparedStatement ps = connection.prepareStatement(sql);) {
             ps.setInt(1, menteeId);
-            
+
             try (ResultSet rs = ps.executeQuery();) {
                 while (rs.next()) {
                     Request request = new Request();
@@ -213,12 +213,16 @@ public class RequestDAO extends DBConnect {
                     request.setTitle(rs.getString("title"));
                     request.setDeadline(rs.getDate("deadline"));
                     request.setContent(rs.getString("content"));
-                    User mentor = new User();
-                    mentor.setUserId(rs.getInt("mentor_id"));
-                    request.setMentor(mentor);
+                    if (rs.getInt("mentor_id") == 0) {
+                        request.setMentor(null);
+                    } else {
+                        User mentor = new User();
+                        mentor.setUserId(rs.getInt("mentor_id"));
+                        request.setMentor(mentor);
+                    }
 
                     User mentee = new User();
-                    mentor.setUserId(rs.getInt("mentee_id"));
+                    mentee.setUserId(rs.getInt("mentee_id"));
                     request.setMentee(mentee);
                     request.setStatus(rs.getInt("status"));
 
