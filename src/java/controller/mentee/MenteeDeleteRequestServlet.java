@@ -71,7 +71,7 @@ public class MenteeDeleteRequestServlet extends HttpServlet {
     throws ServletException, IOException {
         int requestId = Integer.parseInt(request.getParameter("requestId"));
 
-        requestDao.softDeleteRequest(requestId);
+        requestDao.updateStatus(requestId, 2);
         
         response.sendRedirect("mentee");
     }
