@@ -103,8 +103,8 @@ public class UserDAO extends DBConnect {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 ur = new User_role(rs.getInt("user_role_id"),
-                         rs.getInt("role_id"),
-                         rs.getInt("user_id")
+                        rs.getInt("role_id"),
+                        rs.getInt("user_id")
                 );
                 return ur;
             }
@@ -250,38 +250,13 @@ public class UserDAO extends DBConnect {
         return user;
     }
 
-    public boolean addRole(int accountID) {
-        String sql = "INSERT INTO [dbo].[User_Role]\n"
-                + "           ([user_id]\n"
-                + "           ,[role_id])\n"
-                + "     VALUES\n"
-                + "           (?\n"
-                + "           ,1)";
-        boolean isInserted = false;
-
-        try (java.sql.Connection connection = new DBConnect().getConnection(); PreparedStatement ps = connection.prepareStatement(sql)) {
-
-            // Thiết lập các tham số cho câu lệnh SQL
-            ps.setInt(1, accountID);
-
-            // Thực thi câu lệnh và kiểm tra số dòng bị ảnh hưởng
-            int rowsInserted = ps.executeUpdate();
-            if (rowsInserted > 0) {
-                isInserted = true;
-                System.out.println("Account added successfully!");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return isInserted;
-    }
-
     public void deleteUser(int userId) {
-        String sql = "DELETE FROM [User] WHERE user_id = ?";
+        String sql = " DELETE FROM [User_Role] WHERE user_id =?\n"
+                + "  DELETE FROM [User] WHERE user_id =?";
         try (Connection connection = new DBConnect().getConnection(); PreparedStatement ps = connection.prepareStatement(sql)) {
 
             ps.setInt(1, userId);
+            ps.setInt(2, userId);
 
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -355,57 +330,54 @@ public class UserDAO extends DBConnect {
         }
     }
 
-
-
     public int getTotalUsers() {
-    String sql = "SELECT COUNT(*) FROM [user]";
-    try ( PreparedStatement ps = connection.prepareStatement(sql);
-         ResultSet resultSet = ps.executeQuery()) {
-        if (resultSet.next()) {
-            return resultSet.getInt(1);
-        }
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
-    return 0; // Trả về 0 nếu xảy ra lỗi
-}
-
-       public List<User> getUsersByPage(int page) {
-    List<User> users = new ArrayList<>();
-    int start = (page - 1) * 5; // Tính toán offset
-    String sql = "SELECT * " +
-                 "FROM [user] " +
-                 "ORDER BY user_id " +
-                 "OFFSET ? ROWS FETCH NEXT 5 ROWS ONLY";
-
-    try ( PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-        preparedStatement.setInt(1, start);         // Truyền offset vào SQL
-       
-
-        try (ResultSet resultSet = preparedStatement.executeQuery()) {
-            while (resultSet.next()) {
-                User user = new User(
-                        resultSet.getInt("user_id"),
-                        resultSet.getString("name"),
-                        resultSet.getBoolean("gender"),
-                        resultSet.getDate("DOB"),
-                        resultSet.getString("phone"),
-                        resultSet.getString("address"),
-                        resultSet.getString("email"),
-                        resultSet.getString("avatar"),
-                        resultSet.getBoolean("status"),
-                        resultSet.getString("password")
-                );
-                users.add(user);
+        String sql = "SELECT COUNT(*) FROM [user]";
+        try (PreparedStatement ps = connection.prepareStatement(sql); ResultSet resultSet = ps.executeQuery()) {
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
+        return 0; // Trả về 0 nếu xảy ra lỗi
     }
 
-    return users;
-}
-       public boolean isUserExists(String email) {
+    public List<User> getUsersByPage(int page) {
+        List<User> users = new ArrayList<>();
+        int start = (page - 1) * 5; // Tính toán offset
+        String sql = "SELECT * "
+                + "FROM [user] "
+                + "ORDER BY user_id "
+                + "OFFSET ? ROWS FETCH NEXT 5 ROWS ONLY";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, start);         // Truyền offset vào SQL
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    User user = new User(
+                            resultSet.getInt("user_id"),
+                            resultSet.getString("name"),
+                            resultSet.getBoolean("gender"),
+                            resultSet.getDate("DOB"),
+                            resultSet.getString("phone"),
+                            resultSet.getString("address"),
+                            resultSet.getString("email"),
+                            resultSet.getString("avatar"),
+                            resultSet.getBoolean("status"),
+                            resultSet.getString("password")
+                    );
+                    users.add(user);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return users;
+    }
+
+    public boolean isUserExists(String email) {
         // Assuming you already have a database connection through the inherited connection object
         String query = "SELECT COUNT(*) FROM [User] WHERE email = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
@@ -420,42 +392,70 @@ public class UserDAO extends DBConnect {
         }
         return false; // Username does not exist
     }
-//        public User addAccount(String username, String password) {
-//        String sql = "INSERT INTO Account (username, password) VALUES (?, ?)";
-//        User user = null;
-//
-//        try ( PreparedStatement ps = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
-//
-//            // Thiết lập các tham số cho câu lệnh SQL
-//            ps.setString(1, username);
-//            ps.setString(2, password);
-//
-//            // Thực thi câu lệnh
-//            int rowsInserted = ps.executeUpdate(); // Thực thi câu lệnh trước khi lấy khóa
-//
-//            if (rowsInserted > 0) {
-//                try (ResultSet generatedKeys = ps.getGeneratedKeys()) { // Lấy khóa tự sinh
-//                    if (generatedKeys.next()) {
-//                        int id = generatedKeys.getInt(1); // Lấy giá trị ID tự động sinh
-//                        user = new Account(id, username, password); // Tạo đối tượng Account
-//                        System.out.println("Account added successfully with ID: " + id);
-//                    }
-//                }
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//
-//        return account; // Trả về null nếu không thêm được
-//    }
+//     
+
+    public User addUserr(String email, String password) {
+        User user = new User();
+        user.setEmail(email);  // Thiết lập email từ tham số truyền vào
+        user.setPassword(password);  // Thiết lập password từ tham số truyền vào
+
+        String sql = "INSERT INTO [User] (name, gender, DOB, phone, address, email, avatar, status, password) "
+                + "VALUES (?, null, null, null, null, ?, null, null, ?);";
+
+        try (Connection connection = new DBConnect().getConnection(); PreparedStatement ps = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+
+            // Gán các giá trị vào câu lệnh SQL
+            ps.setString(1, "default_name");
+            ps.setString(2, user.getEmail());
+            ps.setString(3, user.getPassword());
+
+            int rowsInserted = ps.executeUpdate();
+
+            if (rowsInserted > 0) {
+                // Lấy giá trị tự động tăng (user_id)
+                try (ResultSet rs = ps.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        user.setUserId(rs.getInt(1)); // Gán user_id vào đối tượng User
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+
+    public boolean addRole(int user_id) {
+        String sql = "INSERT INTO [dbo].[User_Role] "
+                + "           ([user_id], [role_id]) "
+                + "     VALUES (?, 1)"; // Thêm dấu đóng ngoặc
+
+        boolean isInserted = false;
+
+        try (java.sql.Connection connection = new DBConnect().getConnection(); PreparedStatement ps = connection.prepareStatement(sql)) {
+
+            // Thiết lập tham số cho câu lệnh SQL
+            ps.setInt(1, user_id);
+
+            // Thực thi câu lệnh và kiểm tra số dòng bị ảnh hưởng
+            int rowsInserted = ps.executeUpdate();
+            if (rowsInserted > 0) {
+                isInserted = true;
+                System.out.println("Role added successfully!");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return isInserted;
+    }
 
     public static void main(String[] args) throws SQLException {
         UserDAO daoUser = new UserDAO();
-        List<User> list=daoUser.getUsersByPage(1);
-        int count = daoUser.getTotalUsers();
-        for (User user : list) {
-            System.out.println(user);
-        }
+        User acc = daoUser.addUserr("thien@example.com", "123");
+        System.out.println(acc.getUserId()); // Kết quả sẽ là true nếu thêm thành công
+        daoUser.addRole(acc.getUserId());
 
     }
+
 }
