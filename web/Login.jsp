@@ -80,10 +80,10 @@
                                         <div class="bg-white p-5 form-login">
                                             <h1 class="text-center fw-bold">Login</h1>
                                             <div class="border-bottom">
-                                                <span class="fs-5 fw-bold text-black-weak">Username</span>
+                                                <span class="fs-5 fw-bold text-black-weak">email</span>
                                                 <div class="d-flex align-items-center fs-4 mt-3">
                                                     <i class='bx bx-user'></i>
-                                                    <input type="text" name="username" placeholder="Username" class="w-100 py-4 outline-0 border-0 ms-3" required />
+                                                    <input type="text" name="email" placeholder="email" class="w-100 py-4 outline-0 border-0 ms-3" required />
                                                 </div>
                                             </div>
                                             <div class="border-bottom mt-5">
