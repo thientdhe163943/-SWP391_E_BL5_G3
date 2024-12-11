@@ -7,6 +7,7 @@ package Dao;
 import Model.Request;
 import DB.DBConnect;
 import Model.Skill;
+import Model.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,21 +28,31 @@ public class RequestDAO extends DBConnect {
 
     public Request getRequestById(int id) {
         String sql = "SELECT * from Request WHERE request_id = ?";
-        Request request = new Request();
+        
 
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
 
             ps.setInt(1, id);
 
             try (ResultSet rs = ps.executeQuery();) {
-                while (rs.next()) {
+                if (rs.next()) {
+                    Request request = new Request();
                     request.setRequestId(id);
                     request.setTitle(rs.getString("title"));
                     request.setDeadline(rs.getDate("deadline"));
                     request.setContent(rs.getString("content"));
-                    request.setMentor(userDao.getUserById(rs.getInt("mentor_id")));
-                    request.setMentee(userDao.getUserById(rs.getInt("mentee_id")));
+                    
+                    User mentor = new User();
+                    mentor.setUserId(rs.getInt("mentor_id"));
+                    request.setMentor(mentor);
+                    
+                    User mentee = new User();
+                    mentor.setUserId(rs.getInt("mentee_id"));
+                    request.setMentee(mentee);
+                            
                     request.setStatus(rs.getInt("status"));
+                    
+                    return request;
                 }
             }
 
@@ -49,7 +60,7 @@ public class RequestDAO extends DBConnect {
             e.printStackTrace();
         }
 
-        return request;
+        return null;
     }
 
     public ArrayList<Request> getAllRequests(String search) {
@@ -70,8 +81,13 @@ public class RequestDAO extends DBConnect {
                 request.setTitle(rs.getString("title"));
                 request.setDeadline(rs.getDate("deadline"));
                 request.setContent(rs.getString("content"));
-                request.setMentor(userDao.getUserById(rs.getInt("mentor_id")));
-                request.setMentee(userDao.getUserById(rs.getInt("mentee_id")));
+                User mentor = new User();
+                    mentor.setUserId(rs.getInt("mentor_id"));
+                    request.setMentor(mentor);
+                    
+                    User mentee = new User();
+                    mentor.setUserId(rs.getInt("mentee_id"));
+                    request.setMentee(mentee);
                 request.setStatus(rs.getInt("status"));
                 requestList.add(request);
             }
@@ -196,8 +212,13 @@ public class RequestDAO extends DBConnect {
                 request.setTitle(rs.getString("title"));
                 request.setDeadline(rs.getDate("deadline"));
                 request.setContent(rs.getString("content"));
-                request.setMentor(userDao.getUserById(rs.getInt("mentor_id")));
-                request.setMentee(userDao.getUserById(rs.getInt("mentee_id")));
+                User mentor = new User();
+                    mentor.setUserId(rs.getInt("mentor_id"));
+                    request.setMentor(mentor);
+                    
+                    User mentee = new User();
+                    mentor.setUserId(rs.getInt("mentee_id"));
+                    request.setMentee(mentee);
                 request.setStatus(rs.getInt("status"));
 
                 visibleRequestList.add(request);
@@ -215,18 +236,6 @@ public class RequestDAO extends DBConnect {
         try (PreparedStatement ps = connection.prepareStatement(sqlDelete)) {
             ps.setInt(1, requestId);
             ps.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void softDeleteRequest(int requestId) {
-        String sql = "UPDATE Request SET status = 2 WHERE request_id = ?";
-
-        try (PreparedStatement ps = connection.prepareStatement(sql)) {
-            ps.setInt(1, requestId);
-            ps.executeUpdate();
-
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -92,7 +92,9 @@ public class MenteeNewRequestServlet extends HttpServlet {
         newRequest.setDeadline(Date.valueOf(request.getParameter("deadline")));
         newRequest.setContent(request.getParameter("content"));
         newRequest.setMentor(null);
-        newRequest.setMentee(userDao.getUserById(2));
+        User mentee = new User();
+        mentee.setUserId(2);
+        newRequest.setMentee(mentee);
         newRequest.setStatus(0);
 
         String[] skills = request.getParameterValues("skill");

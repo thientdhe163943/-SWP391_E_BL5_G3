@@ -104,7 +104,8 @@ public class MenteeUpdateRequestServlet extends HttpServlet {
         }
         
         int status = Integer.parseInt(request.getParameter("status"));
-        User mentee = userDao.getUserById(2);
+        User mentee = new User();
+        mentee.setUserId(2);
         
         Request updateRequest = new Request(requestId, title, deadline, content, null, mentee, status);
         
