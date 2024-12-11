@@ -6,7 +6,7 @@
     <%@page import="Dao.*" %>
     <%@page import="Model.*" %>
     <%@page import="java.util.*" %>
-
+    
     <head>
         <title>Eduport - LMS, Education and Course Theme</title>
 
@@ -32,11 +32,21 @@
 
         <!-- Theme CSS -->
         <link id="style-switch" rel="stylesheet" type="text/css" href="assets/css/style.css">
+        <style>
+            .fixed-size {
+    width: 100%; /* ??m b?o hình ?nh chi?m toàn b? chi?u r?ng c?a khung ch?a */
+    height: 500px; /* Chi?u cao c? ??nh */
+    object-fit: cover; /* ?i?u ch?nh cách hình ?nh hi?n th? trong khung */
+    border-radius: 8px; /* Tùy ch?n ?? t?o góc bo tròn */
+}
 
+        </style>
     </head>
+    
 
     <body>
-   
+        
+
 
         <!-- Header START -->
         <%@include file="./Header.jsp" %>   
@@ -78,12 +88,12 @@
                             <p class="mb-3">The most reliable online courses and certifications in marketing, information technology, programming, and data science.
                             </p>
                             <!-- Search bar -->
-                          
+
 
                             <!-- Counter START -->
                             <div class="row g-3 mb-3 mb-lg-0">
                                 <!-- Item -->
-                               
+
                                 <!-- Item -->
                                 <div class="col-sm-6">
                                     <div class="d-flex align-items-center">
@@ -119,21 +129,7 @@
                             </div>
 
                             <!-- Live class -->
-                            <div class="p-3 card card-body shadow rounded-4 position-absolute top-0 start-0 translate-middle ms-5 z-index-1 d-none d-xl-block">
-                                <div class="d-flex justify-content-between">
-                                    <!-- Avatar -->
-                                    <div class="avatar">
-                                        <img class="avatar-img rounded-circle shadow" src="assets/images/avatar/04.jpg" alt="avatar">
-                                    </div>
-                                    <!-- Info -->
-                                    <div class="text-start ms-3">
-                                        <h6 class="mb-0">Java Development class</h6>
-                                        <p class="mb-0 small text-body">Today at 1:00 pm</p>
-                                        <!-- Button -->
-                                        <a href="#" class="btn btn-sm btn-danger-soft mt-2 mb-0">Join now</a>
-                                    </div>
-                                </div>
-                            </div>
+                           
 
                             <!-- Student review -->
                             <div class="position-absolute top-100 start-100 translate-middle z-index-1 ms-n6 mt-n5 d-none d-xxl-block">
@@ -215,7 +211,7 @@
                                 <c:forEach items="${listMentor}" var="o">
                                     <div class="card bg-transparent">
                                         <div class="position-relative">
-                                            <img src="${o.avatar}" class="card-img" alt="course image">
+                                            <img src="${o.avatar}" class="card-img fixed-size" alt="course image">
                                             <div class="card-img-overlay d-flex flex-column p-3">
                                                 <div class="w-100 mt-auto text-end">
                                                     <a href="#" class="badge text-white bg-info rounded-1"><i class="fas fa-user-graduate me-2"></i>25</a>
@@ -229,12 +225,9 @@
                                         </div>
                                     </div>
                                 </c:forEach>
-
-
-
-
                             </div>
                         </div>
+
                     </div>
                 </div>
             </section>

@@ -73,15 +73,12 @@
                         <div class="col-12 col-lg-6 m-auto">
                             <div class="row my-5">
                                 <div class="col-sm-10 col-xl-8 m-auto">
-                                    <!-- Title -->
                                    
-                                    <h1 class="fs-2">Login into Eduport!</h1>
-                                    <p class="lead mb-4">Nice to see you! Please log in with your account.</p>
 
                                     <!-- Form START -->
                                     <form action="login" method="post" class="mx-auto">
                                         <div class="bg-white p-5 form-login">
-                                            
+                                            <h1 class="text-center fw-bold">Login</h1>
                                             <div class="border-bottom">
                                                 <span class="fs-5 fw-bold text-black-weak">Username</span>
                                                 <div class="d-flex align-items-center fs-4 mt-3">
@@ -105,7 +102,15 @@
                                             <button type="submit" class="d-flex align-items-center justify-content-center mt-5 fw-bold py-2 fs-4 px-5 btn bg-danger text-white mx-auto">Submit</button>
                                         </div>
                                     </form>
-                                    <div class="error-message">${mess!=null?mess:""}</div>
+                                    <!-- Form END -->
+
+                                    <!-- Social buttons and divider -->
+
+
+                                    <!-- Sign up link -->
+                                    <div class="mt-4 text-center">
+                                        <span>Don't have an account? <a href="sign-up.html">Signup here</a></span>
+                                    </div>
                                 </div>
                             </div> <!-- Row END -->
                         </div>
