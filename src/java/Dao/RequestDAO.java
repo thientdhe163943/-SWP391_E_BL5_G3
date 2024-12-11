@@ -39,8 +39,8 @@ public class RequestDAO extends DBConnect {
                     request.setTitle(rs.getString("title"));
                     request.setDeadline(rs.getDate("deadline"));
                     request.setContent(rs.getString("content"));
-                    request.setMentor(userDao.getUserById(rs.getInt("mentor_id")));
-                    request.setMentee(userDao.getUserById(rs.getInt("mentee_id")));
+                    request.setMentor(userDao.getUserByIdd(rs.getInt("mentor_id")));
+                    request.setMentee(userDao.getUserByIdd(rs.getInt("mentee_id")));
                     request.setStatus(rs.getInt("status"));
                 }
             }
@@ -70,8 +70,8 @@ public class RequestDAO extends DBConnect {
                 request.setTitle(rs.getString("title"));
                 request.setDeadline(rs.getDate("deadline"));
                 request.setContent(rs.getString("content"));
-                request.setMentor(userDao.getUserById(rs.getInt("mentor_id")));
-                request.setMentee(userDao.getUserById(rs.getInt("mentee_id")));
+                request.setMentor(userDao.getUserByIdd(rs.getInt("mentor_id")));
+                request.setMentee(userDao.getUserByIdd(rs.getInt("mentee_id")));
                 request.setStatus(rs.getInt("status"));
                 requestList.add(request);
             }
@@ -196,8 +196,8 @@ public class RequestDAO extends DBConnect {
                 request.setTitle(rs.getString("title"));
                 request.setDeadline(rs.getDate("deadline"));
                 request.setContent(rs.getString("content"));
-                request.setMentor(userDao.getUserById(rs.getInt("mentor_id")));
-                request.setMentee(userDao.getUserById(rs.getInt("mentee_id")));
+                request.setMentor(userDao.getUserByIdd(rs.getInt("mentor_id")));
+                request.setMentee(userDao.getUserByIdd(rs.getInt("mentee_id")));
                 request.setStatus(rs.getInt("status"));
 
                 visibleRequestList.add(request);

@@ -28,13 +28,12 @@ public class MentorDAO extends DBConnect {
         List<User> list = new ArrayList<>();
         String query = """
                        select * from [User] u
-                       join role r on u.user_id = r.user_id 
-                       where r.role_name = 'Mentor'""";
+                       join user_role r on u.user_id = r.user_id 
+                       where r.role_id = 2""";
         try (PreparedStatement stm = connection.prepareStatement(query); ResultSet rs = stm.executeQuery()) {
             while (rs.next()) {
                 User mentor = new User();
                 mentor.setUserId(rs.getInt("user_id"));
-                mentor.setAccountId(rs.getInt("account_id"));
                 mentor.setAddress(rs.getString("address"));
                 mentor.setName(rs.getString("name"));
                 mentor.setGender(rs.getBoolean("gender"));
@@ -43,6 +42,7 @@ public class MentorDAO extends DBConnect {
                 mentor.setEmail(rs.getString("email"));
                 mentor.setAvatar(rs.getString("avatar"));
                 mentor.setStatus(rs.getBoolean("status"));
+                mentor.setPassword(rs.getString("password"));
                 // Map rs to Object fields here
                 list.add(mentor);
             }
@@ -62,7 +62,7 @@ public class MentorDAO extends DBConnect {
             if (rs.next()) {
                 user = new User();
                 user.setUserId(id);
-                user.setAccountId(rs.getInt("account_id"));
+                user.setPassword(rs.getString("password"));
                 user.setAddress(rs.getString("address"));
                 user.setName(rs.getString("name"));
                 user.setGender(rs.getBoolean("gender"));
@@ -92,7 +92,7 @@ public class MentorDAO extends DBConnect {
             if (rs.next()) {
                 user = new User();
                 user.setUserId(rs.getInt("user_id"));
-                user.setAccountId(rs.getInt("account_id"));
+                user.setPassword(rs.getString("password"));
                 user.setAddress(rs.getString("address"));
                 user.setName(rs.getString("name"));
                 user.setGender(rs.getBoolean("gender"));
@@ -131,7 +131,7 @@ public class MentorDAO extends DBConnect {
             while (rs.next()) {
                 User mentor = new User();
                 mentor.setUserId(rs.getInt("user_id"));
-                mentor.setAccountId(rs.getInt("account_id"));
+                mentor.setPassword(rs.getString("password"));
                 mentor.setAddress(rs.getString("address"));
                 mentor.setName(rs.getString("name"));
                 mentor.setGender(rs.getBoolean("gender"));
@@ -176,7 +176,7 @@ public class MentorDAO extends DBConnect {
             while (rs.next()) {
                 User mentor = new User();
                 mentor.setUserId(rs.getInt("user_id"));
-                mentor.setAccountId(rs.getInt("account_id"));
+                mentor.setPassword(rs.getString("password"));
                 mentor.setAddress(rs.getString("address"));
                 mentor.setName(rs.getString("name"));
                 mentor.setGender(rs.getBoolean("gender"));
