@@ -11,7 +11,7 @@ import java.sql.Date;
  *
  * @author Hayashi
  */
-public class User extends BaseUser{
+public class User {
     private int userId;
     private String name;
     private Boolean gender;
@@ -19,9 +19,12 @@ public class User extends BaseUser{
     private String phone;
     private String address;
     private String email;
-    private String avatar;
-    private Integer accountId;
+    private String avatar; 
     private Boolean status;
+    
+    private String password;
+    
+    
 
     private ArrayList<Request> requestList;
     private ArrayList<FreeTime> timeList;
@@ -29,11 +32,6 @@ public class User extends BaseUser{
 
     public User() {
     }
-   public User(int userId, String name) {
-        super(userId, name);
-    }
-
-
 
     public User(int userId, String name, Boolean gender, Date DOB, String phone, String address, String email, String avatar) {
         this.userId = userId;
@@ -44,24 +42,30 @@ public class User extends BaseUser{
         this.address = address;
         this.email = email;
         this.avatar = avatar;
+        
+    }
+
+    public User(int userId, String name, Boolean gender, String phone, String address, String email, String avatar) {
+        this.userId = userId;
+        this.name = name;
+        this.gender = gender;
+        this.phone = phone;
+        this.address = address;
+        this.email = email;
+        this.avatar = avatar;
     }
     
-    public User(int userId, String name, Boolean gender, Date DOB, String phone, String address, String email, String avatar, Integer accountId) {
-        this.userId = userId;
+    public User(String name, Boolean gender, String phone, String address, String email, String avatar,String password) {
         this.name = name;
         this.gender = gender;
-        this.DOB = DOB;
         this.phone = phone;
         this.address = address;
         this.email = email;
         this.avatar = avatar;
-        this.accountId = accountId;
-        
-        
+        this.password = password;
     }
 
-
-    public User(int userId, String name, Boolean gender, Date DOB, String phone, String address, String email, String avatar, Integer accountId, Boolean status) {
+    public User(int userId, String name, Boolean gender, Date DOB, String phone, String address, String email, String avatar, Boolean status, String password) {
         this.userId = userId;
         this.name = name;
         this.gender = gender;
@@ -70,11 +74,21 @@ public class User extends BaseUser{
         this.address = address;
         this.email = email;
         this.avatar = avatar;
-        this.accountId = accountId;
         this.status = status;
-
+        this.password = password;
     }
 
+    public User(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
+    
+   
+   
+
+    
+  
     public int getUserId() {
         return userId;
     }
@@ -139,13 +153,17 @@ public class User extends BaseUser{
         this.avatar = avatar;
     }
 
-    public Integer getAccountId() {
-        return accountId;
+  
+
+    public String getPassword() {
+        return password;
     }
 
-    public void setAccountId(Integer accountId) {
-        this.accountId = accountId;
+    public void setPassword(String password) {
+        this.password = password;
     }
+
+   
 
     public Boolean getStatus() {
         return status;
@@ -178,5 +196,14 @@ public class User extends BaseUser{
     public void setCommentList(ArrayList<CommentBlog> commentList) {
         this.commentList = commentList;
     }
+
+    @Override
+    public String toString() {
+        return "User{" + "userId=" + userId + ", name=" + name + ", gender=" + gender + ", DOB=" + DOB + ", phone=" + phone + ", address=" + address + ", email=" + email + ", avatar=" + avatar + ", status=" + status + ", password=" + password + '}';
+    }
+
+   
+
+   
 
 }
