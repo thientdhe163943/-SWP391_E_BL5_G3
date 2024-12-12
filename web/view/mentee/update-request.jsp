@@ -74,6 +74,11 @@
                                     </c:forEach>
                                 </div>
                                 <br>
+                                <div class="form-group">
+                                    <label for="mentorEmail">Preferred Mentor (Not required):</label>
+                                    <input type="text" class="form-control" id="mentorEmail" name="mentorEmail" placeholder="Enter mentor's email" value="${mentorEmail == null ? mentorEmail : ''}" disabled />
+                                </div>
+                                <br>
                                 <button type="submit" class="btn btn-primary">Update</button>
                                 <button type="button" class="btn btn-secondary" onclick="window.history.back();">Cancel</button>
                             </form>

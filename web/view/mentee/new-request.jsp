@@ -28,6 +28,31 @@
 
         <!-- Theme CSS -->
         <link id="style-switch" rel="stylesheet" type="text/css" href="./assets/css/style.css">
+        
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+        <style>
+            #popupBox {
+                position: absolute;
+                border: 1px solid #ccc;
+                width: 300px;
+                max-height: 200px;
+                overflow-y: auto;
+                display: none;
+                z-index: 1000;
+            }
+
+            #popupBox p {
+                margin: 0;
+                padding: 8px;
+                font-size: 14px;
+                cursor: pointer;
+            }
+
+            #popupBox p:hover {
+                background-color: #f1f1f1;
+            }
+        </style>
     </head>
     <body>
         <jsp:include page="header.jsp" />
@@ -72,7 +97,11 @@
                                     </c:forEach>
                                 </div>
                                 <br>
-                                
+                                <div class="form-group">
+                                    <label for="mentorEmail">Preferred Mentor (Not required):</label>
+                                    <input type="text" class="form-control" id="mentorEmail" name="mentorEmail" placeholder="Enter mentor's email" value="${mentorEmail == null ? mentorEmail : ''}" />
+                                </div>
+                                <br>
                                 <button type="submit" class="btn btn-primary">Create</button>
                                 <button type="button" class="btn btn-secondary" onclick="window.history.back();">Cancel</button>
                             </form>

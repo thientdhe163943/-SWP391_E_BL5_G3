@@ -31,32 +31,6 @@ public class MenteeUpdateRequestServlet extends HttpServlet {
     private final UserDAO userDao = new UserDAO();
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet MenteeUpdateRequestServlet</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet MenteeUpdateRequestServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-
-    /**
      * Handles the HTTP <code>GET</code> method.
      *
      * @param request servlet request
@@ -76,10 +50,12 @@ public class MenteeUpdateRequestServlet extends HttpServlet {
             int currentRequestId = Integer.parseInt(request.getParameter("requestId"));
             Request currentRequest = requestDao.getRequestById(currentRequestId);
             ArrayList<Integer> chosenSkills = requestDao.getSkillByRequestId(currentRequestId);
-
-            request.getSession().setAttribute("skillList", skillList);
-            request.getSession().setAttribute("currentRequest", currentRequest);
-            request.getSession().setAttribute("chosenSkills", chosenSkills);
+            User mentor = userDao.getUserByIdd(currentRequest.getMentor().getUserId());
+            
+            request.setAttribute("mentorEmail", mentor.getEmail());
+            request.setAttribute("skillList", skillList);
+            request.setAttribute("currentRequest", currentRequest);
+            request.setAttribute("chosenSkills", chosenSkills);
 
             request.getRequestDispatcher("./view/mentee/update-request.jsp").forward(request, response);
         }

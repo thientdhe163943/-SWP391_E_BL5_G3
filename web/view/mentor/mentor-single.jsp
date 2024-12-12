@@ -99,7 +99,7 @@
                                                 <li class="list-inline-item"><div class="badge text-white bg-info rounded-1"><i class="fas fa-user-graduate me-2"></i>${totalMentee}</div></li>
                                             <li class="list-inline-item">${totalRate}<i class="fas fa-star text-warning"></i></li>
                                         </ul>
-                                        <a href="#" class="btn btn-success me-2">Send Request</a>
+                                            <a href="new-request?mentor=${cv.applicant.email}" class="btn btn-success me-2">Send Request</a>
                                     </div>
                                 </div>
                             </div>
