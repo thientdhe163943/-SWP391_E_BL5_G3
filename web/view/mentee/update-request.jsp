@@ -48,7 +48,7 @@
                         </div>
 
                         <div class="card-body">
-                            <form action="menteeNewRequest" method="POST">
+                            <form action="update-request" method="POST">
                                 <input type="hidden" id="requestId" name="requestId" value="${currentRequest.requestId}" />
                                 <input type="hidden" id="status" name="status" value="${currentRequest.status}" />
                                 <div class="form-group">
