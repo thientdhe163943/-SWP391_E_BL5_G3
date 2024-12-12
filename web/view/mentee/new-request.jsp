@@ -51,17 +51,17 @@
                             <form action="new-request" method="POST">
                                 <div class="form-group">
                                     <label for="title">Title</label>
-                                    <input class="form-control" type="text" id="title" name="title" placeholder="Enter request title">
+                                    <input class="form-control" type="text" id="title" name="title" placeholder="Enter request title" required>
                                 </div>
                                 <br>
                                 <div class="form-group">
                                     <label for="deadline">Deadline</label>
-                                    <input class="form-control" type="date" id="deadline" name="deadline">
+                                    <input class="form-control" type="date" id="deadline" name="deadline" required>
                                 </div>
                                 <br>
                                 <div class="form-group">
                                     <label for="content">Content</label>  
-                                    <textarea class="form-control" rows="3" id="content" name="content" placeholder="Enter content of the request"></textarea>
+                                    <textarea class="form-control" rows="3" id="content" name="content" placeholder="Enter content of the request" required></textarea>
                                 </div>
                                 <br>
                                 <div class="form-group">
@@ -72,7 +72,9 @@
                                     </c:forEach>
                                 </div>
                                 <br>
+                                
                                 <button type="submit" class="btn btn-primary">Create</button>
+                                <button type="button" class="btn btn-secondary" onclick="window.history.back();">Cancel</button>
                             </form>
                         </div>
                     </div>

@@ -61,7 +61,7 @@ public class MenteeRequestListServlet extends HttpServlet {
             throws ServletException, IOException {
         RequestDAO dao = new RequestDAO();
         String titleSearch = request.getParameter("requestSearch");
-        ArrayList<Request> requestList = dao.getAllVisibleRequests(titleSearch);
+        ArrayList<Request> requestList = dao.getAllVisibleRequestsWithMenteeId(titleSearch, 1);
         String sortOrder = request.getParameter("sortOrder");
         
         

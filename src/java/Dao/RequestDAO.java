@@ -23,12 +23,10 @@ import java.util.logging.Logger;
  */
 public class RequestDAO extends DBConnect {
 
-    private final UserDAO userDao = new UserDAO();
     private static final Logger logger = Logger.getLogger(RequestDAO.class.getName());
 
     public Request getRequestById(int id) {
         String sql = "SELECT * from Request WHERE request_id = ?";
-        
 
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
 
@@ -41,17 +39,17 @@ public class RequestDAO extends DBConnect {
                     request.setTitle(rs.getString("title"));
                     request.setDeadline(rs.getDate("deadline"));
                     request.setContent(rs.getString("content"));
-                    
+
                     User mentor = new User();
                     mentor.setUserId(rs.getInt("mentor_id"));
                     request.setMentor(mentor);
-                    
+
                     User mentee = new User();
                     mentor.setUserId(rs.getInt("mentee_id"));
                     request.setMentee(mentee);
-                            
+
                     request.setStatus(rs.getInt("status"));
-                    
+
                     return request;
                 }
             }
@@ -82,12 +80,12 @@ public class RequestDAO extends DBConnect {
                 request.setDeadline(rs.getDate("deadline"));
                 request.setContent(rs.getString("content"));
                 User mentor = new User();
-                    mentor.setUserId(rs.getInt("mentor_id"));
-                    request.setMentor(mentor);
-                    
-                    User mentee = new User();
-                    mentor.setUserId(rs.getInt("mentee_id"));
-                    request.setMentee(mentee);
+                mentor.setUserId(rs.getInt("mentor_id"));
+                request.setMentor(mentor);
+
+                User mentee = new User();
+                mentor.setUserId(rs.getInt("mentee_id"));
+                request.setMentee(mentee);
                 request.setStatus(rs.getInt("status"));
                 requestList.add(request);
             }
@@ -197,31 +195,39 @@ public class RequestDAO extends DBConnect {
         return selectedSkills;
     }
 
-    public ArrayList<Request> getAllVisibleRequests(String search) {
+    public ArrayList<Request> getAllVisibleRequestsWithMenteeId(String search, int menteeId) {
         ArrayList<Request> visibleRequestList = new ArrayList();
-        String sql = "SELECT * FROM Request WHERE status = 1 or status = 0";
+        String sql = "SELECT * FROM Request WHERE status != 0 AND mentee_id = ?";
         if (search != null && !search.trim().isEmpty()) {
             sql += " AND title LIKE '%" + search + "%'";
         }
 
-        try (PreparedStatement ps = connection.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
-            while (rs.next()) {
-                Request request = new Request();
+        try (PreparedStatement ps = connection.prepareStatement(sql);) {
+            ps.setInt(1, menteeId);
 
-                request.setRequestId(rs.getInt("request_id"));
-                request.setTitle(rs.getString("title"));
-                request.setDeadline(rs.getDate("deadline"));
-                request.setContent(rs.getString("content"));
-                User mentor = new User();
-                    mentor.setUserId(rs.getInt("mentor_id"));
-                    request.setMentor(mentor);
-                    
+            try (ResultSet rs = ps.executeQuery();) {
+                while (rs.next()) {
+                    Request request = new Request();
+
+                    request.setRequestId(rs.getInt("request_id"));
+                    request.setTitle(rs.getString("title"));
+                    request.setDeadline(rs.getDate("deadline"));
+                    request.setContent(rs.getString("content"));
+                    if (rs.getInt("mentor_id") == 0) {
+                        request.setMentor(null);
+                    } else {
+                        User mentor = new User();
+                        mentor.setUserId(rs.getInt("mentor_id"));
+                        request.setMentor(mentor);
+                    }
+
                     User mentee = new User();
-                    mentor.setUserId(rs.getInt("mentee_id"));
+                    mentee.setUserId(rs.getInt("mentee_id"));
                     request.setMentee(mentee);
-                request.setStatus(rs.getInt("status"));
+                    request.setStatus(rs.getInt("status"));
 
-                visibleRequestList.add(request);
+                    visibleRequestList.add(request);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
