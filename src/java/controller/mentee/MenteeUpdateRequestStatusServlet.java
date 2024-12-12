@@ -48,7 +48,7 @@ public class MenteeUpdateRequestStatusServlet extends HttpServlet {
         
         boolean isAffected = requestDao.updateStatus(requestId, status);
         
-        response.sendRedirect("mentee");
+        response.sendRedirect("mentee-request-list");
     }
 
 }
