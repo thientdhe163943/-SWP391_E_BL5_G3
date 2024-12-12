@@ -64,7 +64,7 @@
                                             <div class="list-group list-group-dark list-group-borderless">
                                                 <a class="list-group-item active" href="mentee-dashboard"><i class="bi bi-basket fa-fw me-2"></i>Dashboard</a>
                                                 <a class="list-group-item" href="mentee-request-list"><i class="bi bi-credit-card-2-front fa-fw me-2"></i>Requests List</a>
-                                                <a class="list-group-item" href=""><i class="bi bi-pencil-square fa-fw me-2"></i>Edit Profile</a>
+                                                <a class="list-group-item" href="Profile.jsp"><i class="bi bi-pencil-square fa-fw me-2"></i>Edit Profile</a>
                                                 <a class="list-group-item text-danger bg-danger-soft-hover" href="#"><i class="fas fa-sign-out-alt fa-fw me-2"></i>Sign Out</a>
                                             </div>
                                         </div>
@@ -154,30 +154,6 @@
                                 </div>
                             </div>
                             <!-- Counter boxes END -->
-                            
-                            <!-- Counter boxes START -->
-                            <!--Row 3-->
-                            
-                            <!--Process--> 
-                            <!--Percentage of cancel request-->
-                            <div class="row g-4">
-                                <div class="col-2 mt-5">Completed Request:</div>
-                                <div class="col-5 mt-5">
-                                    <div class="progress">
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: ${completedRate}%" aria-valuenow="${completedRate}" aria-valuemin="0" aria-valuemax="100">${completedRate}%</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!--Percentage of completed request-->
-                            <div class="row g-4">
-                                <div class="col-2 mt-5">Cancel Request:</div>
-                                <div class="col-5 mt-5">
-                                    <div class="progress">
-                                        <div class="progress-bar bg-danger" role="progressbar" style="width: ${canceledRate}%" aria-valuenow="${canceledRate}" aria-valuemin="0" aria-valuemax="100">${canceledRate}%</div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         <!-- Main content END -->
                     </div><!-- Row END -->
