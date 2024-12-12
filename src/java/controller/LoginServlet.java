@@ -50,7 +50,7 @@ public class LoginServlet extends HttpServlet {
 
             // Lấy role của user từ cơ sở dữ liệu
             User_role userRole = daoUser.getUserByUserId(user.getUserId());
-
+            session.setAttribute("userRole", userRole);
             if (userRole != null) {
                 int roleId = userRole.getRole_id();
 

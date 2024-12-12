@@ -10,6 +10,7 @@ import Dao.UserDAO;
 import Model.Request;
 import Model.Skill;
 import Model.User;
+import Model.User_role;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -74,9 +75,15 @@ public class MenteeNewRequestServlet extends HttpServlet {
             request.setAttribute("error", "Access Denied");
             request.getRequestDispatcher("./view/error.jsp").forward(request, response);
         } else {
-            List<Skill> skillList = skillDao.getAllSkills();
-            request.setAttribute("skillList", skillList);
-            request.getRequestDispatcher("./view/mentee/new-request.jsp").forward(request, response);
+            User_role userRole = (User_role)session.getAttribute("userRole");
+            if (userRole.getRole_id() != 1) {
+                request.setAttribute("error", "Access Denied");
+                request.getRequestDispatcher("./view/error.jsp").forward(request, response);
+            } else {
+                List<Skill> skillList = skillDao.getAllSkills();
+                request.setAttribute("skillList", skillList);
+                request.getRequestDispatcher("./view/mentee/new-request.jsp").forward(request, response);
+            }
         }
     }
 

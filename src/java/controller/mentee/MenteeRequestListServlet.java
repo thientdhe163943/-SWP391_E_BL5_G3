@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import Model.Request;
 import Model.User;
+import Model.User_role;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -66,34 +67,40 @@ public class MenteeRequestListServlet extends HttpServlet {
             request.setAttribute("error", "Access Denied");
             request.getRequestDispatcher("./view/error.jsp").forward(request, response);
         } else {
-            RequestDAO dao = new RequestDAO();
-            String titleSearch = request.getParameter("requestSearch");
-            var user = (User) session.getAttribute("user");
-            ArrayList<Request> requestList = dao.getAllVisibleRequestsWithMenteeId(titleSearch, user.getUserId());
-            String sortOrder = request.getParameter("sortOrder");
+            User_role userRole = (User_role) session.getAttribute("userRole");
+            if (userRole.getRole_id() != 1) {
+                request.setAttribute("error", "Access Denied");
+                request.getRequestDispatcher("./view/error.jsp").forward(request, response);
+            } else {
+                RequestDAO dao = new RequestDAO();
+                String titleSearch = request.getParameter("requestSearch");
+                var user = (User) session.getAttribute("user");
+                ArrayList<Request> requestList = dao.getAllVisibleRequestsWithMenteeId(titleSearch, user.getUserId());
+                String sortOrder = request.getParameter("sortOrder");
 
-            if (sortOrder != null && !sortOrder.isEmpty()) {
-                switch (sortOrder) {
-                    case "title": {
-                        requestList.sort((r1, r2) -> r1.getTitle().compareTo(r2.getTitle()));
-                        break;
-                    }
-                    case "mentor": {
-                        requestList.sort((r1, r2) -> r1.getMentor().getName().compareTo(r2.getMentor().getName()));
-                        break;
-                    }
-                    case "deadline": {
-                        requestList.sort((r1, r2) -> r1.getDeadline().compareTo(r2.getDeadline()));
-                        break;
+                if (sortOrder != null && !sortOrder.isEmpty()) {
+                    switch (sortOrder) {
+                        case "title": {
+                            requestList.sort((r1, r2) -> r1.getTitle().compareTo(r2.getTitle()));
+                            break;
+                        }
+                        case "mentor": {
+                            requestList.sort((r1, r2) -> r1.getMentor().getName().compareTo(r2.getMentor().getName()));
+                            break;
+                        }
+                        case "deadline": {
+                            requestList.sort((r1, r2) -> r1.getDeadline().compareTo(r2.getDeadline()));
+                            break;
+                        }
                     }
                 }
+
+                request.setAttribute("requestList", requestList);
+                request.setAttribute("sortOrder", sortOrder);
+                request.setAttribute("requestSearch", titleSearch);
+
+                request.getRequestDispatcher("./view/mentee/mentee-home.jsp").forward(request, response);
             }
-
-            request.setAttribute("requestList", requestList);
-            request.setAttribute("sortOrder", sortOrder);
-            request.setAttribute("requestSearch", titleSearch);
-
-            request.getRequestDispatcher("./view/mentee/mentee-home.jsp").forward(request, response);
         }
     }
 
