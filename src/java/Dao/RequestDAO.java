@@ -9,6 +9,7 @@ import DB.DBConnect;
 import Model.Skill;
 import Model.User;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -128,11 +129,11 @@ public class RequestDAO extends DBConnect {
     public void updateRequest(Request request, ArrayList<Integer> skills) {
         String sql = "UPDATE Request SET title = ?,"
                 + "deadline = ?,"
-                + "content = ?,"
+                + "[content] = ?,"
                 + "mentor_id = ?,"
                 + "mentee_id = ?,"
                 + "status = ?"
-                + "WHERE request_id = ?";
+                + " WHERE request_id = ?";
 
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, request.getTitle());
@@ -237,7 +238,7 @@ public class RequestDAO extends DBConnect {
     }
 
     private void deleteRequestSkill(int requestId) {
-        String sqlDelete = "DELETE FROM Request_Skill WHERE requestId = ?";
+        String sqlDelete = "DELETE FROM Skill_Request WHERE requestId = ?";
 
         try (PreparedStatement ps = connection.prepareStatement(sqlDelete)) {
             ps.setInt(1, requestId);
@@ -264,5 +265,24 @@ public class RequestDAO extends DBConnect {
             logger.log(Level.SEVERE, "Lỗi khi cập nhật trạng thái Request: {0}", e.getMessage());
         }
         return false; // Trả về false nếu có lỗi xảy ra
+    }
+    
+    public static void main(String[] args) {
+        RequestDAO dao = new RequestDAO();
+        Request request = new Request();
+        request.setRequestId(2);
+        request.setTitle("2222");
+        request.setDeadline(Date.valueOf("2025-01-03"));
+        request.setContent("2222");
+        request.setMentor(null);
+        User mentee = new User();
+        mentee.setUserId(1);
+        request.setMentee(mentee);
+        
+        ArrayList<Integer> skillList = new ArrayList<>();
+        skillList.add(1);
+        skillList.add(2);
+        
+        dao.updateRequest(request, skillList);
     }
 }
