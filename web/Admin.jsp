@@ -41,13 +41,38 @@
 
                 <!-- Navbar brand for xl START -->
                 <div class="d-flex align-items-center">
-                    <a class="navbar-brand" href="index-2.html">
+                    <a class="navbar-brand" href="home">
                         <img class="navbar-brand-item" src="assets/images/logo-light.svg" alt="">
                     </a>
                 </div>
                 <!-- Navbar brand for xl END -->
 
+                <div class="offcanvas offcanvas-start flex-row custom-scrollbar h-100" data-bs-backdrop="true" tabindex="-1" id="offcanvasSidebar">
+                    <div class="offcanvas-body sidebar-content d-flex flex-column bg-dark">
 
+                        <!-- Sidebar menu START -->
+                        <ul class="navbar-nav flex-column" id="navbar-sidebar">
+
+                            <!-- Menu item 1 -->
+                            <li class="nav-item"><a href="admin-dashboard.html" class="nav-link"><i class="bi bi-house fa-fw me-2"></i>Dashboard</a></li>
+
+                            <!-- Title -->
+                            <li class="nav-item ms-2 my-2">Pages</li>
+
+                            <!-- menu item 2 -->
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="collapse" href="#collapsepage" role="button" aria-expanded="true" aria-controls="collapsepage">
+                                    <i class="bi bi-basket fa-fw me-2"></i>ADMIN MANAGER
+                                </a>
+                                <!-- Submenu -->
+                                <ul class="nav collapse flex-column show" id="collapsepage" data-bs-parent="#navbar-sidebar">
+                                    <li class="nav-item"> <a class="nav-link active" href="admin">MANAGE USER</a></li>
+                                    <li class="nav-item"> <a class="nav-link" href="blog">MANAGE BLOG</a></li>
+                                    
+                                </ul>
+                            </li>
+                    </div>
+                </div>
             </nav>
             <!-- Sidebar END -->
 
@@ -182,8 +207,18 @@
 
                                                 <!-- Table data -->
                                                 <td>
-                                                    <a href="admin?action=edit&id=${user.userId}"class="btn btn-sm btn-success-soft me-1 mb-1 mb-md-0">edit</a>
-                                                    <a href="admin?action=delete&id=${user.userId}"class="btn btn-sm btn-secondary-soft mb-0" onclick="return confirm('Are you sure?')">Delete</a>
+
+                                                    <a href="admin?action=edit&id=${user.userId}" class="btn btn-success-soft btn-round me-1 mb-1 mb-md-0" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Edit">
+                                                        <i class="bi bi-pencil-square"></i>
+                                                    </a>
+
+                                                    <a href="admin?action=delete&id=${user.userId}" 
+                                                       class="btn btn-sm btn-secondary-soft mb-0" 
+                                                       onclick="return confirm('Are you sure?')" 
+                                                       title="Delete">
+                                                        <i class="fas fa-trash"></i>
+                                                    </a>
+
 
                                                 </td>
                                             </tr>

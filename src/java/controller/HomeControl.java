@@ -5,7 +5,9 @@
 
 package controller;
 
+import Dao.BlogDAO;
 import Dao.UserDAO;
+import Model.Blog;
 import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,7 +17,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -32,12 +37,14 @@ public class HomeControl extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
+        throws ServletException, IOException, SQLException {
     response.setContentType("text/html;charset=UTF-8");
 
     // Lấy danh sách mentor từ DAO
     UserDAO dao = new UserDAO();
+        BlogDAO blogDAO=new BlogDAO();
     List<User> list = dao.getAllMentor();
+    List<Blog> listB = blogDAO.getAllBlogs();
 
     // Kiểm tra danh sách trả về (log để debug)
     if (list == null || list.isEmpty()){
@@ -49,6 +56,7 @@ public class HomeControl extends HttpServlet {
     // Lưu danh sách vào session
     HttpSession session = request.getSession();
     session.setAttribute("listMentor", list);
+    session.setAttribute("listBlog", listB);
 
     // Chuyển hướng tới JSP
     request.getRequestDispatcher("./HomePage.jsp").forward(request, response);
@@ -66,7 +74,11 @@ public class HomeControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(HomeControl.class.getName()).log(Level.SEVERE, null, ex);
+        }
     } 
 
     /** 
@@ -79,7 +91,11 @@ public class HomeControl extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(HomeControl.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /** 

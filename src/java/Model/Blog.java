@@ -12,25 +12,62 @@ import java.util.ArrayList;
  */
 public class Blog {
     private int blogId;
-    private User author;
+    private int userId;
     private String image;
     private String content;
     private Integer view;
     private Boolean status;
+    private String full_content;
     private ArrayList<CommentBlog> commentList;
 
     public Blog() {
     }
 
-    public Blog(int blogId, User author, String image, String content, Integer view, Boolean status, ArrayList<CommentBlog> commentList) {
-        this.blogId = blogId;
-        this.author = author;
+    public Blog(int userId, String image, String content, String full_content) {
+        this.userId = userId;
         this.image = image;
         this.content = content;
-        this.view = view;
-        this.status = status;
-        this.commentList = commentList;
+        this.full_content = full_content;
     }
+
+    public Blog(String image, String content, String full_content) {
+        this.image = image;
+        this.content = content;
+        this.full_content = full_content;
+    }
+
+    public String getFull_content() {
+        return full_content;
+    }
+
+    public void setFull_content(String full_content) {
+        this.full_content = full_content;
+    }
+
+    public Blog(int blogId, int userId, String image, String content, String full_content) {
+        this.blogId = blogId;
+        this.userId = userId;
+        this.image = image;
+        this.content = content;
+        this.full_content = full_content;
+    }
+
+    public Blog(int blogId, int userId, String image, String content) {
+        this.blogId = blogId;
+        this.userId = userId;
+        this.image = image;
+        this.content = content;
+    }
+
+  
+
+    public Blog(int blogId, String image, String content) {
+        this.blogId = blogId;
+        this.image = image;
+        this.content = content;
+    }
+
+   
 
     public int getBlogId() {
         return blogId;
@@ -40,13 +77,15 @@ public class Blog {
         this.blogId = blogId;
     }
 
-    public User getAuthor() {
-        return author;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setAuthor(User author) {
-        this.author = author;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
+
+    
 
     public String getImage() {
         return image;
@@ -87,4 +126,10 @@ public class Blog {
     public void setCommentList(ArrayList<CommentBlog> commentList) {
         this.commentList = commentList;
     }
+
+    @Override
+    public String toString() {
+        return "Blog{" + "blogId=" + blogId + ", userId=" + userId + ", image=" + image + ", content=" + content + ", view=" + view + '}';
+    }
+    
 }

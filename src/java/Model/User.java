@@ -196,6 +196,29 @@ public class User {
     public void setCommentList(ArrayList<CommentBlog> commentList) {
         this.commentList = commentList;
     }
+    public void updateProfile(String name, Boolean gender, Date DOB, String phone, String address, String email, String avatar) {
+    if (name != null && !name.isEmpty()) {
+        this.name = name;
+    }
+    if (gender != null) {
+        this.gender = gender;
+    }
+    if (DOB != null) {
+        this.DOB = DOB;
+    }
+    if (phone != null && !phone.isEmpty()) {
+        this.phone = phone;
+    }
+    if (address != null && !address.isEmpty()) {
+        this.address = address;
+    }
+    if (email != null && !email.isEmpty()) {
+        this.email = email;
+    }
+    if (avatar != null && !avatar.isEmpty()) {
+        this.avatar = avatar;
+    }
+}
 
     @Override
     public String toString() {
