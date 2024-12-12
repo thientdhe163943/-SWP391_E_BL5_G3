@@ -36,6 +36,14 @@
         <servlet-name>MentorServlet</servlet-name>
         <servlet-class>controller.mentor.MentorServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ReviewServlet</servlet-name>
+        <servlet-class>controller.mentor.ReviewServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateCVServlet</servlet-name>
+        <servlet-class>controller.mentor.UpdateCVServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>viewCVServlet</servlet-name>
         <url-pattern>/viewCV</url-pattern>
@@ -71,5 +79,13 @@
     <servlet-mapping>
         <servlet-name>HomeControl</servlet-name>
         <url-pattern>/home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReviewServlet</servlet-name>
+        <url-pattern>/mentor-review</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateCVServlet</servlet-name>
+        <url-pattern>/updateCV</url-pattern>
     </servlet-mapping>
 </web-app>
