@@ -43,38 +43,8 @@
             <section class="pt-0">
                 <div class="container">
                     <div class="row">
-
-                        <!-- Right sidebar START -->
-                        <div class="col-xl-3">
-                            <!-- Responsive offcanvas body START -->
-                            <nav class="navbar navbar-light navbar-expand-xl mx-0">
-                                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-                                    <!-- Offcanvas header -->
-                                    <div class="offcanvas-header bg-light">
-                                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">My profile</h5>
-                                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                                    </div>
-                                    <!-- Offcanvas body -->
-                                    <div class="offcanvas-body p-3 p-xl-0">
-                                        <div class="bg-dark border rounded-3 pb-0 p-3 w-100">   
-                                            <!-- Dashboard menu -->
-                                            <div class="list-group list-group-dark list-group-borderless">
-                                                <a class="list-group-item" href="mentee-dashboard"><i class="bi bi-basket fa-fw me-2"></i>Dashboard</a>
-                                                <a class="list-group-item active" href="mentee-request-list"><i class="bi bi-credit-card-2-front fa-fw me-2"></i>Requests List</a>
-                                                <a class="list-group-item" href="Profile.jsp"><i class="bi bi-pencil-square fa-fw me-2"></i>Edit Profile</a>
-                                                <a class="list-group-item text-danger bg-danger-soft-hover" href="#"><i class="fas fa-sign-out-alt fa-fw me-2"></i>Sign Out</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </nav>
-                            <!-- Responsive offcanvas body END -->
-                        </div>
-                        <!-- Right sidebar END -->
-
-
                         <!-- Main content START -->
-                        <div class="col-xl-9">
+                        <div class="col-xl-12">
                             <div class="card bg-transparent border rounded-3">
                                 <!-- Card header START -->
                                 <div class="card-header bg-transparent border-bottom">
@@ -141,7 +111,7 @@
                                                         <td>${re.deadline}</td>
                                                         <td>${re.status == 1 ? 'Open' : 
                                                               re.status == 2 ? 'Processing' : 
-                                                              re.status == 3 ? 'Cancel' : 'Closed'}</td>
+                                                              re.status == 3 ? 'Canceled' : 'Closed'}</td>
                                                         <td style="text-align: center;">
                                                             <a href="update-request?requestId=${re.requestId}" class="d-inline">
                                                                 <button type="button" class="btn btn-primary">

@@ -99,7 +99,7 @@
                                 <br>
                                 <div class="form-group">
                                     <label for="mentorEmail">Preferred Mentor (Not required):</label>
-                                    <input type="text" class="form-control" id="mentorEmail" name="mentorEmail" placeholder="Enter mentor's email" value="${mentorEmail == null ? mentorEmail : ''}" />
+                                    <input type="text" class="form-control" id="mentorEmail" name="mentorEmail" placeholder="Enter mentor's email" value="${empty mentorEmail ? mentorEmail : ''}" />
                                 </div>
                                 <br>
                                 <button type="submit" class="btn btn-primary">Create</button>
