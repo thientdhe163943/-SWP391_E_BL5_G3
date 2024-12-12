@@ -39,7 +39,7 @@
     <body>
 
         <!-- Header START -->
-        <jsp:include page="header.jsp"></jsp:include>
+        <jsp:include page="../../Header.jsp"></jsp:include>
             <!-- Header END -->
 
             <!-- **************** MAIN CONTENT START **************** -->
