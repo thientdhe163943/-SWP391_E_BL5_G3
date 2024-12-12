@@ -61,7 +61,7 @@
                                             <div class="list-group list-group-dark list-group-borderless">
                                                 <a class="list-group-item" href="mentee-dashboard"><i class="bi bi-basket fa-fw me-2"></i>Dashboard</a>
                                                 <a class="list-group-item active" href="mentee-request-list"><i class="bi bi-credit-card-2-front fa-fw me-2"></i>Requests List</a>
-                                                <a class="list-group-item" href=""><i class="bi bi-pencil-square fa-fw me-2"></i>Edit Profile</a>
+                                                <a class="list-group-item" href="Profile.jsp"><i class="bi bi-pencil-square fa-fw me-2"></i>Edit Profile</a>
                                                 <a class="list-group-item text-danger bg-danger-soft-hover" href="#"><i class="fas fa-sign-out-alt fa-fw me-2"></i>Sign Out</a>
                                             </div>
                                         </div>
@@ -202,10 +202,10 @@
 
                 return false;
             }
-            
+
             function confirmCancelWithPopup(event, form) {
                 event.preventDefault();
-                
+
                 Swal.fire({
                     title: 'Are you sure?',
                     text: 'Are you sure you want to cancel this request?',
@@ -216,11 +216,11 @@
                     confirmButtonText: 'Cancel Request',
                     cancelButtonText: 'Cancel'
                 }).then((result) => {
-                    if(result.isConfirmed) {
+                    if (result.isConfirmed) {
                         form.submit();
                     }
                 });
-                
+
                 return false;
             }
         </script>
