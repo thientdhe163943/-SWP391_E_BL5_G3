@@ -199,11 +199,11 @@
                                         <!-- Pagination -->
                                         <nav class="d-flex justify-content-center mb-0" aria-label="navigation">
                                             <ul class="pagination pagination-sm pagination-primary-soft mb-0 pb-0">
-                                                <li class="page-item mb-0"><a class="page-link" href="#" tabindex="-1"><i class="fas fa-angle-left"></i></a></li>
+                                                <li class="page-item mb-0"><a class="page-link" href="mentor-request-list?index=${index-1}" tabindex="-1"><i class="fas fa-angle-left"></i></a></li>
                                                         <c:forEach begin="1" end="${totalPage}" var="i">
                                                     <li class="page-item mb-0 page-number ${i == index ? 'active' : ''}"><a class="page-link" href="mentor-request-list?index=${i}">${i}</a></li>
                                                     </c:forEach>
-                                                <li class="page-item mb-0"><a class="page-link" href="#"><i class="fas fa-angle-right"></i></a></li>
+                                                <li class="page-item mb-0"><a class="page-link" href="mentor-request-list?index=${index+1}"><i class="fas fa-angle-right"></i></a></li>
                                             </ul>
                                         </nav>
                                     </div>
@@ -289,8 +289,8 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" form="acceptRequestForm" class="btn btn-primary">Yes</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -315,8 +315,8 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" form="cancelRequestForm" class="btn btn-primary">Yes</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>

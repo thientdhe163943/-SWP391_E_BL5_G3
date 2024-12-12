@@ -4,26 +4,31 @@
  */
 package Model;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author Hayashi
  */
 public class CvDetail {
+
     private int cvDetailId;
     private CV cv;
     private User mentee;
     private String comment;
     private Float rating;
+    private LocalDate date;
 
     public CvDetail() {
     }
 
-    public CvDetail(int cvDetailId, CV cv, User mentee, String comment, Float rating) {
+    public CvDetail(int cvDetailId, CV cv, User mentee, String comment, Float rating, LocalDate date) {
         this.cvDetailId = cvDetailId;
         this.cv = cv;
         this.mentee = mentee;
         this.comment = comment;
         this.rating = rating;
+        this.date = date;
     }
 
     public int getCvDetailId() {
@@ -66,5 +71,11 @@ public class CvDetail {
         this.rating = rating;
     }
 
-    
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
 }

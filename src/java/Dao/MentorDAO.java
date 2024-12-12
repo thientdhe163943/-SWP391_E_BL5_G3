@@ -23,7 +23,6 @@ import java.util.logging.Level;
 public class MentorDAO extends DBConnect {
 
     private static final Logger logger = Logger.getLogger(MentorDAO.class.getName());
-
     public List<User> getAllMentor() {
         List<User> list = new ArrayList<>();
         String query = """
@@ -78,36 +77,6 @@ public class MentorDAO extends DBConnect {
         return user;
     }
 
-    public User getByAccountId(int accountId) {
-        User user = null;
-        String query = """
-                    select * from [User] u 
-                    join Account a 
-                    on u.account_id = a.account_id
-                    where u.account_id = ?""";
-
-        try (PreparedStatement stm = connection.prepareStatement(query)) {
-            stm.setInt(1, accountId);
-            ResultSet rs = stm.executeQuery();
-            if (rs.next()) {
-                user = new User();
-                user.setUserId(rs.getInt("user_id"));
-                user.setPassword(rs.getString("password"));
-                user.setAddress(rs.getString("address"));
-                user.setName(rs.getString("name"));
-                user.setGender(rs.getBoolean("gender"));
-                user.setDOB(rs.getDate("DOB"));
-                user.setPhone(rs.getString("phone"));
-                user.setEmail(rs.getString("email"));
-                user.setAvatar(rs.getString("avatar"));
-                user.setStatus(rs.getBoolean("status"));
-            }
-        } catch (SQLException e) {
-            logger.info(e.getMessage());
-        }
-        return user;
-    }
-
     public List<User> getMenteesById(int mentorId) {
         List<User> list = new ArrayList<>();
         String query = """
@@ -120,7 +89,6 @@ public class MentorDAO extends DBConnect {
                             u.address, 
                             u.email, 
                             u.avatar, 
-                            u.account_id, 
                             u.status
                         FROM Request r
                         JOIN [User] u ON r.mentee_id = u.user_id
@@ -131,7 +99,7 @@ public class MentorDAO extends DBConnect {
             while (rs.next()) {
                 User mentor = new User();
                 mentor.setUserId(rs.getInt("user_id"));
-                mentor.setPassword(rs.getString("password"));
+//                mentor.setPassword(rs.getString("password"));
                 mentor.setAddress(rs.getString("address"));
                 mentor.setName(rs.getString("name"));
                 mentor.setGender(rs.getBoolean("gender"));
@@ -160,8 +128,7 @@ public class MentorDAO extends DBConnect {
                             u.phone, 
                             u.address, 
                             u.email, 
-                            u.avatar, 
-                            u.account_id, 
+                            u.avatar,
                             u.status
                         FROM Request r
                         JOIN [User] u ON r.mentee_id = u.user_id
@@ -176,7 +143,7 @@ public class MentorDAO extends DBConnect {
             while (rs.next()) {
                 User mentor = new User();
                 mentor.setUserId(rs.getInt("user_id"));
-                mentor.setPassword(rs.getString("password"));
+//                mentor.setPassword(rs.getString("password"));
                 mentor.setAddress(rs.getString("address"));
                 mentor.setName(rs.getString("name"));
                 mentor.setGender(rs.getBoolean("gender"));
@@ -306,8 +273,9 @@ public class MentorDAO extends DBConnect {
 
     public static void main(String[] args) {
         MentorDAO mentorDAO = new MentorDAO();
-        User user = mentorDAO.getByAccountId(1);
-        
-
+        List<User> list = mentorDAO.getMenteesById(1);
+        for (User user : list) {
+            System.out.println(user.getName());
+        }
     }
 }

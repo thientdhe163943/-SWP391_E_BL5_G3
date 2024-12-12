@@ -32,6 +32,10 @@
         <servlet-name>MenteeUpdateRequestStatusServlet</servlet-name>
         <servlet-class>controller.mentee.MenteeUpdateRequestStatusServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MentorServlet</servlet-name>
+        <servlet-class>controller.mentor.MentorServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>viewCVServlet</servlet-name>
         <url-pattern>/viewCV</url-pattern>
@@ -59,6 +63,10 @@
     <servlet-mapping>
         <servlet-name>MenteeUpdateRequestStatusServlet</servlet-name>
         <url-pattern>/update-request-status</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MentorServlet</servlet-name>
+        <url-pattern>/mentor</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>HomeControl</servlet-name>
