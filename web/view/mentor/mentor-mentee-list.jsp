@@ -133,11 +133,9 @@
                                                                 </div>
                                                             </div>
                                                         </td>
-
                                                         <!-- Table data -->
                                                         <!--Requests-->
-                                                        <td>10</td>
-
+                                                        <td>1</td>
                                                         <!-- Table data -->
                                                         <td>
                                                             <a href="#" class="btn btn-success-soft btn-round me-1 mb-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Requests"><i class="far fa-solid fa-paper-plane"></i></a>
@@ -159,7 +157,7 @@
                                             <ul class="pagination pagination-sm pagination-primary-soft mb-0 pb-0">
                                                 <li class="page-item mb-0"><a class="page-link" href="#" tabindex="-1"><i class="fas fa-angle-left"></i></a></li>
                                                         <c:forEach begin="1" end="${totalPage}" var="i">
-                                                    <li class="page-item mb-0 page-number active"><a class="page-link" href="mentor-mentee-list?index=${i}">${i}</a></li>
+                                                    <li class="page-item mb-0 page-number ${i == index ? 'active' : ''}"><a class="page-link" href="mentor-mentee-list?index=${i}">${i}</a></li>
                                                     </c:forEach>
                                                 <li class="page-item mb-0"><a class="page-link" href="#"><i class="fas fa-angle-right"></i></a></li>
                                             </ul>
@@ -177,7 +175,6 @@
             </section>
             <!-- =======================
             Inner part END -->
-
         </main>
         <!-- **************** MAIN CONTENT END **************** -->
 

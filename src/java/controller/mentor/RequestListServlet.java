@@ -13,6 +13,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -36,8 +37,13 @@ public class RequestListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        User mentor = (User) session.getAttribute("user");
+        if (mentor == null) {
+            request.getRequestDispatcher("Login.jsp").forward(request, response);
+            return;
+        }
         //Banner
-        User mentor = mentorDAO.getByAccountId(1);
         List<User> menteeList = mentorDAO.getMenteesById(mentor.getUserId());
         int totalMentees = menteeList.size();
 
@@ -50,19 +56,9 @@ public class RequestListServlet extends HttpServlet {
         if (index == null) {
             index = "1";
         }
-        int totalPage = mentorDAO.getNumberPageRequests(1);
+        int totalPage = mentorDAO.getNumberPageRequests(mentor.getUserId());
         List<Request> requestList;
-        if (Integer.parseInt(index) > totalPage || Integer.parseInt(index) <= 0) {
-            index = "1";
-            requestList = mentorDAO.getRequestsByMentor(1, Integer.parseInt(index));
-            request.setAttribute("index", index);
-            request.setAttribute("totalPage", totalPage);
-            request.setAttribute("requestList", requestList);
-            response.sendRedirect(request.getContextPath() + "/mentor-request-list?index=1");
-            return;
-        } else {
-            requestList = mentorDAO.getRequestsByMentor(1, Integer.parseInt(index));
-        }
+        requestList = mentorDAO.getRequestsByMentor(mentor.getUserId(), Integer.parseInt(index));
         request.setAttribute("index", index);
         request.setAttribute("totalPage", totalPage);
         request.setAttribute("requestList", requestList);

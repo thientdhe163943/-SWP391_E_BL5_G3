@@ -10,6 +10,7 @@ import Dao.EducationDAO;
 import Dao.MentorDAO;
 import Dao.SkillDAO;
 import Model.CV;
+import Model.CvDetail;
 import Model.CvSkill;
 import Model.Education;
 import Model.Skill;
@@ -47,19 +48,32 @@ public class ViewCVServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String mentorID = request.getParameter("mentor");
-
+        if (mentorID == null) {
+            response.sendRedirect("index_1.html");
+            return;
+        }
         CV cv = cvdao.getCvByUserId(Integer.parseInt(mentorID));
         //Nếu không có sẽ về index
         if (cv == null) {
             response.sendRedirect("index_1.html");
             return;
         }
+        int totalMentee = mentorDAO.getMenteesById(cv.getApplicant().getUserId()).size();
         List<Skill> skills = skillDAO.getNotExistedSkills(cv.getCvId());
-        User mentor = mentorDAO.getById(Integer.parseInt(mentorID));
+        double totalRate = 0;
+        if (!cv.getCvDetailList().isEmpty()) {
+            for (CvDetail feedback : cv.getCvDetailList()) {
+                totalRate += feedback.getRating();
+            }
+
+            totalRate = totalRate / cv.getCvDetailList().size();
+        }
+
+        request.setAttribute("totalRate", totalRate);
         request.setAttribute("cv", cv);
-        request.setAttribute("mentor", mentor);
+        request.setAttribute("totalMentee", totalMentee);
         request.setAttribute("skills", skills);
-        request.getRequestDispatcher("view/mentor/mentor-cv.jsp").forward(request, response);
+        request.getRequestDispatcher("view/mentor/mentor-single.jsp").forward(request, response);
     }
 
     /**
@@ -81,7 +95,7 @@ public class ViewCVServlet extends HttpServlet {
                 String introduction = request.getParameter("introduction");
                 cv = cvdao.getCvByUserId(Integer.parseInt(mentorID));
                 cv.setIntroduction(introduction);
-                if(cvdao.updateCV(cv)){
+                if (cvdao.updateCV(cv)) {
                     response.sendRedirect("viewCV?mentor=" + mentorID);
                 }
                 break;
