@@ -60,9 +60,8 @@
                                             <!-- Dashboard menu -->
                                             <div class="list-group list-group-dark list-group-borderless">
                                                 <a class="list-group-item" href="mentee-dashboard"><i class="bi bi-basket fa-fw me-2"></i>Dashboard</a>
-                                                <a class="list-group-item active" href="mentee"><i class="bi bi-credit-card-2-front fa-fw me-2"></i>Requests List</a>
+                                                <a class="list-group-item active" href="mentee-request-list"><i class="bi bi-credit-card-2-front fa-fw me-2"></i>Requests List</a>
                                                 <a class="list-group-item" href=""><i class="bi bi-pencil-square fa-fw me-2"></i>Edit Profile</a>
-                                                <a class="list-group-item" href=""><i class="bi bi-trash fa-fw me-2"></i>Delete Profile</a>
                                                 <a class="list-group-item text-danger bg-danger-soft-hover" href="#"><i class="fas fa-sign-out-alt fa-fw me-2"></i>Sign Out</a>
                                             </div>
                                         </div>
@@ -126,7 +125,7 @@
                                                     <th scope="col" class="border-0">Mentor</th>
                                                     <th scope="col" class="border-0">Deadline</th>
                                                     <th scope="col" class="border-0">Status</th>
-                                                    <th scope="col" class="border-0 rounded-end">Action</th>
+                                                    <th scope="col" class="border-0 rounded-end" style="text-align: center;">Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -143,7 +142,7 @@
                                                         <td>${re.status == 1 ? 'Open' : 
                                                               re.status == 2 ? 'Processing' : 
                                                               re.status == 3 ? 'Cancel' : 'Closed'}</td>
-                                                        <td>
+                                                        <td style="text-align: center;">
                                                             <a href="update-request?requestId=${re.requestId}" class="d-inline">
                                                                 <button type="button" class="btn btn-primary">
                                                                     <i class="bi bi-pen"></i>

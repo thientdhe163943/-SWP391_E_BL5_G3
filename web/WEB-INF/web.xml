@@ -50,7 +50,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>MenteeRequestListServlet</servlet-name>
-        <url-pattern>/mentee</url-pattern>
+        <url-pattern>/mentee-request-list</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>MenteeNewRequestServlet</servlet-name>
