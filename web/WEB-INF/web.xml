@@ -5,8 +5,8 @@
         <servlet-class>controller.mentor.ViewCVServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>MenteeProfileServlet</servlet-name>
-        <servlet-class>controller.mentee.MenteeProfileServlet</servlet-class>
+        <servlet-name>HomeControl</servlet-name>
+        <servlet-class>controller.HomeControl</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>MenteeRequestListServlet</servlet-name>
@@ -37,10 +37,6 @@
         <url-pattern>/viewCV</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>MenteeProfileServlet</servlet-name>
-        <url-pattern>/MenteeProfile</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>RequestServlet</servlet-name>
         <url-pattern>/mentor-request-list</url-pattern>
     </servlet-mapping>
@@ -63,5 +59,9 @@
     <servlet-mapping>
         <servlet-name>MenteeUpdateRequestStatusServlet</servlet-name>
         <url-pattern>/update-request-status</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HomeControl</servlet-name>
+        <url-pattern>/home</url-pattern>
     </servlet-mapping>
 </web-app>
