@@ -67,12 +67,17 @@ public class MenteeNewRequestServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        List<Skill> skillList = skillDao.getAllSkills();
-        
-        request.setAttribute("skillList", skillList);
 
-        request.getRequestDispatcher("./view/mentee/new-request.jsp").forward(request, response);
+        var session = request.getSession();
+
+        if (session == null || session.getAttribute("user") == null) {
+            request.setAttribute("error", "Access Denied");
+            request.getRequestDispatcher("./view/error.jsp").forward(request, response);
+        } else {
+            List<Skill> skillList = skillDao.getAllSkills();
+            request.setAttribute("skillList", skillList);
+            request.getRequestDispatcher("./view/mentee/new-request.jsp").forward(request, response);
+        }
     }
 
     /**
@@ -86,29 +91,35 @@ public class MenteeNewRequestServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Request newRequest = new Request();
+        var session = request.getSession();
+        if (session == null || session.getAttribute("user") == null) {
+            request.setAttribute("error", "Access Denied");
+            request.getRequestDispatcher("./view/error.jsp").forward(request, response);
+        } else {
+            var user = (User) session.getAttribute("user");
 
-        newRequest.setTitle(request.getParameter("title"));
-        newRequest.setDeadline(Date.valueOf(request.getParameter("deadline")));
-        newRequest.setContent(request.getParameter("content"));
-        newRequest.setMentor(null);
-        User mentee = new User();
-        mentee.setUserId(1);
-        newRequest.setMentee(mentee);
-        newRequest.setStatus(1);
+            Request newRequest = new Request();
+            newRequest.setTitle(request.getParameter("title"));
+            newRequest.setDeadline(Date.valueOf(request.getParameter("deadline")));
+            newRequest.setContent(request.getParameter("content"));
+            newRequest.setMentor(null);
+            newRequest.setMentee(user);
+            newRequest.setStatus(1);
 
-        String[] skills = request.getParameterValues("skill");
-        ArrayList<Integer> chosenSkills = new ArrayList<>();
+            String[] skills = request.getParameterValues("skill");
+            ArrayList<Integer> chosenSkills = new ArrayList<>();
 
-        if (skills != null) {
-            for (String skillId : skills) {
-                chosenSkills.add(Integer.parseInt(skillId));
+            if (skills != null) {
+                for (String skillId : skills) {
+                    chosenSkills.add(Integer.parseInt(skillId));
+                }
             }
+
+            requestDao.addRequest(newRequest, chosenSkills);
+
+            response.sendRedirect("mentee-request-list");
         }
 
-        requestDao.addRequest(newRequest, chosenSkills);
-
-        response.sendRedirect("mentee");
     }
 
 }

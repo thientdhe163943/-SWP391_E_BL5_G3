@@ -67,16 +67,22 @@ public class MenteeUpdateRequestServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Skill> skillList = skillDao.getAllSkills();
-        int currentRequestId = Integer.parseInt(request.getParameter("requestId"));
-        Request currentRequest = requestDao.getRequestById(currentRequestId);
-        ArrayList<Integer> chosenSkills = requestDao.getSkillByRequestId(currentRequestId);
+        var session = request.getSession();
+        if (session == null || session.getAttribute("user") == null) {
+            request.setAttribute("error", "Access Denied");
+            request.getRequestDispatcher("./view/error.jsp").forward(request, response);
+        } else {
+            List<Skill> skillList = skillDao.getAllSkills();
+            int currentRequestId = Integer.parseInt(request.getParameter("requestId"));
+            Request currentRequest = requestDao.getRequestById(currentRequestId);
+            ArrayList<Integer> chosenSkills = requestDao.getSkillByRequestId(currentRequestId);
 
-        request.setAttribute("skillList", skillList);
-        request.setAttribute("currentRequest", currentRequest);
-        request.setAttribute("chosenSkills", chosenSkills);
-        
-        request.getRequestDispatcher("./view/mentee/update-request.jsp").forward(request, response);
+            request.getSession().setAttribute("skillList", skillList);
+            request.getSession().setAttribute("currentRequest", currentRequest);
+            request.getSession().setAttribute("chosenSkills", chosenSkills);
+
+            request.getRequestDispatcher("./view/mentee/update-request.jsp").forward(request, response);
+        }
     }
 
     /**
@@ -90,28 +96,33 @@ public class MenteeUpdateRequestServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int requestId = Integer.parseInt(request.getParameter("requestId"));
-        String title = request.getParameter("title");
-        Date deadline = Date.valueOf(request.getParameter("deadline"));
-        String content = request.getParameter("content");
-        
-        String[] skills = request.getParameterValues("skill");
-        ArrayList<Integer> chosenSkills = new ArrayList();
-        if (skills != null) {
-            for (String skillId : skills) {
-                chosenSkills.add(Integer.parseInt(skillId));
+        var session = request.getSession();
+        if (session == null || session.getAttribute("user") == null) {
+            request.setAttribute("error", "Access Denied");
+            request.getRequestDispatcher("./view/error.jsp").forward(request, response);
+        } else {
+            int requestId = Integer.parseInt(request.getParameter("requestId"));
+            String title = request.getParameter("title");
+            Date deadline = Date.valueOf(request.getParameter("deadline"));
+            String content = request.getParameter("content");
+
+            String[] skills = request.getParameterValues("skill");
+            ArrayList<Integer> chosenSkills = new ArrayList();
+            if (skills != null) {
+                for (String skillId : skills) {
+                    chosenSkills.add(Integer.parseInt(skillId));
+                }
             }
+
+            int status = Integer.parseInt(request.getParameter("status"));
+            User mentee = (User) request.getSession().getAttribute("user");
+
+            Request updateRequest = new Request(requestId, title, deadline, content, null, mentee, status);
+
+            requestDao.updateRequest(updateRequest, chosenSkills);
+
+            response.sendRedirect("mentee-request-list");
         }
-        
-        int status = Integer.parseInt(request.getParameter("status"));
-        User mentee = new User();
-        mentee.setUserId(2);
-        
-        Request updateRequest = new Request(requestId, title, deadline, content, null, mentee, status);
-        
-        requestDao.updateRequest(updateRequest, chosenSkills);
-        
-        response.sendRedirect("mentee");
     }
 
 }
