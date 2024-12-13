@@ -59,6 +59,7 @@ public class ReviewServlet extends HttpServlet {
         request.setAttribute("page", page);
         request.setAttribute("totalPage", totalPage);
         request.setAttribute("reviews", reviews);
+        request.setAttribute("mentor", user);
         request.getRequestDispatcher("view/mentor/mentor-review.jsp").forward(request, response);
     }
 

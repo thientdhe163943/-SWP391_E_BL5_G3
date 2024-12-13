@@ -122,7 +122,7 @@ public class EducationDAO extends DBConnect {
         String query = """
                    SELECT edu_id, cv_id, school_name, major
                    FROM Education
-                   WHERE edu_id = ?
+                   WHERE cv_id = ?
                    """;
         try (PreparedStatement stm = connection.prepareStatement(query)) {
             stm.setInt(1, cvId);
@@ -144,7 +144,11 @@ public class EducationDAO extends DBConnect {
     
     public static void main(String[] args) {
         EducationDAO educationDAO = new EducationDAO();
-        System.out.println(educationDAO.deleteEducation(2));
+        Education education = new Education();
+        education.setCvId(1);
+        education.setSchoolName("FPT");
+        education.setMajor("SE");
+        System.out.println(educationDAO.addEducation(education));
         
     }
 }
