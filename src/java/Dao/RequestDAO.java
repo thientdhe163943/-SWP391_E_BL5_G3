@@ -105,7 +105,11 @@ public class RequestDAO extends DBConnect {
             ps.setString(1, request.getTitle());
             ps.setDate(2, request.getDeadline());
             ps.setString(3, request.getContent());
-            ps.setNull(4, java.sql.Types.INTEGER);
+            if (request.getMentor() == null) {
+                ps.setNull(4, java.sql.Types.INTEGER);
+            } else {
+                ps.setInt(4, request.getMentor().getUserId());
+            }
             ps.setInt(5, request.getMentee().getUserId());
             ps.setInt(6, request.getStatus());
             int rowsAffected = ps.executeUpdate();

@@ -51,7 +51,7 @@ public class MenteeUpdateRequestServlet extends HttpServlet {
             Request currentRequest = requestDao.getRequestById(currentRequestId);
             ArrayList<Integer> chosenSkills = requestDao.getSkillByRequestId(currentRequestId);
             User mentor = userDao.getUserByIdd(currentRequest.getMentor().getUserId());
-            
+
             request.setAttribute("mentorEmail", mentor.getEmail());
             request.setAttribute("skillList", skillList);
             request.setAttribute("currentRequest", currentRequest);
@@ -81,6 +81,7 @@ public class MenteeUpdateRequestServlet extends HttpServlet {
             String title = request.getParameter("title");
             Date deadline = Date.valueOf(request.getParameter("deadline"));
             String content = request.getParameter("content");
+            String mentorEmail = request.getParameter("mentorEmail");
 
             String[] skills = request.getParameterValues("skill");
             ArrayList<Integer> chosenSkills = new ArrayList();
@@ -92,8 +93,11 @@ public class MenteeUpdateRequestServlet extends HttpServlet {
 
             int status = Integer.parseInt(request.getParameter("status"));
             User mentee = (User) request.getSession().getAttribute("user");
-
-            Request updateRequest = new Request(requestId, title, deadline, content, null, mentee, status);
+            User mentor = null;
+            if (mentorEmail != null && !mentorEmail.trim().isEmpty()) {
+                mentor = userDao.getUserByEmail(mentorEmail);
+            }
+            Request updateRequest = new Request(requestId, title, deadline, content, mentor, mentee, status);
 
             requestDao.updateRequest(updateRequest, chosenSkills);
 
