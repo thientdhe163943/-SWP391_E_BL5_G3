@@ -112,9 +112,6 @@
                                 <li class="nav-item" role="presentation">
                                     <button class="nav-link active" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="ho-so" aria-selected="true">Profile</button>
                                 </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="review-tab" data-bs-toggle="tab" data-bs-target="#review" type="button" role="tab" aria-controls="review" aria-selected="false">Review (${cv.cvDetailList.size()})</button>
-                                </li>
                             </ul>
                         </div>
                         <!-- Tabs Navigation END -->
@@ -190,27 +187,6 @@
                                                     onclick="removeSkillModal('${skill.cvSkillId}')">
                                                 <i class="fas fa-trash"></i>
                                             </button>
-                                        </div>
-                                    </div>
-                                </c:forEach>
-                            </div>
-                            <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
-                                <c:forEach items="${cv.cvDetailList}" var="feedback">
-                                    <div class="feedback-container">
-                                        <div class="feedback-item">
-                                            <div class="feedback-date text-black">
-                                                ${feedback.date}
-                                            </div>
-                                            <div class="feedback-text">
-                                                ${feedback.comment}
-                                            </div>
-                                            <div class="feedback-author">
-                                                <img alt="Profile Picture" height="40" src="${feedback.mentee.avatar}" width="40"/>
-                                                <span>
-                                                    ${feedback.mentee.name}
-                                                </span>
-                                            </div>
-                                            <hr>
                                         </div>
                                     </div>
                                 </c:forEach>

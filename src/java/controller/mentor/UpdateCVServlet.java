@@ -54,7 +54,9 @@ public class UpdateCVServlet extends HttpServlet {
             response.sendRedirect("login");
             return;
         }
+        
         CV cv = cvdao.getCvByUserId(user.getUserId());
+
         //Nếu không có sẽ về index
         if (cv == null) {
             response.sendRedirect("login");

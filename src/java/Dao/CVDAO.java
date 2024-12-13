@@ -203,9 +203,9 @@ public class CVDAO extends DBConnect {
         CVDAO cvdao = new CVDAO();
         CV cv = cvdao.getCvByUserId(1);
         System.out.println(cv.getApplicant().getName());
-        List<CvDetail> feedbacks = cv.getCvDetailList();
-        for (CvDetail feedback : feedbacks) {
-            System.out.println(feedback.getComment());
+        List<Education> feedbacks = cv.getEduList();
+        for (Education feedback : feedbacks) {
+            System.out.println(feedback.getSchoolName());
         }
 
     }

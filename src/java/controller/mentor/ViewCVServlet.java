@@ -63,7 +63,7 @@ public class ViewCVServlet extends HttpServlet {
         CV cv = cvdao.getCvByUserId(Integer.parseInt(mentorID));
         //Nếu không có sẽ về index
         if (cv == null) {
-            response.sendRedirect("index_1.html");
+            response.sendRedirect("mentor");
             return;
         }
         int totalMentee = mentorDAO.getMenteesById(cv.getApplicant().getUserId()).size();

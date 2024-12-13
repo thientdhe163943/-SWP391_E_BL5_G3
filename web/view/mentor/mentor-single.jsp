@@ -99,12 +99,12 @@
                                                 <li class="list-inline-item"><div class="badge text-white bg-info rounded-1"><i class="fas fa-user-graduate me-2"></i>${totalMentee}</div></li>
                                             <li class="list-inline-item">${totalRate}<i class="fas fa-star text-warning"></i></li>
                                         </ul>
-                                            <c:if test="${!check.equals('true')}">
-                                                <a href="new-request?mentor=${cv.applicant.email}" class="btn btn-success me-2">Send Request</a>
-                                            </c:if>
-                                            <c:if test="${check.equals('true')}">
-                                                <a href="updateCV" class="btn btn-success me-2">Update CV</a>
-                                            </c:if>
+                                        <c:if test="${!check.equals('true')}">
+                                            <a href="new-request?mentor=${cv.applicant.email}" class="btn btn-success me-2">Send Request</a>
+                                        </c:if>
+                                        <c:if test="${check.equals('true')}">
+                                            <a href="updateCV" class="btn btn-success me-2">Update CV</a>
+                                        </c:if>
                                     </div>
                                 </div>
                             </div>
@@ -154,7 +154,7 @@
                                     <div class="d-flex align-items-center mb-4">
                                         <span class="icon-md text-dark mb-0 bg-light rounded-3"><i class="fas fa-graduation-cap"></i></span>
                                         <div class="ms-3">
-                                            <h5 class="mb-0">${skill.skill.name}</h5>
+                                            <h5 class="mb-0">${skill.skill.skillName}</h5>
                                         </div>
                                     </div>
                                 </c:forEach>
