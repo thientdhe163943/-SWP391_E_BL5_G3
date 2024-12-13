@@ -5,6 +5,7 @@
 package Dao;
 
 import DB.DBConnect;
+import Model.CV;
 import Model.CvDetail;
 import java.util.ArrayList;
 import java.util.List;
@@ -123,7 +124,9 @@ public class CvDetailDAO extends DBConnect {
                 while (rs.next()) {
                     CvDetail cvDetail = new CvDetail();
                     cvDetail.setCvDetailId(rs.getInt("cv_detail_id"));
-//                    cvDetail.setCv(cvDAO.getCvById(rs.getInt("cv_id")));
+                    CV cv = new CV();
+                    cv.setCvId(rs.getInt("cv_id"));
+                    cvDetail.setCv(cv);
                     cvDetail.setMentee(userDAO.getUserByIdd(rs.getInt("mentee_id")));
                     cvDetail.setComment(rs.getString("comment"));
                     cvDetail.setRating(rs.getFloat("rating"));
@@ -137,10 +140,46 @@ public class CvDetailDAO extends DBConnect {
         }
         return cvDetails;
     }
-    
+
+    public List<CvDetail> getAllByCvId(int cvId, int page) {
+        List<CvDetail> cvDetails = new ArrayList<>();
+        String sql = """
+                SELECT * FROM CV_Detail 
+                WHERE cv_id = ?
+                ORDER BY date desc
+                OFFSET ? ROWS 
+                FETCH FIRST 3 ROWS ONLY
+                 """;
+
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+
+            ps.setInt(1, cvId);
+            ps.setInt(2, (page - 1) * 3);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    CvDetail cvDetail = new CvDetail();
+                    cvDetail.setCvDetailId(rs.getInt("cv_detail_id"));
+                    CV cv = new CV();
+                    cv.setCvId(rs.getInt("cv_id"));
+                    cvDetail.setCv(cv);
+                    cvDetail.setMentee(userDAO.getUserByIdd(rs.getInt("mentee_id")));
+                    cvDetail.setComment(rs.getString("comment"));
+                    cvDetail.setRating(rs.getFloat("rating"));
+                    cvDetail.setDate(rs.getDate("date").toLocalDate());
+
+                    cvDetails.add(cvDetail);
+                }
+            }
+        } catch (SQLException e) {
+            logger.severe("Lỗi khi lấy danh sách CVDetail theo cv_id + page: " + e.getMessage());
+        }
+        return cvDetails;
+    }
+
     public static void main(String[] args) {
         CvDetailDAO cvDetailDAO = new CvDetailDAO();
-        List<CvDetail> lists = cvDetailDAO.getAllByCvId(1);
+        List<CvDetail> lists = cvDetailDAO.getAllByCvId(1, 1);
         for (CvDetail list : lists) {
             System.out.println(list.getComment());
         }
