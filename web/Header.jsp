@@ -107,12 +107,18 @@
                                 <hr>
                             </li>
                             <!-- Links for logged-in users -->
-                            <li><a class="dropdown-item" href="Profile.jsp"><i class="bi bi-person fa-fw me-2"></i>Edit Profile</a></li>
-                            <li><a class="dropdown-item" href="changePasswordwithOldPass.jsp"><i class="bi bi-gear fa-fw me-2"></i>Change Password</a></li>
+                            
+                                <c:if test="${userRole.role_id == 1}">
+                                <li><a class="dropdown-item" href="mentee-dashboard"><i class="bi bi-gear fa-fw me-2"></i>Mentee Dashboard</a></li>
+                                <li><a class="dropdown-item" href="mentee-request-list"><i class="bi bi-gear fa-fw me-2"></i>Mentee Request</a></li>
+                                </c:if>
                                 <c:if test="${userRole.role_id == 2}">
                                 <li><a class="dropdown-item" href="mentor-dashboard"><i class="bi bi-gear fa-fw me-2"></i>Mentor Dashboard</a></li>
                                 </c:if>
                             <li><a class="dropdown-item" href="viewCV?mentor=${user.userId}"><i class="bi bi-info-circle fa-fw me-2"></i>Curriculum Vitae</a></li>
+                            <li><a class="dropdown-item" href="Profile.jsp"><i class="bi bi-person fa-fw me-2"></i>Edit Profile</a></li>
+                            
+                            <li><a class="dropdown-item" href="changePasswordwithOldPass.jsp"><i class="bi bi-gear fa-fw me-2"></i>Change Password</a></li>
                             <li><a class="dropdown-item bg-danger-soft-hover" href="logout"><i class="bi bi-power fa-fw me-2"></i>Sign Out</a></li>
                             <li><hr class="dropdown-divider"></li>
                                 <% } else { %>

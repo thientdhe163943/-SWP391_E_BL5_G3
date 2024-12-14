@@ -54,13 +54,10 @@ public class LoginServlet extends HttpServlet {
             if (userRole != null) {
                 int roleId = userRole.getRole_id();
 
-                if (roleId == 1) { // Quản trị viên từ cơ sở dữ liệu
-                    response.sendRedirect("mentee-home");
-                } else if (roleId == 2) { // Người dùng bình thường
+                if (roleId == 1 || roleId == 2) { // Quản trị viên từ cơ sở dữ liệu
                     response.sendRedirect("home");
-                } else {
-                    request.setAttribute("mess", "Your role is not allowed to access the system.");
-                    request.getRequestDispatcher("Login.jsp").forward(request, response);
+                } else if (roleId == 3) {
+                    response.sendRedirect("admin");
                 }
             } else {
                 request.setAttribute("mess", "Failed to fetch user role. Please contact support.");

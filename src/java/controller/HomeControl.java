@@ -65,7 +65,7 @@ public class HomeControl extends HttpServlet {
         if (currentUserRole == null) {
             request.getRequestDispatcher("./HomePage.jsp").forward(request, response);
         } else if (currentUserRole.getRole_id() == 1) {
-            request.getRequestDispatcher("./view/mentee/home.jsp").forward(request, response);
+            request.getRequestDispatcher("./HomePage.jsp").forward(request, response);
         } else if (currentUserRole.getRole_id() == 2) {
             request.getRequestDispatcher("./HomePage.jsp").forward(request, response);
         }
