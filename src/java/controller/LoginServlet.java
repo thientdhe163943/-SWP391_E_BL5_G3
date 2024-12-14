@@ -29,7 +29,7 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         // Kiểm tra tài khoản admin hardcoded
-        if ("admin".equals(email) && "admin".equals(password)) {
+        if ("admin@admin".equals(email) && "admin".equals(password)) {
             HttpSession session = request.getSession();
             User adminUser = new User(); // Tạo đối tượng giả lập cho admin
             adminUser.setUserId(0); // ID đặc biệt để phân biệt

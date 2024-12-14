@@ -270,8 +270,8 @@
                                             </div>
                                         </div>
                                         <div class="card-body text-center">
-                                            <h5 class="card-title"><a href="#">${o.userId}</a></h5>
-                                            <p class="mb-2">${o.content}</p>
+                                            <h5 class="card-title"><a href="#">${o.content}</a></h5>
+                                            <p class="mb-2">${o.full_content}</p>
                                         </div>
                                     </div>
                                 </c:forEach>

@@ -25,7 +25,66 @@
 
         <!-- Theme CSS -->
         <link id="style-switch" rel="stylesheet" type="text/css" href="assets/css/style.css">
+        <style>
+            /* Container styling */
+            .form-login {
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+                border-radius: 10px;
+                max-width: 450px;
+                margin: auto;
+            }
 
+            .form-login h1 {
+                font-size: 2rem;
+                margin-bottom: 1.5rem;
+                color: #333;
+            }
+
+            /* Input styling */
+            .form-login input {
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                padding: 10px;
+                font-size: 1rem;
+            }
+
+            .form-login input:focus {
+                border-color: #007bff;
+                outline: none;
+                box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+            }
+
+            /* Button styling */
+            .form-login button {
+                background: #007bff;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                padding: 10px 20px;
+                font-size: 1rem;
+                transition: background 0.3s ease;
+            }
+
+            .form-login button:hover {
+                background: #0056b3;
+            }
+
+            /* Link styling */
+            .form-login a {
+                color: #007bff;
+                text-decoration: none;
+            }
+
+            .form-login a:hover {
+                text-decoration: underline;
+            }
+
+            /* Avatar group styling */
+            .avatar-group img {
+                border: 2px solid #fff;
+                margin-left: -10px;
+            }
+        </style>
     </head>
 
     <body>
@@ -71,63 +130,66 @@
 
                         <!-- Right -->
                         <div class="col-12 col-lg-6 m-auto">
+                             <form action="signup" method="post" class="mx-auto">
                             <div class="row my-5">
                                 <div class="col-sm-10 col-xl-8 m-auto">
                                     <!-- Title -->
-                                  
+
 
                                     <!-- Form START -->
-                                    <form action="signup" method="post" class="mx-auto">
-                                        <div class="bg-white p-5 form-login">
-                                            <h1 class="text-center fw-bold">Sign up</h1>
-                                            <div class="">
-                                                <div class="d-flex mt-5">
-                                                    <div class="me-3">
-                                                        <div class="d-flex align-items-center fs-4 mt-3">
-                                                            <input type="text" placeholder="email" 
-                                                                   style="${(email.equals("error")) ? "border-bottom: 1px solid red !important;" : ''}"
-                                                                   value="${!email.equals("error")?email:""}" name="email"
-                                                                   class="w-100 py-4 outline-0 border-0 ms-3 border-bottom" />
-                                                        </div>
-                                                    </div>
+                                    <div class="bg-white p-5 form-login">
+                                        <h1 class="text-center fw-bold">Sign up</h1>
 
-                                                </div>
-                                             
-                                               
-                                                <div class="border-bottom mt-5">
-                                                    <div class="d-flex align-items-center fs-4 mt-3">
-                                                        <i class='bx bx-lock'></i>
-                                                        <input type="password" placeholder="Password" 
-                                                               ${password.equals("error")?"style='style=border-bottom: 1px solid red !important;'":""}
-                                                               value="${!password.equals("error")?password:""}"
-                                                               name="password"
-                                                               class="w-100 py-4 outline-0 border-0 ms-3" />
-                                                    </div>
-                                                </div>
-                                                <div class="border-bottom mt-5">
-                                                    <div class="d-flex align-items-center fs-4 mt-3">
-                                                        <i class='bx bx-lock'></i>
-                                                        <input type="password" placeholder="Confirm Password" name="confirmPassword"
-                                                               class="w-100 py-4 outline-0 border-0 ms-3" />
-                                                    </div>
-                                                </div>
+                                        <!-- Email input -->
+                                        <div class="mb-4">
+                                            <label for="email" class="fw-bold">Email</label>
+                                            <div class="input-group mt-2">
+                                                <span class="input-group-text bg-light border-0">
+                                                    <i class='bx bx-user'></i>
+                                                </span>
+                                                <input type="email" id="email" name="email" placeholder="Enter your email" class="form-control" required />
                                             </div>
-                                            <div class="text-center mt-3 fs-5">
-                                                Already have an account?
-                                                <a href="login" class="text-black-weak text-info">Login</a>
-                                            </div>
-                                            <button type="submit" class="border-0 rounded-xl fs-4 fw-bold w-100
-                                                    text-white py-3 mt-3 bg-red text-center bg-danger">
-                                                Sign up
-                                            </button>
-                                            <p class="text-center mt-3" style="color: red">${message}</p>
                                         </div>
-                                    </form>
+
+                                        <!-- Password input -->
+                                        <div class="mb-4">
+                                            <label for="password" class="fw-bold">Password</label>
+                                            <div class="input-group mt-2">
+                                                <span class="input-group-text bg-light border-0">
+                                                    <i class='bx bx-lock'></i>
+                                                </span>
+                                                <input type="password" id="password" name="password" placeholder="Enter your password" class="form-control" required />
+                                            </div>
+                                        </div>
+
+                                        <!-- Confirm Password input -->
+                                        <div class="mb-4">
+                                            <label for="confirmPassword" class="fw-bold">Confirm Password</label>
+                                            <div class="input-group mt-2">
+                                                <span class="input-group-text bg-light border-0">
+                                                    <i class='bx bx-lock-alt'></i>
+                                                </span>
+                                                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" class="form-control" required />
+                                            </div>
+                                        </div>
+
+                                        <!-- Login link -->
+                                        <div class="text-center">
+                                            Already have an account? <a href="login" class="text-info">Login</a>
+                                        </div>
+
+                                        <!-- Submit button -->
+                                        <button type="submit" class="btn w-100 mt-4">Sign up</button>
+
+                                        <!-- Error message -->
+                                        <p class="text-center mt-3 text-danger">${message}</p>
+                                    </div>
                                     <!-- Form END -->
 
-                                   
+
                                 </div>
-                            </div> <!-- Row END -->
+                            </div>
+                                    </form><!-- Row END -->
                         </div>
                     </div> <!-- Row END -->
                 </div>

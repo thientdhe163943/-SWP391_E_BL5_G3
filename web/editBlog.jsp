@@ -82,8 +82,10 @@
 
                 <div class="form-group">
                     <label for="user_id">User ID:</label>
-                    <input type="number" id="user_id" name="user_id" value="${blog.userId}" required>
+                    <span id="user_id_display">${blog.userId}</span>
+                    <input type="hidden" id="user_id" name="user_id" value="${blog.userId}">
                 </div>
+
 
                 <div class="form-group">
                     <label for="image">Image URL:</label>

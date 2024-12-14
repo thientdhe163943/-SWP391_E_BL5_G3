@@ -89,7 +89,7 @@
                     <!-- Title -->
                     <div class="row mb-3">
                         <div class="col-12 d-sm-flex justify-content-between align-items-center">
-                            <h1 class="h3 mb-2 mb-sm-0">Account</h1>
+                            <h1 class="h3 mb-2 mb-sm-0">User</h1>
 
                         </div>
                     </div>
