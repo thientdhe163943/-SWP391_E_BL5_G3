@@ -50,12 +50,12 @@ public class LoginServlet extends HttpServlet {
 
             // Lấy role của user từ cơ sở dữ liệu
             User_role userRole = daoUser.getUserByUserId(user.getUserId());
-
+            session.setAttribute("userRole", userRole);
             if (userRole != null) {
                 int roleId = userRole.getRole_id();
 
                 if (roleId == 1) { // Quản trị viên từ cơ sở dữ liệu
-                    response.sendRedirect("home");
+                    response.sendRedirect("mentee-home");
                 } else if (roleId == 2) { // Người dùng bình thường
                     response.sendRedirect("home");
                 } else {

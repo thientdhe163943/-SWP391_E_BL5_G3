@@ -1,6 +1,6 @@
 <%-- 
-    Document   : profile
-    Created on : Nov 29, 2024, 1:44:12 PM
+    Document   : list-recommended-mentors
+    Created on : Dec 13, 2024, 3:55:56 PM
     Author     : Hayashi
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Profile</title>
+        <title>JSP Page</title>
     </head>
     <body>
         <h1>Hello World!</h1>

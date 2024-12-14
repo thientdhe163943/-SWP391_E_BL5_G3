@@ -28,6 +28,8 @@ public class CVDAO extends DBConnect {
     private final CvSkillDAO cvSkillDAO = new CvSkillDAO();
     private final EducationDAO educationDAO = new EducationDAO();
     private final MentorDAO mentorDAO = new MentorDAO();
+    private final CvDetailDAO cvDetailDAO = new CvDetailDAO();
+
     // Lấy tất cả CV
     public List<CV> getAllCVs() {
         List<CV> list = new ArrayList<>();
@@ -43,6 +45,94 @@ public class CVDAO extends DBConnect {
                 // Giả định các phương thức lấy danh sách skills, education, và details sẽ được cài đặt
                 cv.setCvSkillList(cvSkillDAO.getCvSkillsByCvId(cv.getCvId()));
                 cv.setEduList(educationDAO.getEducationsByCvId(cv.getCvId()));
+                cv.setCvDetailList(cvDetailDAO.getAllByCvId(cv.getCvId()));
+                list.add(cv);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Lỗi khi lấy danh sách CV: {0}", e.getMessage());
+        }
+        return list;
+    }
+
+    public int getTotalCvMentor() {
+        String query = """
+                    SELECT count(*) FROM CV cv
+                    join User_Role r
+                    on cv.user_id = r.user_id
+                    where r.role_id = 2""";
+        try (PreparedStatement stm = connection.prepareStatement(query)) {
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                int total = rs.getInt(1);
+                int countPage = total / 4;
+                if (total % 4 != 0) {
+                    countPage++;
+                }
+                return countPage;
+            }
+        } catch (SQLException e) {
+            logger.info(e.getMessage());
+        }
+        return 0;
+    }
+
+    public List<CV> getAllCvMentor() {
+        List<CV> list = new ArrayList<>();
+        String query = """
+                       SELECT * FROM CV cv
+                       join User_Role r
+                       on cv.user_id = r.user_id
+                       where r.role_id = 2
+                        """;
+        try (PreparedStatement stm = connection.prepareStatement(query)) {
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                CV cv = new CV();
+                cv.setCvId(rs.getInt("cv_id"));
+                cv.setApplicant(mentorDAO.getById(rs.getInt("user_id")));
+                cv.setIntroduction(rs.getString("introduction"));
+                cv.setExperience(rs.getInt("experience"));
+
+                // Giả định các phương thức lấy danh sách skills, education, và details sẽ được cài đặt
+                cv.setCvSkillList(cvSkillDAO.getCvSkillsByCvId(cv.getCvId()));
+                cv.setEduList(educationDAO.getEducationsByCvId(cv.getCvId()));
+                cv.setCvDetailList(cvDetailDAO.getAllByCvId(cv.getCvId()));
+                list.add(cv);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Lỗi khi lấy danh sách CV: {0}", e.getMessage());
+        }
+        return list;
+    }
+    
+    public List<CV> getAllCvMentor(String name, int page) {
+        List<CV> list = new ArrayList<>();
+        String query = """
+                       SELECT * FROM CV cv
+                       join User_Role r
+                       on cv.user_id = r.user_id
+                       where r.role_id = 2
+                       ORDER BY cv.cv_id
+                       OFFSET ? ROWS 
+                       FETCH FIRST 4 ROWS ONLY
+                        """;
+        if (name != null) {
+            query += "";
+        }
+        try (PreparedStatement stm = connection.prepareStatement(query)) {
+            stm.setInt(1, (page - 1) * 4);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                CV cv = new CV();
+                cv.setCvId(rs.getInt("cv_id"));
+                cv.setApplicant(mentorDAO.getById(rs.getInt("user_id")));
+                cv.setIntroduction(rs.getString("introduction"));
+                cv.setExperience(rs.getInt("experience"));
+
+                // Giả định các phương thức lấy danh sách skills, education, và details sẽ được cài đặt
+                cv.setCvSkillList(cvSkillDAO.getCvSkillsByCvId(cv.getCvId()));
+                cv.setEduList(educationDAO.getEducationsByCvId(cv.getCvId()));
+                cv.setCvDetailList(cvDetailDAO.getAllByCvId(cv.getCvId()));
                 list.add(cv);
             }
         } catch (SQLException e) {
@@ -71,6 +161,7 @@ public class CVDAO extends DBConnect {
                     // Giả định các phương thức lấy danh sách skills, education, và details sẽ được cài đặt
                     cv.setCvSkillList(cvSkillDAO.getCvSkillsByCvId(cv.getCvId()));
                     cv.setEduList(educationDAO.getEducationsByCvId(cv.getCvId()));
+                    cv.setCvDetailList(cvDetailDAO.getAllByCvId(cv.getCvId()));
                     return cv;
                 }
             }
@@ -95,10 +186,10 @@ public class CVDAO extends DBConnect {
                     cv.setApplicant(mentorDAO.getById(rs.getInt("user_id")));
                     cv.setIntroduction(rs.getString("introduction"));
                     cv.setExperience(rs.getInt("experience"));
-
                     // Giả định các phương thức lấy danh sách skills, education, và details sẽ được cài đặt
                     cv.setCvSkillList(cvSkillDAO.getCvSkillsByCvId(cv.getCvId()));
                     cv.setEduList(educationDAO.getEducationsByCvId(cv.getCvId()));
+                    cv.setCvDetailList(cvDetailDAO.getAllByCvId(cv.getCvId()));
                     return cv;
                 }
             }
@@ -110,11 +201,9 @@ public class CVDAO extends DBConnect {
 
     // Thêm mới CV
     public boolean addCV(CV cv) {
-        String query = "INSERT INTO CV (user_id, introduction, experience) VALUES (?, ?, ?)";
+        String query = "INSERT INTO CV (user_id) VALUES (?)";
         try (PreparedStatement stm = connection.prepareStatement(query)) {
             stm.setInt(1, cv.getApplicant().getUserId());
-            stm.setString(2, cv.getIntroduction());
-            stm.setObject(3, cv.getExperience());
             int rowsAffected = stm.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException e) {
@@ -139,7 +228,12 @@ public class CVDAO extends DBConnect {
 
     public static void main(String[] args) {
         CVDAO cvdao = new CVDAO();
-        CV cv1 = cvdao.getCvByUserId(1);
-        System.out.println(cv1.getIntroduction());
+        CV cv = cvdao.getCvByUserId(1);
+        System.out.println(cv.getApplicant().getName());
+        List<Education> feedbacks = cv.getEduList();
+        for (Education feedback : feedbacks) {
+            System.out.println(feedback.getSchoolName());
+        }
+
     }
 }

@@ -7,12 +7,14 @@ package controller.mentor;
 import Dao.MentorDAO;
 import Model.Request;
 import Model.User;
+import Model.User_role;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -36,14 +38,20 @@ public class DashBoardServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        HttpSession session = request.getSession();
-//        Account account = (Account) session.getAttribute("account");
-//        if(account == null){
-//            request.getRequestDispatcher("Login.jsp").forward(request, response);
-//            return;
-//        }
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        User_role role = (User_role) session.getAttribute("userRole");
+        if (user == null) {
+            request.getRequestDispatcher("Login.jsp").forward(request, response);
+            return;
+        }
+        if (role.getRole_id() != 2) {
+            request.setAttribute("error", "Access Denied");
+            request.getRequestDispatcher("view/error.jsp").forward(request, response);
+            return;
+        }
 
-        User mentor = mentorDAO.getByAccountId(1);
+        User mentor = mentorDAO.getById(user.getUserId());
         List<User> menteeList = mentorDAO.getMenteesById(mentor.getUserId());
         int totalMentees = menteeList.size();
         //Get List
@@ -56,11 +64,15 @@ public class DashBoardServlet extends HttpServlet {
         request.setAttribute("acceptedRequests", acceptedRequests);
         request.setAttribute("canceledRequests", canceledRequests);
         request.setAttribute("closedRequests", closedRequests);
-        
+
         //Total Requests
         int totalRequest = pendingRequests.size() + acceptedRequests.size() + canceledRequests.size() + closedRequests.size();
-        double completedRate = closedRequests.size() * 100 / totalRequest;
-        double canceledRate = canceledRequests.size() * 100 / totalRequest;
+        double completedRate = 0;
+        double canceledRate = 0;
+        if (totalRequest > 0) {
+            completedRate = closedRequests.size() * 100 / totalRequest;
+            canceledRate = canceledRequests.size() * 100 / totalRequest;
+        }
         request.setAttribute("completedRate", completedRate);
         request.setAttribute("canceledRate", canceledRate);
 

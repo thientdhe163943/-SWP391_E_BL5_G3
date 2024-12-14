@@ -4,12 +4,14 @@
  */
 package controller.mentor;
 
-import Dao.MentorDAO;
-import Dao.RequestDAO;
-import Model.Request;
+import Dao.CVDAO;
+import Dao.CvDetailDAO;
+import Model.CV;
+import Model.CvDetail;
 import Model.User;
 import Model.User_role;
 import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,10 +23,10 @@ import java.util.List;
  *
  * @author ADMIN
  */
-public class RequestListServlet extends HttpServlet {
+public class ReviewServlet extends HttpServlet {
 
-    private final MentorDAO mentorDAO = new MentorDAO();
-    private final RequestDAO requestDAO = new RequestDAO();
+    private final CVDAO cvDAO = new CVDAO();
+    private final CvDetailDAO cvDetailDAO = new CvDetailDAO();
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -39,38 +41,33 @@ public class RequestListServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        User mentor = (User) session.getAttribute("user");
+        User user = (User) session.getAttribute("user");
         User_role role = (User_role) session.getAttribute("userRole");
-        if (mentor == null) {
-            request.getRequestDispatcher("Login.jsp").forward(request, response);
+        if (user == null) {
+            response.sendRedirect("login");
             return;
         }
-        
         if (role.getRole_id() != 2) {
             request.setAttribute("error", "Access Denied");
             request.getRequestDispatcher("view/error.jsp").forward(request, response);
             return;
         }
-        //Banner
-        List<User> menteeList = mentorDAO.getMenteesById(mentor.getUserId());
-        int totalMentees = menteeList.size();
-
-        request.setAttribute("totalMentees", totalMentees);
-        request.setAttribute("menteeList", menteeList);
-        request.setAttribute("mentor", mentor);
-
-        //Table List
-        String index = request.getParameter("index");
-        if (index == null) {
-            index = "1";
+        String page = request.getParameter("page");
+        if (page == null) {
+            page = "1";
         }
-        int totalPage = mentorDAO.getNumberPageRequests(mentor.getUserId());
-        List<Request> requestList;
-        requestList = mentorDAO.getRequestsByMentor(mentor.getUserId(), Integer.parseInt(index));
-        request.setAttribute("index", index);
+        CV cv = cvDAO.getCvByUserId(user.getUserId());
+        int totalPage = cv.getCvDetailList().size() / 3;
+
+        if (cv.getCvDetailList().size() % 3 != 0) {
+            totalPage++;
+        }
+        List<CvDetail> reviews = cvDetailDAO.getAllByCvId(cv.getCvId(), Integer.parseInt(page));
+        request.setAttribute("page", page);
         request.setAttribute("totalPage", totalPage);
-        request.setAttribute("requestList", requestList);
-        request.getRequestDispatcher("view/mentor/mentor-request-list.jsp").forward(request, response);
+        request.setAttribute("reviews", reviews);
+        request.setAttribute("mentor", user);
+        request.getRequestDispatcher("view/mentor/mentor-review.jsp").forward(request, response);
     }
 
     /**
@@ -84,22 +81,7 @@ public class RequestListServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String requestId = request.getParameter("requestId");
-        String action = request.getParameter("action");
-        switch (action) {
-            case "cancel":
-                requestDAO.updateStatus(Integer.parseInt(requestId), 3);
-                break;
-            case "accept":
-                requestDAO.updateStatus(Integer.parseInt(requestId), 2);
-                break;
-            case "finish":
-                requestDAO.updateStatus(Integer.parseInt(requestId), 4);
-                break;
-            default:
-                throw new AssertionError();
-        }
-        doGet(request, response);
+
     }
 
     /**

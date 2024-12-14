@@ -40,9 +40,9 @@
 
         <!-- **************** MAIN CONTENT START **************** -->
         <main>
-
-            <!-- =======================
-            Main Banner START -->
+            <jsp:include page="../../Header.jsp"></jsp:include>
+                <!-- =======================
+                Main Banner START -->
             <jsp:include page="mentor-banner.jsp"/>
             <!-- =======================
             Main Banner END -->
@@ -175,12 +175,12 @@
                                                             </button>
                                                             <!--Closed Button--> 
                                                             <button <c:if test="${request.status != 2}">disabled</c:if>
-                                                                    type="button" 
-                                                                    title="Finish" 
-                                                                    class="btn btn-sm btn-info-soft btn-round me-1 mb-0"
-                                                                    data-bs-toggle="modal" 
-                                                                    data-bs-target="#finishRequestModal"
-                                                                    onclick="finishRequestModal('${request.requestId}')">
+                                                                                                        type="button" 
+                                                                                                        title="Finish" 
+                                                                                                        class="btn btn-sm btn-info-soft btn-round me-1 mb-0"
+                                                                                                        data-bs-toggle="modal" 
+                                                                                                        data-bs-target="#finishRequestModal"
+                                                                                                        onclick="finishRequestModal('${request.requestId}')">
                                                                 <i class="far fa-fw fa-flag"></i>
                                                             </button>
                                                         </td>
@@ -199,11 +199,11 @@
                                         <!-- Pagination -->
                                         <nav class="d-flex justify-content-center mb-0" aria-label="navigation">
                                             <ul class="pagination pagination-sm pagination-primary-soft mb-0 pb-0">
-                                                <li class="page-item mb-0"><a class="page-link" href="#" tabindex="-1"><i class="fas fa-angle-left"></i></a></li>
+                                                <li class="page-item mb-0"><a class="page-link" href="mentor-request-list?index=${index-1}" tabindex="-1"><i class="fas fa-angle-left"></i></a></li>
                                                         <c:forEach begin="1" end="${totalPage}" var="i">
                                                     <li class="page-item mb-0 page-number ${i == index ? 'active' : ''}"><a class="page-link" href="mentor-request-list?index=${i}">${i}</a></li>
                                                     </c:forEach>
-                                                <li class="page-item mb-0"><a class="page-link" href="#"><i class="fas fa-angle-right"></i></a></li>
+                                                <li class="page-item mb-0"><a class="page-link" href="mentor-request-list?index=${index+1}"><i class="fas fa-angle-right"></i></a></li>
                                             </ul>
                                         </nav>
                                     </div>
@@ -289,8 +289,8 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" form="acceptRequestForm" class="btn btn-primary">Yes</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -315,14 +315,14 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" form="cancelRequestForm" class="btn btn-primary">Yes</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
         </div>
         <!--Cancel request Model End-->
-        
+
         <!--Finish request Model START-->
         <div class="modal fade" id="finishRequestModal" tabindex="-1" aria-labelledby="finishRequestModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
@@ -394,40 +394,40 @@
         <!-- Template Functions -->
         <script src="assets/js/functions.js"></script>
         <script>
-                                                                        function viewRequestModal(id, title, deadline, content, menteeName, status) {
-                                                                            document.getElementById('viewID').value = id;
-                                                                            document.getElementById('viewTitle').value = title;
-                                                                            document.getElementById('viewDeadline').value = deadline;
-                                                                            document.getElementById('viewContent').value = content;
-                                                                            document.getElementById('viewMentee').value = menteeName;
-                                                                            switch (status) {
-                                                                                case '1':
-                                                                                    document.getElementById('viewStatus').value = 'Pending';
-                                                                                    break;
-                                                                                case '2':
-                                                                                    document.getElementById('viewStatus').value = 'Accepted';
-                                                                                    break;
-                                                                                case '3':
-                                                                                    document.getElementById('viewStatus').value = 'Canceled';
-                                                                                    break;
-                                                                                case '4':
-                                                                                    document.getElementById('viewStatus').value = 'Closed';
-                                                                                    break;
-                                                                                default:
-                                                                                    document.getElementById('viewStatus').value = 'Unknown';
-                                                                                    break;
-                                                                            }
-                                                                        }
+                                                                                                            function viewRequestModal(id, title, deadline, content, menteeName, status) {
+                                                                                                                document.getElementById('viewID').value = id;
+                                                                                                                document.getElementById('viewTitle').value = title;
+                                                                                                                document.getElementById('viewDeadline').value = deadline;
+                                                                                                                document.getElementById('viewContent').value = content;
+                                                                                                                document.getElementById('viewMentee').value = menteeName;
+                                                                                                                switch (status) {
+                                                                                                                    case '1':
+                                                                                                                        document.getElementById('viewStatus').value = 'Pending';
+                                                                                                                        break;
+                                                                                                                    case '2':
+                                                                                                                        document.getElementById('viewStatus').value = 'Accepted';
+                                                                                                                        break;
+                                                                                                                    case '3':
+                                                                                                                        document.getElementById('viewStatus').value = 'Canceled';
+                                                                                                                        break;
+                                                                                                                    case '4':
+                                                                                                                        document.getElementById('viewStatus').value = 'Closed';
+                                                                                                                        break;
+                                                                                                                    default:
+                                                                                                                        document.getElementById('viewStatus').value = 'Unknown';
+                                                                                                                        break;
+                                                                                                                }
+                                                                                                            }
 
-                                                                        function cancelRequestModal(id) {
-                                                                            document.getElementById('cancelRequestID').value = id;
-                                                                        }
-                                                                        function acceptRequestModal(id) {
-                                                                            document.getElementById('acceptRequestID').value = id;
-                                                                        }
-                                                                        function finishRequestModal(id) {
-                                                                            document.getElementById('finishRequestID').value = id;
-                                                                        }
+                                                                                                            function cancelRequestModal(id) {
+                                                                                                                document.getElementById('cancelRequestID').value = id;
+                                                                                                            }
+                                                                                                            function acceptRequestModal(id) {
+                                                                                                                document.getElementById('acceptRequestID').value = id;
+                                                                                                            }
+                                                                                                            function finishRequestModal(id) {
+                                                                                                                document.getElementById('finishRequestID').value = id;
+                                                                                                            }
         </script>
     </body>
 

@@ -28,7 +28,7 @@ import java.util.List;
  *
  * @author ADMIN
  */
-public class ViewCVServlet extends HttpServlet {
+public class UpdateCVServlet extends HttpServlet {
 
     private final CVDAO cvdao = new CVDAO();
     private final MentorDAO mentorDAO = new MentorDAO();
@@ -50,21 +50,16 @@ public class ViewCVServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
-
-        String mentorID = request.getParameter("mentor");
-        if (mentorID == null) {
-            response.sendRedirect("mentor");
+        if (user == null) {
+            response.sendRedirect("login");
             return;
         }
-        if (user != null && user.getUserId() == Integer.parseInt(mentorID)) {
-            request.setAttribute("check", "true");
-        }
+        
+        CV cv = cvdao.getCvByUserId(user.getUserId());
 
-        CV cv = cvdao.getCvByUserId(Integer.parseInt(mentorID));
-//        List<CV> cvMentorList = cvdao.getAllCvMentor();
         //Nếu không có sẽ về index
         if (cv == null) {
-            response.sendRedirect("mentor");
+            response.sendRedirect("login");
             return;
         }
         int totalMentee = mentorDAO.getMenteesById(cv.getApplicant().getUserId()).size();
@@ -74,7 +69,6 @@ public class ViewCVServlet extends HttpServlet {
             for (CvDetail feedback : cv.getCvDetailList()) {
                 totalRate += feedback.getRating();
             }
-
             totalRate = totalRate / cv.getCvDetailList().size();
         }
 
@@ -82,7 +76,7 @@ public class ViewCVServlet extends HttpServlet {
         request.setAttribute("cv", cv);
         request.setAttribute("totalMentee", totalMentee);
         request.setAttribute("skills", skills);
-        request.getRequestDispatcher("view/mentor/mentor-single.jsp").forward(request, response);
+        request.getRequestDispatcher("view/mentor/mentor-update-cv.jsp").forward(request, response);
     }
 
     /**
@@ -97,27 +91,32 @@ public class ViewCVServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getParameter("action");
-        String mentorID = request.getParameter("mentorID");
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            response.sendRedirect("login");
+            return;
+        }
         CV cv;
         switch (action) {
             case "editIntro":
                 String introduction = request.getParameter("introduction");
-                cv = cvdao.getCvByUserId(Integer.parseInt(mentorID));
+                cv = cvdao.getCvByUserId(user.getUserId());
                 cv.setIntroduction(introduction);
                 if (cvdao.updateCV(cv)) {
-                    response.sendRedirect("viewCV?mentor=" + mentorID);
+                    response.sendRedirect("updateCV");
                 }
                 break;
             case "addEdu":
                 Education education = new Education();
-                cv = cvdao.getCvByUserId(Integer.parseInt(mentorID));
+                cv = cvdao.getCvByUserId(user.getUserId());
                 education.setCvId(cv.getCvId());
                 String schoolName = request.getParameter("schoolName");
                 education.setSchoolName(schoolName);
                 String major = request.getParameter("major");
                 education.setMajor(major);
                 if (educationDAO.addEducation(education)) {
-                    response.sendRedirect("viewCV?mentor=" + mentorID);
+                    response.sendRedirect("updateCV");
                 }
                 break;
             case "editEdu":
@@ -129,13 +128,13 @@ public class ViewCVServlet extends HttpServlet {
                 String majorEdit = request.getParameter("major");
                 eduEdit.setMajor(majorEdit);
                 if (educationDAO.updateEducation(eduEdit)) {
-                    response.sendRedirect("viewCV?mentor=" + mentorID);
+                    response.sendRedirect("updateCV");
                 }
                 break;
             case "removeEdu":
                 String eduRemoveID = request.getParameter("eduID");
                 if (educationDAO.deleteEducation(Integer.parseInt(eduRemoveID))) {
-                    response.sendRedirect("viewCV?mentor=" + mentorID);
+                    response.sendRedirect("updateCV");
                 }
                 break;
             case "addSkill":
@@ -146,13 +145,13 @@ public class ViewCVServlet extends HttpServlet {
                 CV cvAddSkill = cvdao.getCvById(Integer.parseInt(cvId));
                 cvSkill.setCv(cvAddSkill);
                 if (cvSkillDAO.addCvSkill(cvSkill)) {
-                    response.sendRedirect("viewCV?mentor=" + mentorID);
+                    response.sendRedirect("updateCV");
                 }
                 break;
             case "removeSkill":
                 String cvSkillId = request.getParameter("cvSkillId");
                 if (cvSkillDAO.deleteCvSkill(Integer.parseInt(cvSkillId))) {
-                    response.sendRedirect("viewCV?mentor=" + mentorID);
+                    response.sendRedirect("updateCV");
                 }
                 break;
             default:

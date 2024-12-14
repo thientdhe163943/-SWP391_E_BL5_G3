@@ -22,14 +22,13 @@ public class EducationDAO extends DBConnect {
     // Thêm mới Education
     public boolean addEducation(Education education) {
         String query = """
-                       INSERT INTO CV_Education (cv_id, school_name, major, description)
-                       VALUES (?, ?, ?, ?)
+                       INSERT INTO Education (cv_id, school_name, major)
+                       VALUES (?, ?, ?)
                        """;
         try (PreparedStatement stm = connection.prepareStatement(query)) {
             stm.setInt(1, education.getCvId());
             stm.setString(2, education.getSchoolName());
             stm.setString(3, education.getMajor());
-            stm.setString(4, education.getDescription());
             return stm.executeUpdate() > 0;
         } catch (SQLException e) {
             logger.severe("Lỗi khi thêm Education: " + e.getMessage());
@@ -40,15 +39,14 @@ public class EducationDAO extends DBConnect {
     // Cập nhật Education
     public boolean updateEducation(Education education) {
         String query = """
-                       UPDATE CV_Education
-                       SET school_name = ?, major = ?, description = ?
-                       WHERE id = ?
+                       UPDATE Education
+                       SET school_name = ?, major = ?
+                       WHERE edu_id = ?
                        """;
         try (PreparedStatement stm = connection.prepareStatement(query)) {
             stm.setString(1, education.getSchoolName());
             stm.setString(2, education.getMajor());
-            stm.setString(3, education.getDescription());
-            stm.setInt(4, education.getEduId());
+            stm.setInt(3, education.getEduId());
             return stm.executeUpdate() > 0;
         } catch (SQLException e) {
             logger.severe("Lỗi khi cập nhật Education: " + e.getMessage());
@@ -59,8 +57,8 @@ public class EducationDAO extends DBConnect {
     // Xóa Education
     public boolean deleteEducation(int eduId) {
         String query = """
-                       DELETE FROM CV_Education
-                       WHERE id = ?
+                       DELETE FROM Education
+                       WHERE edu_id = ?
                        """;
         try (PreparedStatement stm = connection.prepareStatement(query)) {
             stm.setInt(1, eduId);
@@ -75,17 +73,16 @@ public class EducationDAO extends DBConnect {
     public List<Education> getAllEducations() {
         List<Education> list = new ArrayList<>();
         String query = """
-                       SELECT id, cv_id, school_name, major, description
-                       FROM CV_Education
+                       SELECT edu_id, cv_id, school_name, major
+                       FROM Education
                        """;
         try (PreparedStatement stm = connection.prepareStatement(query); ResultSet rs = stm.executeQuery()) {
             while (rs.next()) {
                 Education education = new Education();
-                education.setEduId(rs.getInt("id"));
+                education.setEduId(rs.getInt("edu_id"));
                 education.setCvId(rs.getInt("cv_id"));
                 education.setSchoolName(rs.getString("school_name"));
                 education.setMajor(rs.getString("major"));
-                education.setDescription(rs.getString("description"));
                 list.add(education);
             }
         } catch (SQLException e) {
@@ -97,20 +94,19 @@ public class EducationDAO extends DBConnect {
     // Lấy Education theo eduId
     public Education getEducationById(int eduId) {
         String query = """
-                       SELECT id, cv_id, school_name, major, description
-                       FROM CV_Education
-                       WHERE id = ?
+                       SELECT edu_id, cv_id, school_name, major
+                       FROM Education
+                       WHERE edu_id = ?
                        """;
         try (PreparedStatement stm = connection.prepareStatement(query)) {
             stm.setInt(1, eduId);
             try (ResultSet rs = stm.executeQuery()) {
                 if (rs.next()) {
                     Education education = new Education();
-                    education.setEduId(rs.getInt("id"));
+                    education.setEduId(rs.getInt("edu_id"));
                     education.setCvId(rs.getInt("cv_id"));
                     education.setSchoolName(rs.getString("school_name"));
                     education.setMajor(rs.getString("major"));
-                    education.setDescription(rs.getString("description"));
                     return education;
                 }
             }
@@ -124,8 +120,8 @@ public class EducationDAO extends DBConnect {
     public List<Education> getEducationsByCvId(int cvId) {
         List<Education> list = new ArrayList<>();
         String query = """
-                   SELECT id, cv_id, school_name, major, description
-                   FROM CV_Education
+                   SELECT edu_id, cv_id, school_name, major
+                   FROM Education
                    WHERE cv_id = ?
                    """;
         try (PreparedStatement stm = connection.prepareStatement(query)) {
@@ -133,11 +129,10 @@ public class EducationDAO extends DBConnect {
             try (ResultSet rs = stm.executeQuery()) {
                 while (rs.next()) {
                     Education education = new Education();
-                    education.setEduId(rs.getInt("id"));
+                    education.setEduId(rs.getInt("edu_id"));
                     education.setCvId(rs.getInt("cv_id"));
                     education.setSchoolName(rs.getString("school_name"));
                     education.setMajor(rs.getString("major"));
-                    education.setDescription(rs.getString("description"));
                     list.add(education);
                 }
             }
@@ -149,7 +144,11 @@ public class EducationDAO extends DBConnect {
     
     public static void main(String[] args) {
         EducationDAO educationDAO = new EducationDAO();
-        System.out.println(educationDAO.deleteEducation(2));
+        Education education = new Education();
+        education.setCvId(1);
+        education.setSchoolName("FPT");
+        education.setMajor("SE");
+        System.out.println(educationDAO.addEducation(education));
         
     }
 }

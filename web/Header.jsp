@@ -71,30 +71,16 @@
                             </div>
                         </div>
                     </div>
-                    <div class="navbar-collapse w-100 collapse" id="navbarCollapse">
-
-        <!-- Nav Main menu START -->
-				<ul class="navbar-nav navbar-nav-scroll mx-auto">
-					
-
-					
-
-					<!-- Nav item 4 Component-->
-					<li class="nav-item"><a class="nav-link" href="docs/alerts.html">Register to be a mentor</a></li>
-
-					<!-- Nav item 5 link-->
-					<li class="nav-item dropdown">
-						<a class="nav-link" href="#" id="advanceMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<i class="fas fa-ellipsis-h"></i>
-						</a>
-						
-					</li>
-				</ul>
-				<!-- Nav Main menu END -->
-
-				<
-				<!-- Nav Search END -->
-			</div>
+                    <div class="navbar-collapse w-100 align-items-center" id="navbarCollapse">
+                        <!-- Nav Main menu START -->
+                        <ul class="navbar-nav navbar-nav-scroll w-100">
+                            <!-- Nav item 5 link-->
+                            <li class="nav-item"><a class="nav-link" href="home">Home</a></li>
+                            <li class="nav-item"><a class="nav-link" href="mentor">Mentor</a></li>
+                        </ul>
+                        <!-- Nav Main menu END -->
+                        <!-- Nav Search END -->
+                    </div>
 
                     <div class="dropdown ms-1 ms-lg-0">
                         <a class="avatar avatar-sm p-0" href="#" id="profileDropdown" role="button" data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false">
@@ -122,7 +108,10 @@
                             <!-- Links for logged-in users -->
                             <li><a class="dropdown-item" href="Profile.jsp"><i class="bi bi-person fa-fw me-2"></i>Edit Profile</a></li>
                             <li><a class="dropdown-item" href="changePasswordwithOldPass.jsp"><i class="bi bi-gear fa-fw me-2"></i>Change Password</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="bi bi-info-circle fa-fw me-2"></i>Help</a></li>
+                            <c:if test="${userRole.role_id == 2}">
+                                <li><a class="dropdown-item" href="mentor-dashboard"><i class="bi bi-gear fa-fw me-2"></i>Mentor Dashboard</a></li>
+                            </c:if>
+                            <li><a class="dropdown-item" href="viewCV?mentor=${user.userId}"><i class="bi bi-info-circle fa-fw me-2"></i>Curriculum Vitae</a></li>
                             <li><a class="dropdown-item bg-danger-soft-hover" href="logout"><i class="bi bi-power fa-fw me-2"></i>Sign Out</a></li>
                             <li><hr class="dropdown-divider"></li>
                                 <% } else { %>

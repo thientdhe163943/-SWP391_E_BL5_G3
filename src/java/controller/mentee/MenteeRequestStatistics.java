@@ -7,6 +7,7 @@ package controller.mentee;
 
 import Dao.RequestDAO;
 import Model.Request;
+import Model.User;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -32,7 +33,14 @@ public class MenteeRequestStatistics extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        ArrayList<Request> requestList = requestDao.getAllVisibleRequestsWithMenteeId(null, 1);
+        var session = request.getSession();
+        
+        if (session == null) {
+            session.setAttribute("error", "Access Denied");
+            request.getRequestDispatcher("./view/error.jsp").forward(request, response);
+        } else {
+            var user = (User)request.getSession().getAttribute("user");
+        ArrayList<Request> requestList = requestDao.getAllVisibleRequestsWithMenteeId(null, user.getUserId());
         int totalMentors = 0;
         int totalRequests = requestList.size();
         int pendingRequests = 0;
@@ -49,19 +57,15 @@ public class MenteeRequestStatistics extends HttpServlet {
             else if (r.getStatus() == 4) closedRequests++;
         }
         
-        float processedRate = closedRequests / totalRequests * 100;
-        float canceledRate = canceledRequests / totalRequests * 100;
-        
         request.setAttribute("totalMentors", totalMentors);
         request.setAttribute("totalRequests", totalRequests);
         request.setAttribute("pendingRequests", pendingRequests);
         request.setAttribute("processingRequests", processingRequests);
         request.setAttribute("canceledRequests", canceledRequests);
         request.setAttribute("closedRequests", closedRequests);
-        request.setAttribute("processedRate", processedRate);
-        request.setAttribute("canceledRate", canceledRate);
         
         request.getRequestDispatcher("./view/mentee/request-statistics.jsp").forward(request, response);
+        }
     }
 
     /** 

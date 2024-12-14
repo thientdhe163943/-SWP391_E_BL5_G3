@@ -6,6 +6,7 @@ package controller.mentor;
 
 import Dao.MentorDAO;
 import Model.User;
+import Model.User_role;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,6 +14,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -36,15 +38,30 @@ public class MenteeListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        User mentor = mentorDAO.getByAccountId(1);
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        User_role role = (User_role) session.getAttribute("userRole");
+        if(user == null){
+            request.getRequestDispatcher("Login.jsp").forward(request, response);
+            return;
+        }
+        
+        if (role.getRole_id() != 2) {
+            request.setAttribute("error", "Access Denied");
+            request.getRequestDispatcher("view/error.jsp").forward(request, response);
+            return;
+        }
+        
+        User mentor = mentorDAO.getById(user.getUserId());
         String index = request.getParameter("index");
         if(index == null){
             index = "1";
         }
         List<User> menteeList = mentorDAO.getMenteesById(mentor.getUserId(), Integer.parseInt(index));
         int totalMentees = menteeList.size();
-        int totalPage = mentorDAO.getNumberPageMentees(1);
+        int totalPage = mentorDAO.getNumberPageMentees(mentor.getUserId());
         
+        request.setAttribute("index", index);
         request.setAttribute("totalPage", totalPage);
         request.setAttribute("totalMentees", totalMentees);
         request.setAttribute("menteeList", menteeList);

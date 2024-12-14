@@ -9,6 +9,7 @@ import DB.DBConnect;
 import Model.Skill;
 import Model.User;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ import java.util.logging.Logger;
 public class RequestDAO extends DBConnect {
 
     private static final Logger logger = Logger.getLogger(RequestDAO.class.getName());
+    private final UserDAO userDao = new UserDAO();
 
     public Request getRequestById(int id) {
         String sql = "SELECT * from Request WHERE request_id = ?";
@@ -39,13 +41,11 @@ public class RequestDAO extends DBConnect {
                     request.setTitle(rs.getString("title"));
                     request.setDeadline(rs.getDate("deadline"));
                     request.setContent(rs.getString("content"));
-
-                    User mentor = new User();
-                    mentor.setUserId(rs.getInt("mentor_id"));
+                    
+                    User mentor = userDao.getUserByIdd(rs.getInt("mentor_id"));
                     request.setMentor(mentor);
 
-                    User mentee = new User();
-                    mentor.setUserId(rs.getInt("mentee_id"));
+                    User mentee = userDao.getUserByIdd(rs.getInt("mentee_id"));
                     request.setMentee(mentee);
 
                     request.setStatus(rs.getInt("status"));
@@ -104,7 +104,11 @@ public class RequestDAO extends DBConnect {
             ps.setString(1, request.getTitle());
             ps.setDate(2, request.getDeadline());
             ps.setString(3, request.getContent());
-            ps.setNull(4, java.sql.Types.INTEGER);
+            if (request.getMentor() == null) {
+                ps.setNull(4, java.sql.Types.INTEGER);
+            } else {
+                ps.setInt(4, request.getMentor().getUserId());
+            }
             ps.setInt(5, request.getMentee().getUserId());
             ps.setInt(6, request.getStatus());
             int rowsAffected = ps.executeUpdate();
@@ -128,11 +132,11 @@ public class RequestDAO extends DBConnect {
     public void updateRequest(Request request, ArrayList<Integer> skills) {
         String sql = "UPDATE Request SET title = ?,"
                 + "deadline = ?,"
-                + "content = ?,"
+                + "[content] = ?,"
                 + "mentor_id = ?,"
                 + "mentee_id = ?,"
                 + "status = ?"
-                + "WHERE request_id = ?";
+                + " WHERE request_id = ?";
 
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, request.getTitle());
@@ -141,12 +145,14 @@ public class RequestDAO extends DBConnect {
 
             if (request.getMentor() == null) {
                 ps.setNull(4, java.sql.Types.INTEGER);
+                ps.setInt(6, 1);
             } else {
                 ps.setInt(4, request.getMentor().getUserId());
+                ps.setInt(6, 2);
             }
 
             ps.setInt(5, request.getMentee().getUserId());
-            ps.setInt(6, request.getStatus());
+            
             ps.setInt(7, request.getRequestId());
 
             ps.executeUpdate();
@@ -237,7 +243,7 @@ public class RequestDAO extends DBConnect {
     }
 
     private void deleteRequestSkill(int requestId) {
-        String sqlDelete = "DELETE FROM Request_Skill WHERE requestId = ?";
+        String sqlDelete = "DELETE FROM Skill_Request WHERE requestId = ?";
 
         try (PreparedStatement ps = connection.prepareStatement(sqlDelete)) {
             ps.setInt(1, requestId);
@@ -264,5 +270,24 @@ public class RequestDAO extends DBConnect {
             logger.log(Level.SEVERE, "Lỗi khi cập nhật trạng thái Request: {0}", e.getMessage());
         }
         return false; // Trả về false nếu có lỗi xảy ra
+    }
+    
+    public static void main(String[] args) {
+        RequestDAO dao = new RequestDAO();
+        Request request = new Request();
+        request.setRequestId(2);
+        request.setTitle("2222");
+        request.setDeadline(Date.valueOf("2025-01-03"));
+        request.setContent("2222");
+        request.setMentor(null);
+        User mentee = new User();
+        mentee.setUserId(1);
+        request.setMentee(mentee);
+        
+        ArrayList<Integer> skillList = new ArrayList<>();
+        skillList.add(1);
+        skillList.add(2);
+        
+        dao.updateRequest(request, skillList);
     }
 }

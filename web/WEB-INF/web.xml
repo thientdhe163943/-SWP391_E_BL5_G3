@@ -5,8 +5,8 @@
         <servlet-class>controller.mentor.ViewCVServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>MenteeProfileServlet</servlet-name>
-        <servlet-class>controller.mentee.MenteeProfileServlet</servlet-class>
+        <servlet-name>HomeControl</servlet-name>
+        <servlet-class>controller.HomeControl</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>MenteeRequestListServlet</servlet-name>
@@ -32,13 +32,21 @@
         <servlet-name>MenteeUpdateRequestStatusServlet</servlet-name>
         <servlet-class>controller.mentee.MenteeUpdateRequestStatusServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MentorServlet</servlet-name>
+        <servlet-class>controller.mentor.MentorServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReviewServlet</servlet-name>
+        <servlet-class>controller.mentor.ReviewServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateCVServlet</servlet-name>
+        <servlet-class>controller.mentor.UpdateCVServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>viewCVServlet</servlet-name>
         <url-pattern>/viewCV</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>MenteeProfileServlet</servlet-name>
-        <url-pattern>/MenteeProfile</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>RequestServlet</servlet-name>
@@ -50,7 +58,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>MenteeRequestListServlet</servlet-name>
-        <url-pattern>/mentee</url-pattern>
+        <url-pattern>/mentee-request-list</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>MenteeNewRequestServlet</servlet-name>
@@ -63,5 +71,21 @@
     <servlet-mapping>
         <servlet-name>MenteeUpdateRequestStatusServlet</servlet-name>
         <url-pattern>/update-request-status</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MentorServlet</servlet-name>
+        <url-pattern>/mentor</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HomeControl</servlet-name>
+        <url-pattern>/home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReviewServlet</servlet-name>
+        <url-pattern>/mentor-review</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateCVServlet</servlet-name>
+        <url-pattern>/updateCV</url-pattern>
     </servlet-mapping>
 </web-app>

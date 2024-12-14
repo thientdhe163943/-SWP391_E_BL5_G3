@@ -48,7 +48,7 @@
                         </div>
 
                         <div class="card-body">
-                            <form action="menteeNewRequest" method="POST">
+                            <form action="update-request" method="POST">
                                 <input type="hidden" id="requestId" name="requestId" value="${currentRequest.requestId}" />
                                 <input type="hidden" id="status" name="status" value="${currentRequest.status}" />
                                 <div class="form-group">
@@ -63,7 +63,7 @@
                                 <br>
                                 <div class="form-group">
                                     <label for="content">Content</label>  
-                                    <textarea class="form-control" rows="3" id="content" name="content" placeholder="Enter content of the request" required/>${currentRequest.content}</textarea>
+                                    <textarea class="form-control" rows="3" id="content" name="content" placeholder="Enter content of the request" required >${currentRequest.content}</textarea>
                                 </div>
                                 <br>
                                 <div class="form-group">
@@ -72,6 +72,11 @@
                                         <input type="checkbox" name="skill" id="skill" value="${s.skillId}" 
                                                <c:if test="${chosenSkills.contains(s.skillId)}">checked</c:if> />${s.skillName}
                                     </c:forEach>
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <label for="mentorEmail">Preferred Mentor (Not required):</label>
+                                    <input type="text" class="form-control" id="mentorEmail" name="mentorEmail" placeholder="Enter mentor's email" value="${currentRequest.mentor.email != null ? currentRequest.mentor.email : ''}" ${currentRequest.mentor.email != null ? 'disabled' : ''}/>
                                 </div>
                                 <br>
                                 <button type="submit" class="btn btn-primary">Update</button>
