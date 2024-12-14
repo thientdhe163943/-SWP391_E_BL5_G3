@@ -36,9 +36,9 @@
     <body>
         <!-- **************** MAIN CONTENT START **************** -->
         <main>
-
-            <!-- =======================
-            Main Banner START -->
+            <jsp:include page="../../Header.jsp"></jsp:include>
+                <!-- =======================
+                Main Banner START -->
             <jsp:include page="mentor-banner.jsp"/>
             <!-- =======================
             Main Banner END -->

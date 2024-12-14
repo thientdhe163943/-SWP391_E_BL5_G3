@@ -41,10 +41,11 @@ public class DashBoardServlet extends HttpServlet {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         User_role role = (User_role) session.getAttribute("userRole");
-        if(user == null){
+        if (user == null) {
             request.getRequestDispatcher("Login.jsp").forward(request, response);
             return;
-        } else if(role.getUser_role_id() != 2){
+        }
+        if (role.getRole_id() != 2) {
             request.setAttribute("error", "Access Denied");
             request.getRequestDispatcher("view/error.jsp").forward(request, response);
             return;
@@ -63,12 +64,12 @@ public class DashBoardServlet extends HttpServlet {
         request.setAttribute("acceptedRequests", acceptedRequests);
         request.setAttribute("canceledRequests", canceledRequests);
         request.setAttribute("closedRequests", closedRequests);
-        
+
         //Total Requests
         int totalRequest = pendingRequests.size() + acceptedRequests.size() + canceledRequests.size() + closedRequests.size();
         double completedRate = 0;
         double canceledRate = 0;
-        if(totalRequest > 0){
+        if (totalRequest > 0) {
             completedRate = closedRequests.size() * 100 / totalRequest;
             canceledRate = canceledRequests.size() * 100 / totalRequest;
         }
