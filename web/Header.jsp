@@ -108,7 +108,10 @@
                             <!-- Links for logged-in users -->
                             <li><a class="dropdown-item" href="Profile.jsp"><i class="bi bi-person fa-fw me-2"></i>Edit Profile</a></li>
                             <li><a class="dropdown-item" href="changePasswordwithOldPass.jsp"><i class="bi bi-gear fa-fw me-2"></i>Change Password</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="bi bi-info-circle fa-fw me-2"></i>Help</a></li>
+                            <c:if test="${userRole.role_id == 2}">
+                                <li><a class="dropdown-item" href="mentor-dashboard"><i class="bi bi-gear fa-fw me-2"></i>Mentor Dashboard</a></li>
+                            </c:if>
+                            <li><a class="dropdown-item" href="viewCV?mentor=${user.userId}"><i class="bi bi-info-circle fa-fw me-2"></i>Curriculum Vitae</a></li>
                             <li><a class="dropdown-item bg-danger-soft-hover" href="logout"><i class="bi bi-power fa-fw me-2"></i>Sign Out</a></li>
                             <li><hr class="dropdown-divider"></li>
                                 <% } else { %>

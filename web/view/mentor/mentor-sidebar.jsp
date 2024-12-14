@@ -25,9 +25,8 @@
                         <a class="list-group-item" href="mentor-mentee-list"><i class="bi bi-people fa-fw me-2"></i>Mentees</a>
                         <a class="list-group-item" href="mentor-request-list"><i class="bi bi-people fa-fw me-2"></i>Requests</a>
                         <a class="list-group-item" href="mentor-review"><i class="bi bi-star fa-fw me-2"></i>Reviews</a>
-                        <a class="list-group-item" href="profile"><i class="bi bi-pencil-square fa-fw me-2"></i>Edit Profile</a>
-                        <a class="list-group-item" href="instructor-delete-account.html"><i class="bi bi-trash fa-fw me-2"></i>Delete Profile</a>
-                        <a class="list-group-item text-danger bg-danger-soft-hover" href="sign-in"><i class="fas fa-sign-out-alt fa-fw me-2"></i>Sign Out</a>
+                        <a class="list-group-item" href="viewCV?mentor=${mentor.userId}"><i class="bi bi-star fa-fw me-2"></i>View CV</a>
+                        <a class="list-group-item text-danger bg-danger-soft-hover" href="logout"><i class="fas fa-sign-out-alt fa-fw me-2"></i>Sign Out</a>
                     </div>
                 </div>
             </div>

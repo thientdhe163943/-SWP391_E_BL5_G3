@@ -1,8 +1,9 @@
 <%-- 
-    Document   : mentor-single
-    Created on : Dec 10, 2024, 10:15:08 AM
+    Document   : mentor-update-cv
+    Created on : Dec 13, 2024, 1:05:49 PM
     Author     : ADMIN
 --%>
+
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -99,12 +100,6 @@
                                                 <li class="list-inline-item"><div class="badge text-white bg-info rounded-1"><i class="fas fa-user-graduate me-2"></i>${totalMentee}</div></li>
                                             <li class="list-inline-item">${totalRate}<i class="fas fa-star text-warning"></i></li>
                                         </ul>
-                                        <c:if test="${!check.equals('true')}">
-                                            <a href="new-request?mentor=${cv.applicant.email}" class="btn btn-success me-2">Send Request</a>
-                                        </c:if>
-                                        <c:if test="${check.equals('true')}">
-                                            <a href="updateCV" class="btn btn-success me-2">Update CV</a>
-                                        </c:if>
                                     </div>
                                 </div>
                             </div>
@@ -116,9 +111,6 @@
                             <ul class="nav nav-tabs" id="profileTabs" role="tablist">
                                 <li class="nav-item" role="presentation">
                                     <button class="nav-link active" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="ho-so" aria-selected="true">Profile</button>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="review-tab" data-bs-toggle="tab" data-bs-target="#review" type="button" role="tab" aria-controls="review" aria-selected="false">Review (${cv.cvDetailList.size()})</button>
                                 </li>
                             </ul>
                         </div>
@@ -135,47 +127,66 @@
                                 </blockquote>
 
                                 <div class="d-flex align-items-center justify-content-between mb-3">
-                                    <h4 class="mt-4">Education</h4>
+                                    <!-- Title -->
+                                    <h4 class="mb-0">Education</h4>
+
+                                    <!-- Buttons -->
+                                    <!-- Add Button -->
+                                    <button type="button" class="btn btn-light p-2" data-bs-toggle="modal" data-bs-target="#addEducationModal" title="Add Education">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
                                 </div>
 
                                 <c:forEach items="${cv.eduList}" var="edu">
                                     <!-- Education item -->
                                     <div class="d-flex align-items-center mb-4">
                                         <span class="icon-md text-dark mb-0 bg-light rounded-3"><i class="fas fa-graduation-cap"></i></span>
-                                        <div class="ms-3">
-                                            <h5 class="mb-0">${edu.schoolName}</h5>
-                                            <h6 class="mb-0 small">${edu.major}</h6>
+                                        <div class="ms-3 flex-grow-1">
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <h5 class="mb-0">${edu.schoolName}</h5>
+                                                <!-- Buttons for Edit and Remove -->
+                                                <div>
+                                                    <button type="button" 
+                                                            class="btn btn-light p-0" 
+                                                            title="Edit" 
+                                                            data-bs-toggle="modal" 
+                                                            data-bs-target="#editEducationModal" 
+                                                            onclick="populateEditModal('${edu.eduId}', '${edu.schoolName}', '${edu.major}')">
+                                                        <i class="fas fa-edit"></i>
+                                                    </button>
+                                                    <button type="button" 
+                                                            class="btn btn-light p-0 ms-2" 
+                                                            title="Remove"
+                                                            data-bs-toggle="modal" 
+                                                            data-bs-target="#removeEducationModal" 
+                                                            onclick="populateRemoveModal('${edu.eduId}')">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <p class="mb-0 small">${edu.major}</p>
                                         </div>
                                     </div>
                                 </c:forEach>
-                                <h4 class="mt-4">Skills</h4>
+                                <div class="d-flex align-items-center justify-content-between mb-3">
+                                    <h4 class="mt-4">Skills</h4>
+                                    <button type="button" class="btn btn-light p-2" data-bs-toggle="modal" data-bs-target="#addSkillModal" title="Add Skill">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
                                 <c:forEach items="${cv.cvSkillList}" var="skill">
                                     <!-- Education item -->
-                                    <div class="d-flex align-items-center mb-4">
-                                        <span class="icon-md text-dark mb-0 bg-light rounded-3"><i class="fas fa-graduation-cap"></i></span>
-                                        <div class="ms-3">
-                                            <h5 class="mb-0">${skill.skill.skillName}</h5>
-                                        </div>
-                                    </div>
-                                </c:forEach>
-                            </div>
-                            <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
-                                <c:forEach items="${cv.cvDetailList}" var="feedback">
-                                    <div class="feedback-container">
-                                        <div class="feedback-item">
-                                            <div class="feedback-date text-black">
-                                                ${feedback.date}
-                                            </div>
-                                            <div class="feedback-text">
-                                                ${feedback.comment}
-                                            </div>
-                                            <div class="feedback-author">
-                                                <img alt="Profile Picture" height="40" src="${feedback.mentee.avatar}" width="40"/>
-                                                <span>
-                                                    ${feedback.mentee.name}
-                                                </span>
-                                            </div>
-                                            <hr>
+                                    <div class="overflow-hidden mb-4">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <h5 class="uppercase">${skill.skill.skillName}</h5>
+                                            <button type="button" 
+                                                    class="btn btn-light p-0 ms-2" 
+                                                    title="Remove"
+                                                    data-bs-toggle="modal" 
+                                                    data-bs-target="#removeSkillModal" 
+                                                    onclick="removeSkillModal('${skill.cvSkillId}')">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
                                         </div>
                                     </div>
                                 </c:forEach>
@@ -364,6 +375,201 @@
 
                 </div>
             </section>
+            <!--Add introduction Modal--> 
+            <div class="modal fade" id="addIntroductionModal" tabindex="-1" aria-labelledby="addIntroductionLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="addIntroductionModalLabel">Add Introduction</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="addIntroductionForm" action="updateCV" method="POST">
+                                <input type="hidden" name="action" value="addIntro">
+                                <input type="hidden" name="mentorID" value="${requestScope.mentor.userId}">
+                                <div class="form-group">
+                                    <label for="introduction">Introduction</label>
+                                    <input type="text" class="form-control" id="introduction" name="introduction" placeholder="Enter introduction" required>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" form="addIntroductionForm" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Edit introduction Modal--> 
+            <div class="modal fade" id="editIntroductionModal" tabindex="-1" aria-labelledby="editIntroductionModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editIntroductionModalLabel">Edit Introduction</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="editIntroductionForm" action="updateCV" method="POST">
+                                <input type="hidden" name="action" value="editIntro">
+                                <input type="hidden" name="mentorID" value="${requestScope.mentor.userId}">
+                                <div class="form-group">
+                                    <label for="introduction">Introduction:</label>
+                                    <textarea name="introduction" style="height: 200px;width: 466px;" required="">${cv.getIntroduction()}</textarea>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" form="editIntroductionForm" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Add Education Modal START-->
+            <div class="modal fade" id="addEducationModal" tabindex="-1" aria-labelledby="addEducationModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="addEducationModalLabel">Add Education</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="addEducationForm" action="updateCV" method="POST">
+                                <input type="hidden" name="action" value="addEdu">
+                                <div class="form-group">
+                                    <label for="schoolName">School Name</label>
+                                    <input type="text" class="form-control" id="schoolName" name="schoolName" placeholder="Enter school name" required>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <label for="major">Major</label>
+                                    <input type="text" class="form-control" id="major" name="major" placeholder="Enter major" required>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" form="addEducationForm" class="btn btn-primary">Save changes</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Add Education Modal END-->
+
+            <!--Edit Education Model START-->
+            <div class="modal fade" id="editEducationModal" tabindex="-1" aria-labelledby="editEducationModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editEducationModalLabel">Edit Education</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="editEducationForm" action="updateCV" method="POST">
+                                <input type="hidden" name="action" value="editEdu">
+                                <input type="hidden" id="editEduID" name="eduID">
+                                <input type="hidden" name="mentorID" value="${requestScope.mentor.userId}">
+                                <div class="form-group">
+                                    <label for="editSchoolName">School Name</label>
+                                    <input type="text" class="form-control" id="editSchoolName" name="schoolName" required>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <label for="editMajor">Major</label>
+                                    <input type="text" class="form-control" id="editMajor" name="major" required>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" form="editEducationForm" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Edit Education Model END-->
+
+            <!--Remove Education Model START-->
+            <div class="modal fade" id="removeEducationModal" tabindex="-1" aria-labelledby="removeEducationModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="removeEducationModalLabel">Remove Education</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="removeEducationForm" action="updateCV" method="POST">
+                                <input type="hidden" name="action" value="removeEdu">
+                                <input type="hidden" id="removeEduID" name="eduID">
+                                <input type="hidden" name="mentorID" value="${requestScope.mentor.userId}">
+                                Are you sure to remove this?
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" form="removeEducationForm" class="btn btn-primary">Yes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Remove Education Model END-->
+
+
+            <!--Skill Model-->
+            <!--Add skill Modal -->
+            <div class="modal fade" id="addSkillModal" tabindex="-1" aria-labelledby="addSkillModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="addSkillModalLabel">Select Skill</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="addSkillForm" action="updateCV" method="POST">
+                                <input type="hidden" name="action" value="addSkill">
+                                <input type="hidden" name="mentorID" value="${requestScope.mentor.userId}">
+                                <input type="hidden" name="cvID" value="${cv.cvId}">
+                                <!-- Dropdown list for skills -->
+                                <select class="form-select" id="skillSelect" aria-label="Select a skill" name="skillId">
+                                    <option disabled selected>Select a skill</option>
+                                    <c:forEach items="${skills}" var="skill">
+                                        <option value="${skill.skillId}">${skill.skillName}</option>
+                                    </c:forEach>
+                                </select>
+                            </form>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" form="addSkillForm">Save Skill</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Remove Skill Model-->
+            <div class="modal fade" id="removeSkillModal" tabindex="-1" aria-labelledby="removeSkillModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="removeSkillModalLabel">Remove Skill</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="removeSkillForm" action="updateCV" method="POST">
+                                <input type="hidden" name="action" value="removeSkill">
+                                <input type="hidden" id="removeSkillID" name="cvSkillId">
+                                <input type="hidden" name="mentorID" value="${requestScope.mentor.userId}">
+                                Are you sure to remove this?
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" form="removeSkillForm" class="btn btn-primary">Yes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- =======================
             Related instructor END -->
 
@@ -509,7 +715,19 @@
 
         <!-- Template Functions -->
         <script src="assets/js/functions.js"></script>
-
+        <script>
+                                                        function populateEditModal(id, schoolName, major) {
+                                                            document.getElementById('editEduID').value = id;
+                                                            document.getElementById('editSchoolName').value = schoolName;
+                                                            document.getElementById('editMajor').value = major;
+                                                        }
+                                                        function populateRemoveModal(id) {
+                                                            document.getElementById('removeEduID').value = id;
+                                                        }
+                                                        function removeSkillModal(id) {
+                                                            document.getElementById('removeSkillID').value = id;
+                                                        }
+        </script>
     </body>
 
     <!-- Mirrored from eduport.webestica.com/instructor-single.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 06 Jan 2022 19:19:59 GMT -->

@@ -9,6 +9,7 @@ import Dao.CvDetailDAO;
 import Model.CV;
 import Model.CvDetail;
 import Model.User;
+import Model.User_role;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -41,8 +42,14 @@ public class ReviewServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
+        User_role role = (User_role) session.getAttribute("userRole");
         if (user == null) {
             response.sendRedirect("login");
+            return;
+        }
+        if (role.getRole_id() != 2) {
+            request.setAttribute("error", "Access Denied");
+            request.getRequestDispatcher("view/error.jsp").forward(request, response);
             return;
         }
         String page = request.getParameter("page");
@@ -59,6 +66,7 @@ public class ReviewServlet extends HttpServlet {
         request.setAttribute("page", page);
         request.setAttribute("totalPage", totalPage);
         request.setAttribute("reviews", reviews);
+        request.setAttribute("mentor", user);
         request.getRequestDispatcher("view/mentor/mentor-review.jsp").forward(request, response);
     }
 

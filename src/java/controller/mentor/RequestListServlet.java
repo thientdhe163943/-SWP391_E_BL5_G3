@@ -8,6 +8,7 @@ import Dao.MentorDAO;
 import Dao.RequestDAO;
 import Model.Request;
 import Model.User;
+import Model.User_role;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -39,8 +40,15 @@ public class RequestListServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         User mentor = (User) session.getAttribute("user");
+        User_role role = (User_role) session.getAttribute("userRole");
         if (mentor == null) {
             request.getRequestDispatcher("Login.jsp").forward(request, response);
+            return;
+        }
+        
+        if (role.getRole_id() != 2) {
+            request.setAttribute("error", "Access Denied");
+            request.getRequestDispatcher("view/error.jsp").forward(request, response);
             return;
         }
         //Banner

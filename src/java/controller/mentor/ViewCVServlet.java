@@ -21,6 +21,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -47,15 +48,23 @@ public class ViewCVServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+
         String mentorID = request.getParameter("mentor");
         if (mentorID == null) {
-            response.sendRedirect("index_1.html");
+            response.sendRedirect("mentor");
             return;
         }
+        if (user != null && user.getUserId() == Integer.parseInt(mentorID)) {
+            request.setAttribute("check", "true");
+        }
+
         CV cv = cvdao.getCvByUserId(Integer.parseInt(mentorID));
+//        List<CV> cvMentorList = cvdao.getAllCvMentor();
         //Nếu không có sẽ về index
         if (cv == null) {
-            response.sendRedirect("index_1.html");
+            response.sendRedirect("mentor");
             return;
         }
         int totalMentee = mentorDAO.getMenteesById(cv.getApplicant().getUserId()).size();
