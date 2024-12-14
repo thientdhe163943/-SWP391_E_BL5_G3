@@ -5,7 +5,9 @@
 package controller;
 
 
+import Dao.CVDAO;
 import Dao.UserDAO;
+import Model.CV;
 
 import Model.User;
 import java.io.IOException;
@@ -94,6 +96,7 @@ public class SigupServlet extends HttpServlet {
         // Kiểm tra nếu tên người dùng đã tồn tại
         // Kiểm tra nếu tên người dùng đã tồn tại
         UserDAO d = new UserDAO();
+        CVDAO cvdao = new CVDAO();
         if (d.isUserExists(email)) {
             // Nếu tên người dùng đã tồn tại
             request.setAttribute("message", "Email already exists. Please choose a different Email.");
@@ -106,8 +109,10 @@ public class SigupServlet extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("user", acc);
             d.addRole(acc.getUserId());
-           
-             response.sendRedirect("home");
+            CV cv = new CV();
+            cv.setApplicant(acc);
+            cvdao.addCV(cv);
+            response.sendRedirect("home");
             
         } else {
          request.setAttribute("mess", "login not success");

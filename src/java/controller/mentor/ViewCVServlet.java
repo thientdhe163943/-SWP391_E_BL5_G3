@@ -61,6 +61,7 @@ public class ViewCVServlet extends HttpServlet {
         }
 
         CV cv = cvdao.getCvByUserId(Integer.parseInt(mentorID));
+//        List<CV> cvMentorList = cvdao.getAllCvMentor();
         //Nếu không có sẽ về index
         if (cv == null) {
             response.sendRedirect("mentor");

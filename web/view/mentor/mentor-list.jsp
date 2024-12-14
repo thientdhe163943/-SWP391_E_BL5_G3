@@ -78,10 +78,10 @@
                         <div class="row mb-4 align-items-center">
                             <!-- Search bar -->
                             <div class="col-sm-6 col-xl-4">
-                                <form class="border rounded p-2">
+                                <form class="border rounded p-2" action="mentor">
                                     <div class="input-group input-borderless">
-                                        <input class="form-control me-1" type="search" placeholder="Search Mentor">
-                                        <button type="button" class="btn btn-primary mb-0 rounded"><i class="fas fa-search"></i></button>
+                                        <input class="form-control me-1" type="search" placeholder="Search Mentor" name="searchName" value="${searchName}">
+                                        <button type="submit" class="btn btn-primary mb-0 rounded"><i class="fas fa-search"></i></button>
                                     </div>
                                 </form>
                             </div>
@@ -163,26 +163,26 @@
                                                 <!-- Content -->
                                                 <p class="text-truncate-2 mb-3">${cv.introduction}</p>
                                                 <!-- Info -->
-<!--                                                <div class="d-sm-flex justify-content-sm-between align-items-center">
-                                                     Title 
-                                                    <h6 class="text-orange mb-0">Digital Marketing</h6>
-
-                                                     Social button 
-                                                    <ul class="list-inline mb-0 mt-3 mt-sm-0">
-                                                        <li class="list-inline-item"> 
-                                                            <a class="mb-0 me-1 text-facebook" href="#"><i class="fab fa-fw fa-facebook-f"></i></a> 
-                                                        </li>
-                                                        <li class="list-inline-item"> 
-                                                            <a class="mb-0 me-1 text-instagram-gradient" href="#"><i class="fab fa-fw fa-instagram"></i></a> 
-                                                        </li>
-                                                        <li class="list-inline-item"> 
-                                                            <a class="mb-0 me-1 text-twitter" href="#"><i class="fab fa-fw fa-twitter"></i></a> 
-                                                        </li>
-                                                        <li class="list-inline-item"> 
-                                                            <a class="mb-0 text-linkedin" href="#"><i class="fab fa-fw fa-linkedin-in"></i></a> 
-                                                        </li>
-                                                    </ul>
-                                                </div>-->
+                                                <!--                                                <div class="d-sm-flex justify-content-sm-between align-items-center">
+                                                                                                     Title 
+                                                                                                    <h6 class="text-orange mb-0">Digital Marketing</h6>
+                                                
+                                                                                                     Social button 
+                                                                                                    <ul class="list-inline mb-0 mt-3 mt-sm-0">
+                                                                                                        <li class="list-inline-item"> 
+                                                                                                            <a class="mb-0 me-1 text-facebook" href="#"><i class="fab fa-fw fa-facebook-f"></i></a> 
+                                                                                                        </li>
+                                                                                                        <li class="list-inline-item"> 
+                                                                                                            <a class="mb-0 me-1 text-instagram-gradient" href="#"><i class="fab fa-fw fa-instagram"></i></a> 
+                                                                                                        </li>
+                                                                                                        <li class="list-inline-item"> 
+                                                                                                            <a class="mb-0 me-1 text-twitter" href="#"><i class="fab fa-fw fa-twitter"></i></a> 
+                                                                                                        </li>
+                                                                                                        <li class="list-inline-item"> 
+                                                                                                            <a class="mb-0 text-linkedin" href="#"><i class="fab fa-fw fa-linkedin-in"></i></a> 
+                                                                                                        </li>
+                                                                                                    </ul>
+                                                                                                </div>-->
                                             </div>
                                         </div>
                                     </div>
