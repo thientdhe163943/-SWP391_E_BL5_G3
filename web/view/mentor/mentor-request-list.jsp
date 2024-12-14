@@ -328,12 +328,12 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="finishRequestModalLabel">Cancel Request</h5>
+                        <h5 class="modal-title" id="finishRequestModalLabel">Close Request</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <form id="finishRequestForm" action="mentor-request-list" method="POST">
-                            <input type="hidden" name="action" value="cancel">
+                            <input type="hidden" name="action" value="finish">
                             <input type="hidden" id="finishRequestID" name="requestId">
                             <input type="hidden" name="index" value="${index}">
                             <!--<input type="hidden" name="mentorID" value="${requestScope.mentor.userId}">-->
@@ -347,7 +347,7 @@
                 </div>
             </div>
         </div>
-        <!--Cancel request Model End-->
+        <!--Close request Model End-->
 
         <!-- =======================
         Footer START -->

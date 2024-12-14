@@ -81,7 +81,7 @@
                         <!-- Nav Main menu END -->
                         <!-- Nav Search END -->
                     </div>
-
+                    ${user.getName()}
                     <div class="dropdown ms-1 ms-lg-0">
                         <a class="avatar avatar-sm p-0" href="#" id="profileDropdown" role="button" data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false">
                             <img class="avatar-img rounded-circle" src="assets/images/avatar/01.jpg" alt="avatar">
@@ -90,6 +90,7 @@
                             <% if (user != null) { %>
                             <li class="px-3">
                                 <div class="d-flex align-items-center">
+
                                     <!-- Avatar -->
                                     <div class="avatar me-3">
                                         <img class="avatar-img rounded-circle shadow" src="<%= (user.getAvatar() != null ? user.getAvatar() : "assets/images/avatar/default-avatar.png") %>" alt="avatar">
@@ -108,9 +109,9 @@
                             <!-- Links for logged-in users -->
                             <li><a class="dropdown-item" href="Profile.jsp"><i class="bi bi-person fa-fw me-2"></i>Edit Profile</a></li>
                             <li><a class="dropdown-item" href="changePasswordwithOldPass.jsp"><i class="bi bi-gear fa-fw me-2"></i>Change Password</a></li>
-                            <c:if test="${userRole.role_id == 2}">
+                                <c:if test="${userRole.role_id == 2}">
                                 <li><a class="dropdown-item" href="mentor-dashboard"><i class="bi bi-gear fa-fw me-2"></i>Mentor Dashboard</a></li>
-                            </c:if>
+                                </c:if>
                             <li><a class="dropdown-item" href="viewCV?mentor=${user.userId}"><i class="bi bi-info-circle fa-fw me-2"></i>Curriculum Vitae</a></li>
                             <li><a class="dropdown-item bg-danger-soft-hover" href="logout"><i class="bi bi-power fa-fw me-2"></i>Sign Out</a></li>
                             <li><hr class="dropdown-divider"></li>
