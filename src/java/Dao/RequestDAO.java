@@ -25,6 +25,7 @@ import java.util.logging.Logger;
 public class RequestDAO extends DBConnect {
 
     private static final Logger logger = Logger.getLogger(RequestDAO.class.getName());
+    private final UserDAO userDao = new UserDAO();
 
     public Request getRequestById(int id) {
         String sql = "SELECT * from Request WHERE request_id = ?";
@@ -40,13 +41,11 @@ public class RequestDAO extends DBConnect {
                     request.setTitle(rs.getString("title"));
                     request.setDeadline(rs.getDate("deadline"));
                     request.setContent(rs.getString("content"));
-
-                    User mentor = new User();
-                    mentor.setUserId(rs.getInt("mentor_id"));
+                    
+                    User mentor = userDao.getUserByIdd(rs.getInt("mentor_id"));
                     request.setMentor(mentor);
 
-                    User mentee = new User();
-                    mentor.setUserId(rs.getInt("mentee_id"));
+                    User mentee = userDao.getUserByIdd(rs.getInt("mentee_id"));
                     request.setMentee(mentee);
 
                     request.setStatus(rs.getInt("status"));
@@ -146,12 +145,14 @@ public class RequestDAO extends DBConnect {
 
             if (request.getMentor() == null) {
                 ps.setNull(4, java.sql.Types.INTEGER);
+                ps.setInt(6, 1);
             } else {
                 ps.setInt(4, request.getMentor().getUserId());
+                ps.setInt(6, 2);
             }
 
             ps.setInt(5, request.getMentee().getUserId());
-            ps.setInt(6, request.getStatus());
+            
             ps.setInt(7, request.getRequestId());
 
             ps.executeUpdate();

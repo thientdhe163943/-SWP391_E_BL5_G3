@@ -63,7 +63,7 @@
                                 <br>
                                 <div class="form-group">
                                     <label for="content">Content</label>  
-                                    <textarea class="form-control" rows="3" id="content" name="content" placeholder="Enter content of the request" required/>${currentRequest.content}</textarea>
+                                    <textarea class="form-control" rows="3" id="content" name="content" placeholder="Enter content of the request" required >${currentRequest.content}</textarea>
                                 </div>
                                 <br>
                                 <div class="form-group">
@@ -76,7 +76,7 @@
                                 <br>
                                 <div class="form-group">
                                     <label for="mentorEmail">Preferred Mentor (Not required):</label>
-                                    <input type="text" class="form-control" id="mentorEmail" name="mentorEmail" placeholder="Enter mentor's email" value="${mentorEmail == null ? mentorEmail : ''}" disabled />
+                                    <input type="text" class="form-control" id="mentorEmail" name="mentorEmail" placeholder="Enter mentor's email" value="${currentRequest.mentor.email != null ? currentRequest.mentor.email : ''}" ${currentRequest.mentor.email != null ? 'disabled' : ''}/>
                                 </div>
                                 <br>
                                 <button type="submit" class="btn btn-primary">Update</button>

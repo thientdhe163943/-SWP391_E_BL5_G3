@@ -75,7 +75,7 @@
                         <!-- Nav Main menu START -->
                         <ul class="navbar-nav navbar-nav-scroll w-100">
                             <!-- Nav item 5 link-->
-                            <li class="nav-item"><a class="nav-link" href="home">Home</a></li>
+                            <li class="nav-item"><a class="nav-link" href="mentee-home">Home</a></li>
                             <li class="nav-item"><a class="nav-link" href="mentee-dashboard">Dashboard</a></li>
                             <li class="nav-item"><a class="nav-link" href="mentee-request-list">Request List</a></li>
                         </ul>

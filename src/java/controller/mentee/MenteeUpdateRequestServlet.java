@@ -50,9 +50,7 @@ public class MenteeUpdateRequestServlet extends HttpServlet {
             int currentRequestId = Integer.parseInt(request.getParameter("requestId"));
             Request currentRequest = requestDao.getRequestById(currentRequestId);
             ArrayList<Integer> chosenSkills = requestDao.getSkillByRequestId(currentRequestId);
-            User mentor = userDao.getUserByIdd(currentRequest.getMentor().getUserId());
 
-            request.setAttribute("mentorEmail", mentor.getEmail());
             request.setAttribute("skillList", skillList);
             request.setAttribute("currentRequest", currentRequest);
             request.setAttribute("chosenSkills", chosenSkills);

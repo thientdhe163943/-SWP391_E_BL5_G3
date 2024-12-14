@@ -64,7 +64,7 @@
                                     <div class="row g-3 align-items-center justify-content-between mb-4">
                                         <!-- Content -->
                                         <div class="col-md-8">
-                                            <form class="rounded position-relative" action="mentee" method="GET">
+                                            <form class="rounded position-relative" action="mentee-request-list" method="GET">
                                                 <input class="form-control pe-5 bg-transparent" id="requestSearch" name="requestSearch" type="search" placeholder="Search" aria-label="Search" value="${requestSearch}">
                                                 <button class="btn bg-transparent px-2 py-0 position-absolute top-50 end-0 translate-middle-y" type="submit"><i class="fas fa-search fs-6 "></i></button>
                                             </form>
@@ -73,7 +73,7 @@
                                         <!-- Select option -->
                                         <div class="col-md-3">
                                             <!-- Short by filter -->
-                                            <form id="sortRequest" action="mentee" method="get">
+                                            <form id="sortRequest" action="mentee-request-list" method="get">
                                                 <select class="form-select js-choice border-0 z-index-9 bg-transparent" id="sortOrder" name="sortOrder" aria-label=".form-select-sm" onchange="this.form.submit()">
                                                     <option value="">Sort by</option>
                                                     <option value="title" ${sortOrder == "title" ? 'selected' : ''}>Request Title</option>
@@ -92,7 +92,6 @@
                                                 <tr>
                                                     <th scope="col" class="border-0 rounded-start">Request Title</th>
                                                     <th scope="col" class="border-0">Content</th>
-                                                    <th scope="col" class="border-0">Mentor</th>
                                                     <th scope="col" class="border-0">Deadline</th>
                                                     <th scope="col" class="border-0">Status</th>
                                                     <th scope="col" class="border-0 rounded-end" style="text-align: center;">Action</th>
@@ -107,7 +106,6 @@
                                                     <tr>
                                                         <td>${re.title}</td>
                                                         <td>${re.content}</td>
-                                                        <td>${re.mentor.name}</td>
                                                         <td>${re.deadline}</td>
                                                         <td>${re.status == 1 ? 'Open' : 
                                                               re.status == 2 ? 'Processing' : 
@@ -135,6 +133,19 @@
                                             </tbody>
                                         </table>
                                     </div>
+                                    <!-- Pagination START -->
+                                    <div class="d-sm-flex justify-content-sm-between align-items-sm-center mt-4 mt-sm-3">
+                                        <!-- Content -->
+                                        <!-- Pagination -->
+                                        <nav class="d-flex justify-content-center mb-0" aria-label="navigation">
+                                            <ul class="pagination pagination-sm pagination-primary-soft mb-0 pb-0">
+                                                <li class="page-item mb-0"><a class="page-link" href="#" tabindex="-1"><i class="fas fa-angle-left"></i></a></li>
+                                                <li class="page-item mb-0 active"><a class="page-link" href="#">1</a></li>
+                                                <li class="page-item mb-0"><a class="page-link" href="#"><i class="fas fa-angle-right"></i></a></li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                    <!-- Pagination END -->
                                 </div>
                                 <!-- Card body START -->
                             </div>
