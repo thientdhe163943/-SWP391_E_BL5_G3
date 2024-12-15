@@ -30,7 +30,7 @@
         <link id="style-switch" rel="stylesheet" type="text/css" href="./assets/css/style.css">
     </head>
     <body>
-        <jsp:include page="header.jsp" />
+        <jsp:include page="../../Header.jsp" />
 
         <main>
             <!-- =======================
@@ -53,7 +53,7 @@
                                 <input type="hidden" id="status" name="status" value="${currentRequest.status}" />
                                 <div class="form-group">
                                     <label for="title">Title</label>
-                                    <input class="form-control" type="text" id="title" name="title" placeholder="Enter request title" value="${currentRequest.title}" required/>
+                                    <input class="form-control" type="text" id="title" name="title" placeholder="Enter request title" value="${currentRequest.title}" required maxlength="50"/>
                                 </div>
                                 <br>
                                 <div class="form-group">
@@ -63,7 +63,7 @@
                                 <br>
                                 <div class="form-group">
                                     <label for="content">Content</label>  
-                                    <textarea class="form-control" rows="3" id="content" name="content" placeholder="Enter content of the request" required >${currentRequest.content}</textarea>
+                                    <textarea class="form-control" rows="3" id="content" name="content" placeholder="Enter content of the request" required maxlength="255">${currentRequest.content}</textarea>
                                 </div>
                                 <br>
                                 <div class="form-group">
@@ -75,8 +75,8 @@
                                 </div>
                                 <br>
                                 <div class="form-group">
-                                    <label for="mentorEmail">Preferred Mentor (Not required):</label>
-                                    <input type="text" class="form-control" id="mentorEmail" name="mentorEmail" placeholder="Enter mentor's email" value="${currentRequest.mentor.email != null ? currentRequest.mentor.email : ''}" ${currentRequest.mentor.email != null ? 'disabled' : ''}/>
+                                    <label for="mentorEmail">Preferred Mentor:</label>
+                                    <input type="text" disabled class="form-control" id="mentorEmail" name="mentorEmail" placeholder="Enter mentor's email" value="${currentRequest.mentor.email}"/>
                                 </div>
                                 <br>
                                 <button type="submit" class="btn btn-primary">Update</button>

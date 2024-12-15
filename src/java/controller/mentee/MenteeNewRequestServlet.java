@@ -57,7 +57,7 @@ public class MenteeNewRequestServlet extends HttpServlet {
                 List<Skill> skillList = skillDao.getAllSkills();
                 String mentorEmail = request.getParameter("mentor");
                 request.setAttribute("skillList", skillList);
-                request.setAttribute("mentorEmail", mentorEmail);
+                request.setAttribute("mentor", mentorEmail);
                 request.getRequestDispatcher("./view/mentee/new-request.jsp").forward(request, response);
             }
         }
@@ -80,20 +80,17 @@ public class MenteeNewRequestServlet extends HttpServlet {
             request.getRequestDispatcher("./view/error.jsp").forward(request, response);
         } else {
             var user = (User) session.getAttribute("user");
-            String mentorEmail = request.getParameter("mentorEmail");
+            String mentorEmail = request.getParameter("mentor");
 
             Request newRequest = new Request();
             newRequest.setTitle(request.getParameter("title"));
             newRequest.setDeadline(Date.valueOf(request.getParameter("deadline")));
             newRequest.setContent(request.getParameter("content"));
-            if (mentorEmail == null || mentorEmail.trim().isEmpty()) {
-                newRequest.setMentor(null);
-                newRequest.setStatus(1);
-            } else {
-                User mentor = userDao.getUserByEmail(mentorEmail);
-                newRequest.setMentor(mentor);
-                newRequest.setStatus(2);
-            }
+
+            User mentor = userDao.getUserByEmail(mentorEmail);
+            newRequest.setMentor(mentor);
+            newRequest.setStatus(1);
+
             newRequest.setMentee(user);
 
             String[] skills = request.getParameterValues("skill");

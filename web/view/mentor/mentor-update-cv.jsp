@@ -440,11 +440,11 @@
                                 <input type="hidden" name="action" value="addEdu">
                                 <div class="form-group">
                                     <label for="schoolName">School Name</label>
-                                    <input type="text" class="form-control" id="schoolName" name="schoolName" placeholder="Enter school name" required>
+                                    <input type="text" class="form-control" id="schoolName" name="schoolName" placeholder="Enter school name" required maxlength="50">
                                 </div>
                                 <div class="form-group mt-3">
                                     <label for="major">Major</label>
-                                    <input type="text" class="form-control" id="major" name="major" placeholder="Enter major" required>
+                                    <input type="text" class="form-control" id="major" name="major" placeholder="Enter major" required maxlength="50">
                                 </div>
                             </form>
                         </div>
@@ -472,11 +472,11 @@
                                 <input type="hidden" name="mentorID" value="${requestScope.mentor.userId}">
                                 <div class="form-group">
                                     <label for="editSchoolName">School Name</label>
-                                    <input type="text" class="form-control" id="editSchoolName" name="schoolName" required>
+                                    <input type="text" class="form-control" id="editSchoolName" name="schoolName" required maxlength="50">
                                 </div>
                                 <div class="form-group mt-3">
                                     <label for="editMajor">Major</label>
-                                    <input type="text" class="form-control" id="editMajor" name="major" required>
+                                    <input type="text" class="form-control" id="editMajor" name="major" required maxlength="50">
                                 </div>
                             </form>
                         </div>

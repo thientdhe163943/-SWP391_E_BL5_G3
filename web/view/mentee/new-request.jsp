@@ -55,7 +55,7 @@
         </style>
     </head>
     <body>
-        <jsp:include page="header.jsp" />
+        <jsp:include page="../../Header.jsp" />
 
         <main>
             <!-- =======================
@@ -76,7 +76,7 @@
                             <form action="new-request" method="POST">
                                 <div class="form-group">
                                     <label for="title">Title</label>
-                                    <input class="form-control" type="text" id="title" name="title" placeholder="Enter request title" required>
+                                    <input class="form-control" type="text" id="title" name="title" placeholder="Enter request title" required maxlength="50">
                                 </div>
                                 <br>
                                 <div class="form-group">
@@ -86,7 +86,7 @@
                                 <br>
                                 <div class="form-group">
                                     <label for="content">Content</label>  
-                                    <textarea class="form-control" rows="3" id="content" name="content" placeholder="Enter content of the request" required></textarea>
+                                    <textarea class="form-control" rows="3" id="content" name="content" placeholder="Enter content of the request" required maxlength="255"></textarea>
                                 </div>
                                 <br>
                                 <div class="form-group">
@@ -98,8 +98,8 @@
                                 </div>
                                 <br>
                                 <div class="form-group">
-                                    <label for="mentorEmail">Preferred Mentor (Not required):</label>
-                                    <input type="text" class="form-control" id="mentorEmail" name="mentorEmail" placeholder="Enter mentor's email" value="${empty mentorEmail ? mentorEmail : ''}" />
+                                    <label for="mentorEmail">Preferred Mentor:</label>
+                                    <input type="text" class="form-control" id="mentor" name="mentor" placeholder="Enter mentor's email" value="${not empty mentor ? mentor : ''}"/>
                                 </div>
                                 <br>
                                 <button type="submit" class="btn btn-primary">Create</button>

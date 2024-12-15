@@ -33,7 +33,7 @@
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     </head>
     <body>
-        <jsp:include page="header.jsp" />
+        <jsp:include page="../../Header.jsp" />
 
         <main>
             <jsp:include page="banner.jsp" />
@@ -49,9 +49,6 @@
                                 <!-- Card header START -->
                                 <div class="card-header bg-transparent border-bottom">
                                     <h3 class="mb-0">My Requests List&nbsp;&nbsp; <a href="new-request">
-                                            <button class="btn btn-primary">
-                                                <i class="bi bi-plus"></i>
-                                            </button>
                                         </a></h3>
 
                                 </div>
@@ -107,8 +104,8 @@
                                                         <td>${re.title}</td>
                                                         <td>${re.content}</td>
                                                         <td>${re.deadline}</td>
-                                                        <td>${re.status == 1 ? 'Open' : 
-                                                              re.status == 2 ? 'Processing' : 
+                                                        <td>${re.status == 1 ? 'Pending' : 
+                                                              re.status == 2 ? 'Accepted' : 
                                                               re.status == 3 ? 'Canceled' : 'Closed'}</td>
                                                         <td style="text-align: center;">
                                                             <a href="update-request?requestId=${re.requestId}" class="d-inline">

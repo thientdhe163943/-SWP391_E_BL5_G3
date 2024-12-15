@@ -33,9 +33,9 @@
     </head>
     <body>
         <jsp:include page="../Header.jsp" />
-        
+
         <h3>${error}</h3>
-        
+
         <jsp:include page="../Footer.jsp" />
     </body>
 </html>
