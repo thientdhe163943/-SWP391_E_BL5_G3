@@ -74,13 +74,11 @@ public class MenteeUpdateRequestServlet extends HttpServlet {
         if (session == null || session.getAttribute("user") == null) {
             request.setAttribute("error", "Access Denied");
             request.getRequestDispatcher("./view/error.jsp").forward(request, response);
-            return;
         } else {
             int requestId = Integer.parseInt(request.getParameter("requestId"));
             String title = request.getParameter("title");
             Date deadline = Date.valueOf(request.getParameter("deadline"));
             String content = request.getParameter("content");
-            String mentorEmail = request.getParameter("mentorEmail");
 
             String[] skills = request.getParameterValues("skill");
             ArrayList<Integer> chosenSkills = new ArrayList();
@@ -90,12 +88,7 @@ public class MenteeUpdateRequestServlet extends HttpServlet {
                 }
             }
 
-            int status = Integer.parseInt(request.getParameter("status"));
-            User mentee = (User) session.getAttribute("user");
-
-            User mentor = userDao.getUserByEmail(mentorEmail);
-
-            Request updateRequest = new Request(requestId, title, deadline, content, mentor, mentee, status);
+            Request updateRequest = new Request(requestId, title, deadline, content, null, null, 0);
 
             requestDao.updateRequest(updateRequest, chosenSkills);
 

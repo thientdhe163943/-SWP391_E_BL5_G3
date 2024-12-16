@@ -50,7 +50,6 @@
                         <div class="card-body">
                             <form action="update-request" method="POST">
                                 <input type="hidden" id="requestId" name="requestId" value="${currentRequest.requestId}" />
-                                <input type="hidden" id="status" name="status" value="${currentRequest.status}" />
                                 <div class="form-group">
                                     <label for="title">Title</label>
                                     <input class="form-control" type="text" id="title" name="title" placeholder="Enter request title" value="${currentRequest.title}" required maxlength="50"/>

@@ -104,11 +104,7 @@ public class RequestDAO extends DBConnect {
             ps.setString(1, request.getTitle());
             ps.setDate(2, request.getDeadline());
             ps.setString(3, request.getContent());
-            if (request.getMentor() == null) {
-                ps.setNull(4, java.sql.Types.INTEGER);
-            } else {
-                ps.setInt(4, request.getMentor().getUserId());
-            }
+            ps.setInt(4, request.getMentor().getUserId());
             ps.setInt(5, request.getMentee().getUserId());
             ps.setInt(6, request.getStatus());
             int rowsAffected = ps.executeUpdate();
@@ -130,25 +126,13 @@ public class RequestDAO extends DBConnect {
     }
 
     public void updateRequest(Request request, ArrayList<Integer> skills) {
-        String sql = "UPDATE Request SET title = ?,"
-                + "deadline = ?,"
-                + "[content] = ?,"
-                + "mentor_id = ?,"
-                + "mentee_id = ?,"
-                + "status = ?"
-                + " WHERE request_id = ?";
+        String sql = "UPDATE Request SET title = ?, deadline = ?, [content] = ? WHERE request_id = ?";
 
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, request.getTitle());
             ps.setDate(2, request.getDeadline());
             ps.setString(3, request.getContent());
-
-            ps.setInt(4, request.getMentor().getUserId());
-            ps.setInt(6, request.getStatus());
-
-            ps.setInt(5, request.getMentee().getUserId());
-
-            ps.setInt(7, request.getRequestId());
+            ps.setInt(4, request.getRequestId());
 
             ps.executeUpdate();
 
@@ -269,20 +253,14 @@ public class RequestDAO extends DBConnect {
 
     public static void main(String[] args) {
         RequestDAO dao = new RequestDAO();
-        Request request = dao.getRequestById(12);
-        request.setTitle("1222");
+        Request request = dao.getRequestById(15);
+        request.setTitle("12222");
         request.setDeadline(Date.valueOf("2025-01-03"));
         request.setContent("2222");
-        User mentor = new User();
-        mentor.setUserId(2);
-        request.setMentor(mentor);
-        User mentee = new User();
-        mentee.setUserId(1);
-        request.setMentee(mentee);
 
         ArrayList<Integer> skillList = new ArrayList<>();
-        skillList.add(1);
         skillList.add(2);
+        skillList.add(3);
 
         dao.updateRequest(request, skillList);
     }
