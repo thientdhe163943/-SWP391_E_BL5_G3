@@ -24,8 +24,9 @@
                         <a class="list-group-item" href="mentor-dashboard"><i class="bi bi-ui-checks-grid fa-fw me-2"></i>Dashboard</a>
                         <a class="list-group-item" href="mentor-mentee-list"><i class="bi bi-people fa-fw me-2"></i>Mentees</a>
                         <a class="list-group-item" href="mentor-request-list"><i class="bi bi-people fa-fw me-2"></i>Requests</a>
+                        <a class="list-group-item" href="mentor-freetime"><i class="bi bi-people fa-fw me-2"></i>Freetime</a>
                         <a class="list-group-item" href="mentor-review"><i class="bi bi-star fa-fw me-2"></i>Reviews</a>
-                        <a class="list-group-item" href="viewCV?mentor=${mentor.userId}"><i class="bi bi-star fa-fw me-2"></i>View CV</a>
+                        <a class="list-group-item" href="mentor-contact"><i class="bi bi-star fa-fw me-2"></i>Contact</a>
                         <a class="list-group-item text-danger bg-danger-soft-hover" href="logout"><i class="fas fa-sign-out-alt fa-fw me-2"></i>Sign Out</a>
                     </div>
                 </div>

@@ -4,25 +4,26 @@
  */
 package Model;
 
-import java.sql.Time;
-import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 /**
  *
  * @author Hayashi
  */
 public class FreeTime {
+
     private int timeId;
     private User user;
-    private Time startTime;
-    private Time endtime;
-    private Date date;
+    private LocalTime startTime;
+    private LocalTime endtime;
+    private LocalDate date;
     private Boolean status;
 
     public FreeTime() {
     }
 
-    public FreeTime(int timeId, User user, Time startTime, Time endtime, Date date, Boolean status) {
+    public FreeTime(int timeId, User user, LocalTime startTime, LocalTime endtime, LocalDate date, Boolean status) {
         this.timeId = timeId;
         this.user = user;
         this.startTime = startTime;
@@ -47,27 +48,27 @@ public class FreeTime {
         this.user = user;
     }
 
-    public Time getStartTime() {
+    public LocalTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Time startTime) {
+    public void setStartTime(LocalTime startTime) {
         this.startTime = startTime;
     }
 
-    public Time getEndtime() {
+    public LocalTime getEndtime() {
         return endtime;
     }
 
-    public void setEndtime(Time endtime) {
+    public void setEndtime(LocalTime endtime) {
         this.endtime = endtime;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
