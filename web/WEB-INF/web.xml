@@ -44,6 +44,10 @@
         <servlet-name>UpdateCVServlet</servlet-name>
         <servlet-class>controller.mentor.UpdateCVServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>FreeTimeServlet</servlet-name>
+        <servlet-class>controller.mentor.FreeTimeServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>viewCVServlet</servlet-name>
         <url-pattern>/viewCV</url-pattern>
@@ -87,5 +91,9 @@
     <servlet-mapping>
         <servlet-name>UpdateCVServlet</servlet-name>
         <url-pattern>/updateCV</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FreeTimeServlet</servlet-name>
+        <url-pattern>/mentor-freetime</url-pattern>
     </servlet-mapping>
 </web-app>
