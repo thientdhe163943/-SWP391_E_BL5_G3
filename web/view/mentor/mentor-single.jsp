@@ -1,7 +1,7 @@
-    <%-- 
-    Document   : mentor-single
-    Created on : Dec 10, 2024, 10:15:08 AM
-    Author     : ADMIN
+<%-- 
+Document   : mentor-single
+Created on : Dec 10, 2024, 10:15:08 AM
+Author     : ADMIN
 --%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -73,6 +73,23 @@
             }
             .feedback-author span {
                 font-weight: bold;
+            }
+
+            .stars {
+                display: flex;
+                justify-content: left;
+                margin-bottom: 10px;
+            }
+
+            .star {
+                font-size: 25px;
+                color: lightgray;
+                cursor: pointer;
+                transition: color 0.2s;
+            }
+
+            .star.selected {
+                color: gold;
             }
         </style>
     </head>
@@ -179,6 +196,42 @@
                                         </div>
                                     </div>
                                 </c:forEach>
+                                <c:if test="${!check.equals('true')}">
+                                    <form id="feedbackForm" action="give-feedback" method="POST" class="form-container">
+                                        <label for="feedback-text">Leave your feedback here: 
+                                            <!-- Star Rating -->
+                                            <div class="stars" class="form-control">
+                                                <span class="star" onclick="selectRating(0)">&#9733;</span>
+                                                <span class="star" onclick="selectRating(1)">&#9733;</span>
+                                                <span class="star" onclick="selectRating(2)">&#9733;</span>
+                                                <span class="star" onclick="selectRating(3)">&#9733;</span>
+                                                <span class="star" onclick="selectRating(4)">&#9733;</span>
+                                            </div>
+                                        </label>
+                                        <input type="hidden" id="rating" name="rating" value="0">
+                                        <textarea style="border: 1px solid;" class="form-control" id="feedback-text" name="feedback-text" rows="3" cols="50" placeholder="Enter your feedback here" maxlength="250"></textarea>
+                                        <br>
+                                        <input type="hidden" id="cvId" name="cvId" value="${cv.cvId}" />
+                                        <input type="submit" class="btn btn-primary" value="Submit">
+                                    </form>
+                                    <!-- Popup Message -->
+                                    <div id="popupMessage" style="
+                                         position: fixed;
+                                         bottom: 20px;
+                                         left: 50%;
+                                         transform: translateX(-50%);
+                                         background-color: #f44336;
+                                         color: white;
+                                         padding: 10px 20px;
+                                         border-radius: 5px;
+                                         font-size: 14px;
+                                         display: none;
+                                         z-index: 1000;
+                                         ">
+                                        Please select a rating and provide feedback!
+                                    </div>
+                                </c:if>
+
                             </div>
                         </div>
                         <!-- Tabs Content END -->
@@ -498,6 +551,37 @@
 
         <!-- Back to top -->
         <div class="back-top"><i class="bi bi-arrow-up-short position-absolute top-50 start-50 translate-middle"></i></div>
+
+        <script>
+            function selectRating(starIndex) {
+                const stars = document.getElementsByClassName("star");
+                for (let i = 0; i < stars.length; i++) {
+                    stars[i].classList.toggle("selected", i <= starIndex);
+                }
+                document.getElementById("rating").value = starIndex + 1;
+            }
+
+            document.getElementById("feedbackForm").addEventListener("submit", function (event) {
+                const rating = document.getElementById("rating").value;
+                const feedbackText = document.getElementById("feedback-text").value.trim();
+
+                if (rating === "0" || feedbackText === "") {
+                    event.preventDefault(); // Prevent form submission
+                    showPopup("Please select a rating and provide feedback!");
+                }
+            });
+
+            function showPopup(message) {
+                const popup = document.getElementById("popupMessage");
+                popup.textContent = message;
+                popup.style.display = "block";
+
+                // Hide the popup after 3 seconds
+                setTimeout(() => {
+                    popup.style.display = "none";
+                }, 3000);
+            }
+        </script>
 
         <!-- Bootstrap JS -->
         <script src="assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
