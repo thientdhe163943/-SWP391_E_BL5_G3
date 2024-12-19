@@ -35,7 +35,7 @@
 
     <body>
         <%
-            // Ki?m tra ki?u c?a ??i t??ng ng??i dùng trong session
+            // Ki?m tra ki?u c?a ??i t??ng ng??i dï¿½ng trong session
             Object userObject = session.getAttribute("user");
             User user = null;
 
@@ -77,6 +77,9 @@
                             <!-- Nav item 5 link-->
                             <li class="nav-item"><a class="nav-link" href="home">Home</a></li>
                             <li class="nav-item"><a class="nav-link" href="mentor">Mentor</a></li>
+                            <c:if test="${sessionScope.userRole.role_id == 1}">
+                                <li class="nav-item"><a class="nav-link" href="register-mentor">Register to be Mentor</a></li>
+                            </c:if>
                         </ul>
                         <!-- Nav Main menu END -->
                         <!-- Nav Search END -->
