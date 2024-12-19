@@ -78,6 +78,9 @@
                             <li class="nav-item"><a class="nav-link" href="home">Home</a></li>
                             <li class="nav-item"><a class="nav-link" href="mentor">Mentor</a></li>
                             <c:if test="${sessionScope.userRole.role_id == 1}">
+                                <li class="nav-item"><a class="nav-link" href="recommended-mentor-list">Recommended Mentors</a></li>
+                            </c:if>
+                            <c:if test="${sessionScope.userRole.role_id == 1}">
                                 <li class="nav-item"><a class="nav-link" href="register-mentor">Register to be Mentor</a></li>
                             </c:if>
                         </ul>
