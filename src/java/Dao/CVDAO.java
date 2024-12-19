@@ -225,6 +225,34 @@ public class CVDAO extends DBConnect {
         }
         return false;
     }
+    
+     public boolean createCVWithSkills(CV cv, List<Integer> chosenSkills) {
+        String query = "INSERT INTO CV (user_id, introduction, experience) VALUES (?, ?, ?)";
+        try (PreparedStatement stm = connection.prepareStatement(query)) {
+            stm.setInt(1, cv.getApplicant().getUserId());
+            stm.setString(2, cv.getIntroduction());
+            stm.setInt(3, cv.getExperience());
+            int rowsAffected = stm.executeUpdate();
+            if (rowsAffected > 0) {
+                if (chosenSkills != null) {
+                    cv = getCvByUserId(cv.getApplicant().getUserId());
+                    for (int skillId : chosenSkills) {
+                        CvSkill cvSkill = new CvSkill();
+                        cvSkill.setCv(cv);
+                        Skill skill = new Skill();
+                        skill.setSkillId(skillId);
+                        cvSkill.setSkill(skill);
+
+                        cvSkillDAO.addCvSkill(cvSkill);
+                    }
+                }
+                return true;
+            }
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Lỗi khi thêm CV: {0}", e.getMessage());
+        }
+        return false;
+     }
 
     public static void main(String[] args) {
         CVDAO cvdao = new CVDAO();
