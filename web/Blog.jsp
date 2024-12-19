@@ -114,7 +114,8 @@
                                 </a>
                                 <ul class="nav collapse flex-column show" id="collapsepage">
                                     <li class="nav-item"> <a class="nav-link " href="admin">Manage User</a></li>
-                                    <li class="nav-item"> <a class="nav-link active" href="blog">Manage Blog</a></li>
+                                    <li class="nav-item"> <a class="nav-link" href="blog">Manage Blog</a></li>
+                                    <li class="nav-item"> <a class="nav-link active" href="skill">Manage Skill</a></li>
                                 </ul>
                             </li>
                         </ul>

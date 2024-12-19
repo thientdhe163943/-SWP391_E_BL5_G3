@@ -52,6 +52,10 @@
         <servlet-name>MenteeRatingServlet</servlet-name>
         <servlet-class>controller.mentee.MenteeRatingServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SkillServlet</servlet-name>
+        <servlet-class>controller.SkillServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>viewCVServlet</servlet-name>
         <url-pattern>/viewCV</url-pattern>
@@ -103,5 +107,9 @@
     <servlet-mapping>
         <servlet-name>MenteeRatingServlet</servlet-name>
         <url-pattern>/give-feedback</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SkillServlet</servlet-name>
+        <url-pattern>/skill</url-pattern>
     </servlet-mapping>
 </web-app>

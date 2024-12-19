@@ -37,7 +37,28 @@ public class SkillDAO extends DBConnect {
         }
         return list;
     }
-    
+
+    // Lấy tất cả Skills
+    public List<Skill> getSkillByPage(int page) {
+        List<Skill> list = new ArrayList<>();
+        String query = "SELECT * FROM Skill ORDER BY skill_id "
+                + "OFFSET ? ROWS  FETCH next 5 rows only";
+        try (PreparedStatement stm = connection.prepareStatement(query)) {
+            stm.setInt(1, (page - 1) * 5);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Skill skill = new Skill();
+                skill.setSkillId(rs.getInt("skill_id"));
+                skill.setSkillName(rs.getString("skill_name"));
+                skill.setStatus(rs.getBoolean("status"));
+                list.add(skill);
+            }
+        } catch (SQLException e) {
+            logger.severe("Lỗi khi lấy danh sách Skill: " + e.getMessage());
+        }
+        return list;
+    }
+
     // Lấy tất cả Skills mà không có trong CV_Skill cho cv_id cụ thể
     public List<Skill> getNotExistedSkills(int cvId) {
         List<Skill> list = new ArrayList<>();
@@ -68,9 +89,10 @@ public class SkillDAO extends DBConnect {
 
     // Thêm mới Skill
     public boolean addSkill(Skill skill) {
-        String query = "INSERT INTO Skill (skill_name) VALUES (?)";
+        String query = "INSERT INTO Skill (skill_name, status) VALUES (?, ?)";
         try (PreparedStatement stm = connection.prepareStatement(query)) {
             stm.setString(1, skill.getSkillName());
+            stm.setBoolean(2, true);
             int rowsAffected = stm.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException e) {
@@ -81,10 +103,11 @@ public class SkillDAO extends DBConnect {
 
     // Cập nhật Skill
     public boolean updateSkill(Skill skill) {
-        String query = "UPDATE Skill SET skill_name = ? WHERE skill_id = ?";
+        String query = "UPDATE Skill SET skill_name = ?, status = ? WHERE skill_id = ?";
         try (PreparedStatement stm = connection.prepareStatement(query)) {
             stm.setString(1, skill.getSkillName());
-            stm.setInt(2, skill.getSkillId());
+            stm.setBoolean(2, skill.isStatus());
+            stm.setInt(3, skill.getSkillId());
             int rowsAffected = stm.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException e) {
@@ -116,6 +139,44 @@ public class SkillDAO extends DBConnect {
                     Skill skill = new Skill();
                     skill.setSkillId(rs.getInt("skill_id"));
                     skill.setSkillName(rs.getString("skill_name"));
+                    skill.setStatus(rs.getBoolean("status"));
+                    return skill;
+                }
+            }
+        } catch (SQLException e) {
+            logger.severe("Lỗi khi lấy Skill theo ID: " + e.getMessage());
+        }
+        return null;
+    }
+    
+    // Lấy Skill theo ID
+    public Skill getSkillByName(String skillName) {
+        String query = "SELECT * FROM Skill WHERE skill_name = ?";
+        try (PreparedStatement stm = connection.prepareStatement(query)) {
+            stm.setString(1, skillName);
+            try (ResultSet rs = stm.executeQuery()) {
+                if (rs.next()) {
+                    Skill skill = new Skill();
+                    skill.setSkillId(rs.getInt("skill_id"));
+                    skill.setSkillName(rs.getString("skill_name"));
+                    skill.setStatus(rs.getBoolean("status"));
+                    return skill;
+                }
+            }
+        } catch (SQLException e) {
+            logger.severe("Lỗi khi lấy Skill theo ID: " + e.getMessage());
+        }
+        return null;
+    }
+    
+    // Lấy Skill theo ID
+    public Skill checkSkill(Skill skill) {
+        String query = "SELECT * FROM Skill WHERE skill_name = ?, status = ?";
+        try (PreparedStatement stm = connection.prepareStatement(query)) {
+            stm.setString(1, skill.getSkillName());
+            stm.setBoolean(2, skill.isStatus());
+            try (ResultSet rs = stm.executeQuery()) {
+                if (rs.next()) {
                     return skill;
                 }
             }
@@ -127,7 +188,7 @@ public class SkillDAO extends DBConnect {
 
     public static void main(String[] args) {
         SkillDAO skillDAO = new SkillDAO();
-        List<Skill> list = skillDAO.getAllSkills();
+        List<Skill> list = skillDAO.getSkillByPage(1);
         for (Skill skill : list) {
             System.out.println(skill.getSkillName());
         }
