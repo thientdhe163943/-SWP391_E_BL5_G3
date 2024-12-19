@@ -124,5 +124,25 @@
 
         <!-- Template Functions -->
         <script src="./assets/js/functions.js"></script>
+
+        <!-- Error Popup -->
+        <div id="errorPopup" style="display: none; position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background-color: #f8d7da; color: #721c24; padding: 10px; border: 1px solid #f5c6cb; border-radius: 5px; z-index: 1000;">
+            <span id="errorMessage"></span>
+        </div>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                var errorMessage = '${error}';
+                if (errorMessage) {
+                    var errorPopup = document.getElementById("errorPopup");
+                    var errorMessageSpan = document.getElementById("errorMessage");
+                    errorMessageSpan.textContent = errorMessage;
+                    errorPopup.style.display = "block";
+                    setTimeout(function() {
+                        errorPopup.style.display = "none";
+                    }, 5000);
+                }
+            });
+        </script>
     </body>
 </html>

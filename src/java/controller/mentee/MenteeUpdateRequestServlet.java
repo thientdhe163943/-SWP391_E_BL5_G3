@@ -76,16 +76,66 @@ public class MenteeUpdateRequestServlet extends HttpServlet {
             request.getRequestDispatcher("./view/error.jsp").forward(request, response);
         } else {
             int requestId = Integer.parseInt(request.getParameter("requestId"));
-            String title = request.getParameter("title");
-            Date deadline = Date.valueOf(request.getParameter("deadline"));
-            String content = request.getParameter("content");
+            String title = request.getParameter("title").trim();
+            String deadlineParam = request.getParameter("deadline");
+            String content = request.getParameter("content").trim();
+
+            // Retrieve skill list and current request details
+            List<Skill> skillList = skillDao.getAllSkills();
+            Request currentRequest = requestDao.getRequestById(requestId);
+            ArrayList<Integer> chosenSkills = requestDao.getSkillByRequestId(requestId);
+
+            // Validate input fields
+            if (title == null || title.isEmpty()) {
+                request.setAttribute("error", "Title is required.");
+                request.setAttribute("skillList", skillList);
+                request.setAttribute("currentRequest", currentRequest);
+                request.setAttribute("chosenSkills", chosenSkills);
+                request.getRequestDispatcher("./view/mentee/update-request.jsp").forward(request, response);
+                return;
+            }
+            if (deadlineParam == null || deadlineParam.isEmpty()) {
+                request.setAttribute("error", "Deadline is required.");
+                request.setAttribute("skillList", skillList);
+                request.setAttribute("currentRequest", currentRequest);
+                request.setAttribute("chosenSkills", chosenSkills);
+                request.getRequestDispatcher("./view/mentee/update-request.jsp").forward(request, response);
+                return;
+            }
+
+            Date deadline;
+            try {
+                deadline = Date.valueOf(deadlineParam);
+            } catch (IllegalArgumentException e) {
+                request.setAttribute("error", "Invalid deadline format.");
+                request.setAttribute("skillList", skillList);
+                request.setAttribute("currentRequest", currentRequest);
+                request.setAttribute("chosenSkills", chosenSkills);
+                request.getRequestDispatcher("./view/mentee/update-request.jsp").forward(request, response);
+                return;
+            }
+
+            if (content == null || content.isEmpty()) {
+                request.setAttribute("error", "Content is required.");
+                request.setAttribute("skillList", skillList);
+                request.setAttribute("currentRequest", currentRequest);
+                request.setAttribute("chosenSkills", chosenSkills);
+                request.getRequestDispatcher("./view/mentee/update-request.jsp").forward(request, response);
+                return;
+            }
 
             String[] skills = request.getParameterValues("skill");
-            ArrayList<Integer> chosenSkills = new ArrayList();
-            if (skills != null) {
-                for (String skillId : skills) {
-                    chosenSkills.add(Integer.parseInt(skillId));
-                }
+            chosenSkills = new ArrayList<>();
+            if (skills == null || skills.length == 0) {
+                request.setAttribute("error", "At least one skill must be selected.");
+                request.setAttribute("skillList", skillList);
+                request.setAttribute("currentRequest", currentRequest);
+                request.setAttribute("chosenSkills", chosenSkills);
+                request.getRequestDispatcher("./view/mentee/update-request.jsp").forward(request, response);
+                return;
+            }
+            for (String skillId : skills) {
+                chosenSkills.add(Integer.parseInt(skillId));
             }
 
             Request updateRequest = new Request(requestId, title, deadline, content, null, null, 0);
@@ -95,5 +145,4 @@ public class MenteeUpdateRequestServlet extends HttpServlet {
             response.sendRedirect("mentee-request-list");
         }
     }
-
 }

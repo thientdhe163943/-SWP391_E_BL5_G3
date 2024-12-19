@@ -32,6 +32,21 @@
 
     <!-- Theme CSS -->
     <link id="style-switch" rel="stylesheet" type="text/css" href="./assets/css/style.css">
+
+    <style>
+        .error-popup {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            border: 1px solid #f5c6cb;
+            border-radius: 5px;
+            z-index: 1000;
+        }
+    </style>
 </head>
 <body>
     <jsp:include page="../../Header.jsp" />
@@ -91,10 +106,29 @@
 
     <jsp:include page="../../Footer.jsp" />
 
+    <div id="error-popup" class="error-popup" style="display: none;">
+        <span id="error-message"></span>
+    </div>
+
     <script>
         function toggleSkillSection(show) {
             document.getElementById('skill-section').style.display = show ? 'block' : 'none';
         }
+
+        function showErrorPopup(message) {
+            document.getElementById('error-message').innerText = message;
+            document.getElementById('error-popup').style.display = 'block';
+            setTimeout(closePopup, 3000); // Close the popup after 3 seconds
+        }
+
+        function closePopup() {
+            document.getElementById('error-popup').style.display = 'none';
+        }
+
+        // Check if there is an error message from the server
+        <c:if test="${not empty errorMessage}">
+        showErrorPopup('${errorMessage}');
+        </c:if>
     </script>
 
     <!-- Bootstrap JS -->
@@ -109,3 +143,4 @@
     <script src="./assets/js/functions.js"></script>
 </body>
 </html>
+

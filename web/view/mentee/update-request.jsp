@@ -28,6 +28,22 @@
 
         <!-- Theme CSS -->
         <link id="style-switch" rel="stylesheet" type="text/css" href="./assets/css/style.css">
+
+        <style>
+            .error-popup {
+                position: fixed;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                background-color: #f8d7da;
+                color: #721c24;
+                padding: 10px 20px;
+                border: 1px solid #f5c6cb;
+                border-radius: 5px;
+                display: none;
+                z-index: 1000;
+            }
+        </style>
     </head>
     <body>
         <jsp:include page="../../Header.jsp" />
@@ -66,6 +82,7 @@
                                 </div>
                                 <br>
                                 <div class="form-group">
+                                    <label for="skill">Skills</label>
                                     <c:forEach items="${skillList}" var="s">
                                         <br>
                                         <input type="checkbox" name="skill" id="skill" value="${s.skillId}" 
@@ -91,6 +108,8 @@
 
         <jsp:include page="footer.jsp" />
 
+        <div class="error-popup" id="error-popup">${error}</div>
+
         <!-- Bootstrap JS -->
         <script src="./assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -100,5 +119,17 @@
 
         <!-- Template Functions -->
         <script src="./assets/js/functions.js"></script>
+
+        <script>
+            window.onload = function() {
+                var errorPopup = document.getElementById('error-popup');
+                if (errorPopup.innerText.trim() !== '') {
+                    errorPopup.style.display = 'block';
+                    setTimeout(function() {
+                        errorPopup.style.display = 'none';
+                    }, 5000);
+                }
+            };
+        </script>
     </body>
 </html>

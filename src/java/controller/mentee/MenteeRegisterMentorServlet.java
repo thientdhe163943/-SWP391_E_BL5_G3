@@ -43,13 +43,59 @@ public class MenteeRegisterMentorServlet extends HttpServlet {
         }
         User user = (User) session.getAttribute("user");
         String introduction = request.getParameter("introduction");
-        int experience = Integer.parseInt(request.getParameter("experience"));
+        String experienceStr = request.getParameter("experience");
+        String[] chosenSkills = request.getParameterValues("skill");
+        
+        boolean hasError = false;
+        
+        // Validate fields
+        if (introduction == null || introduction.trim().isEmpty()) {
+            request.setAttribute("introductionError", "Introduction cannot be empty.");
+            hasError = true;
+        }
+        
+        int experience = 0;
+        try {
+            experience = Integer.parseInt(experienceStr);
+            if (experience < 0) {
+                request.setAttribute("experienceError", "Experience must be a positive number.");
+                hasError = true;
+            }
+        } catch (NumberFormatException e) {
+            request.setAttribute("experienceError", "Invalid experience value.");
+            hasError = true;
+        }
+        
+        if (experience > 0 && (chosenSkills == null || chosenSkills.length == 0)) {
+            request.setAttribute("skillsError", "At least one skill must be selected.");
+            hasError = true;
+        }
+        
+        // If there are errors, forward the user back to the form
+        if (hasError) {
+            StringBuilder errorMessage = new StringBuilder();
+            if (request.getAttribute("introductionError") != null) {
+                errorMessage.append(request.getAttribute("introductionError")).append(" ");
+            }
+            if (request.getAttribute("experienceError") != null) {
+                errorMessage.append(request.getAttribute("experienceError")).append(" ");
+            }
+            if (request.getAttribute("skillsError") != null) {
+                errorMessage.append(request.getAttribute("skillsError")).append(" ");
+            }
+            request.setAttribute("errorMessage", errorMessage.toString().trim());
+            request.setAttribute("skillList", skillDao.getAllSkills());
+            request.getRequestDispatcher("./view/mentee/register-mentor.jsp").forward(request, response);
+            return;
+        }
+        
+        // Create CV after validation
         CV cv = new CV();
         cv.setApplicant(user);
         cv.setIntroduction(introduction);
         cv.setExperience(experience);
+        
         if (experience > 0) {
-            var chosenSkills = request.getParameterValues("skill");
             List<Integer> skillIds = new ArrayList<>();
             for (String skillId : chosenSkills) {
                 skillIds.add(Integer.parseInt(skillId));
@@ -58,7 +104,7 @@ public class MenteeRegisterMentorServlet extends HttpServlet {
         } else {
             cvDao.createCVWithSkills(cv, null);
         }
-
+        
         response.sendRedirect("home");
     }
 }

@@ -35,7 +35,7 @@ public class MenteeRatingServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        
+
     } 
 
     /** 
@@ -53,14 +53,31 @@ public class MenteeRatingServlet extends HttpServlet {
             request.setAttribute("error", "Access Denied");
             request.getRequestDispatcher("./view/error.jsp").forward(request, response);
         } else {
-            String ratingString = request.getParameter("rating");
-            String feedback = request.getParameter("feedback-text");
-            String cvIdString = request.getParameter("cvId");
-            float rating = Float.parseFloat(ratingString);
-            int cvId = Integer.parseInt(cvIdString);
+            String ratingString = request.getParameter("rating").trim();
+            String feedback = request.getParameter("feedback-text").trim();
+            String cvIdString = request.getParameter("cvId").trim();
+            
+            if (ratingString == null || ratingString.isEmpty() 
+                || feedback == null || feedback.isEmpty() 
+                || cvIdString == null || cvIdString.isEmpty()) {
+                request.setAttribute("error", "All fields are required!");
+                response.sendRedirect("viewCV");
+                return;
+            }
+            
+            float rating;
+            int cvId;
+            try {
+                rating = Float.parseFloat(ratingString);
+                cvId = Integer.parseInt(cvIdString);
+            } catch (NumberFormatException ex) {
+                request.setAttribute("error", "Invalid input for rating or CV ID.");
+                response.sendRedirect("viewCV");
+                return;
+            }
             CV cv = new CV();
             cv.setCvId(cvId);
-            User currentUser = (User)session.getAttribute("user");
+            User currentUser = (User) session.getAttribute("user");
             
             CvDetail cvDetail = new CvDetail();
             cvDetail.setCv(cv);
@@ -70,8 +87,13 @@ public class MenteeRatingServlet extends HttpServlet {
             
             boolean updateStatus = dao.createCVDetail(cvDetail);
             
-            response.sendRedirect("viewCV");
+            if (!updateStatus) {
+                request.setAttribute("error", "Failed to submit your feedback. Please try again.");
+                response.sendRedirect("viewCV");
+            } else {
+                response.sendRedirect("viewCV");
+            }
         }
     }
-
 }
+
