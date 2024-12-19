@@ -48,8 +48,7 @@
                             <div class="card bg-transparent border rounded-3">
                                 <!-- Card header START -->
                                 <div class="card-header bg-transparent border-bottom">
-                                    <h3 class="mb-0">My Requests List&nbsp;&nbsp; <a href="new-request">
-                                        </a></h3>
+                                    <h3 class="mb-0">My Requests List</h3>
 
                                 </div>
                                 <!-- Card header END -->
