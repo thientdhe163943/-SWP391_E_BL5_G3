@@ -14,7 +14,8 @@ public class Skill {
 
     private int skillId;
     private String skillName;
-    
+    private boolean status;
+
     private ArrayList<CV> cvSkillList;
     private ArrayList<Request> requestList;
 
@@ -24,7 +25,21 @@ public class Skill {
     public Skill(int skillId, String skillName) {
         this.skillId = skillId;
         this.skillName = skillName;
-        this.cvSkillList = cvSkillList;
+
+    }
+
+    public Skill(int skillId, String skillName, boolean status) {
+        this.skillId = skillId;
+        this.skillName = skillName;
+        this.status = status;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     public ArrayList<Request> getRequestList() {

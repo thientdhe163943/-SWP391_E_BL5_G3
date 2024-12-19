@@ -68,7 +68,7 @@
                                 <ul class="nav collapse flex-column show" id="collapsepage" data-bs-parent="#navbar-sidebar">
                                     <li class="nav-item"> <a class="nav-link active" href="admin">MANAGE USER</a></li>
                                     <li class="nav-item"> <a class="nav-link" href="blog">MANAGE BLOG</a></li>
-                                    
+                                    <li class="nav-item"> <a class="nav-link" href="skill">MANAGE SKILL</a></li>
                                 </ul>
                             </li>
                     </div>
