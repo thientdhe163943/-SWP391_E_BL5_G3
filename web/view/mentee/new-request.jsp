@@ -98,7 +98,7 @@
                                 </div>
                                 <br>
                                 <div class="form-group">
-                                    <label for="mentorEmail">Preferred Mentor:</label>
+                                    <label for="mentor">Preferred Mentor:</label>
                                     <input type="text" class="form-control" id="mentor" name="mentor" placeholder="Enter mentor's email" value="${not empty mentor ? mentor : ''}"/>
                                 </div>
                                 <br>
