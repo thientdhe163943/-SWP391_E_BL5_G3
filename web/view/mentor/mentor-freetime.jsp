@@ -222,24 +222,24 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form id="editTimeForm" action="mentor-freetime" method="post">
+                        <form id="addTimeForm" action="mentor-freetime" method="post">
                             <input type="hidden" name="action" value="add">
                             <div class="form-group">
                                 <label for="editDate">Date</label>
-                                <input type="date" class="form-control" id="date" min="${currentDate}" name="date" required="">
+                                <input type="date" class="form-control" min="${currentDate}" name="date" required="">
                             </div>
                             <div class="form-group mt-3">
                                 <label for="editStartTime">Start Time</label> 
-                                <input type="time" class="form-control" id="editStartTime" name="startTime" required="">
+                                <input type="time" class="form-control" name="startTime" required="">
                             </div>
                             <div class="form-group mt-3">
                                 <label for="editEndTime">End Time</label>
-                                <input type="time" class="form-control" id="editEndTime" name="endTime" required="">
+                                <input type="time" class="form-control" name="endTime" required="">
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" form="editTimeForm" class="btn btn-primary">Save changes</button>
+                        <button type="submit" form="addTimeForm" class="btn btn-primary">Save changes</button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
